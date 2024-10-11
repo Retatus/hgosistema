@@ -1,9 +1,7 @@
 <?php
 
 namespace Config;
-
 require_once SYSTEMPATH . 'Config/AutoloadConfig.php';
-
 use CodeIgniter\Config\AutoloadConfig;
 
 /**
@@ -82,6 +80,7 @@ class Autoload extends AutoloadConfig
      * @var list<string>
      */
     public $files = [];
+    
 
     /**
      * -------------------------------------------------------------------
