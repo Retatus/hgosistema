@@ -46,19 +46,23 @@
 							<table id='TablaUsuario' class='table table-sm table-bordered table-striped'>
 								<thead>
 									<tr>
-										<th >Id</th>
-										<th >Nombre</th>
+										<th>Idusuario</th>
+										<th>Nombreusuario</th>
+										<th>Estado</th>
+										<th>Concatenado</th>
+										<th>Concatenadodetalle</th>
 										<th>Acciones</th>
-
 									</tr>
 								</thead>
 								<tbody>
 									<?php if(!empty($datos)):?>
 										<?php foreach($datos as $usuario):?>
 											<tr>
-												<td ><?php echo $usuario['idusuario'];?></td>
-												<td ><?php echo $usuario['nombreusuario'];?></td>
-
+												<td><?php echo $usuario['idusuario'];?></td>
+												<td><?php echo $usuario['nombreusuario'];?></td>
+												<td class = 'hidden-xs'><?php echo $est = ($usuario['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
+												<td><?php echo $usuario['concatenado'];?></td>
+												<td><?php echo $usuario['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
@@ -67,7 +71,7 @@
 															</button>
 														</div>
 														<div style='margin: auto;'>
-															<a class='btn btn-success btn-xs' href='<?php echo base_url();?>reserva/add/<?php echo $usuario['idusuario'];?>'><i class='fa fa-pencil'></i></a>
+															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $usuario['idusuario'];?>"><i class='fa fa-pencil'></i></a>
 														</div>
 													</div>
 												</td>
@@ -77,6 +81,8 @@
 								</tbody>
 							</table>
 						</div>
+					</div>
+					<div class='card-footer'>
 						<div id='PaginadoUsuario'>
 							<?php echo $pag;?>
 						</div>
@@ -86,6 +92,7 @@
 		</div>
 	</section>
 </div>
+<!--  SECCION ====== MODAL ====== -->
 <div class='modal fade' id='modalAgregarUsuario' tabindex='-1'>
 	<div class='modal-dialog modal-lg'>
 		<div class='modal-content'>
@@ -98,18 +105,26 @@
 		<div class='modal-body'>
 			<div class='form-group row'>
 				<div class='col-6 form-group row'>
-					<label class='col-sm-4' for='id'>id:</label>
+					<label for = idusuario class='col-sm-4'>Idusuario:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='idusuario' name='idusuario' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='idusuario' name='idusuario' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label class='col-sm-4' for='id'>nombre:</label>
+					<label for = nombreusuario class='col-sm-4' for='id'>Nombreusuario:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='nombreusuario' name='nombreusuario' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='nombreusuario' name='nombreusuario' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
-
+				<div class='col-6 form-group row'>
+					<label for = estado class='col-sm-4' for='rol'>Estado:</label>
+					<div class='col-sm-8'>
+						<select class='form-control form-control-sm' id='estado' name='estado'>
+							<option value = '1' selected >ACTIVO</option>
+							<option value = '0' >DESACTIVO</option>
+						</select>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class='modal-footer'>
@@ -121,244 +136,38 @@
 		</div>
 	</div>
 </div>
-
+<!--  SECCION ====== SCRIPT ====== -->
 <script>
 	var NuevoUsuario;
 	var base_url= '<?php echo base_url();?>';
-
-
-
-
 	function load(pag){
 		RecolectarDatosUsuario();
 		EnviarInformacionUsuario('leer', NuevoUsuario, false, pag);
 	}
-
-
-
-	$('#idcliente').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteclientes',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idcliente,
-							
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idcliente').val('');
-			return false;
-		}
-	});
-	$('#idubicacion').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteubicacions',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idubicacion,
-							nombre: item.nombretipoubicacion,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idubicacion').val('');
-			return false;
-		}
-	});
-	$('#idbanda').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletebandas',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idbanda,
-							nombre: item.nombrebanda,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idbanda').val('');
-			return false;
-		}
-	});
-	$('#idcondicion').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletecondicions',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idcondicion,
-							nombre: item.nombrecondicion,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idcondicion').val('');
-			return false;
-		}
-	});
-	$('#idneumatico').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteneumaticos',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idneumatico,
-							
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idneumatico').val('');
-			return false;
-		}
-	});
-	$('#idrencauchadora').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletereencauchadoras',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idrencauchadora,
-							nombre: item.nombrereencauchadora,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idrencauchadora').val('');
-			return false;
-		}
-	});
-	$('#idtiposervicio').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletetiposervicios',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idtiposervicio,
-							nombre: item.nombretiposervicio,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idtiposervicio').val('');
-			return false;
-		}
-	});
-
-
-
 	$('#btnAgregarUsuario').click(function(){
 		LimpiarModalDatosUsuario();
 		$('#categoria').val(1);
 		$('#id').prop('readonly', false);  
+		$('#IdModalGrupoCodigoHotel').prop('hidden', false);
 		$('#btnModalAgregarUsuario').toggle(true);
 		$('#btnModalEditarUsuario').toggle(false);
 		$('#btnModalEliminarUsuario').toggle(false);
 		$('#modalAgregarUsuario').modal();
 	});
-
-
+//   SECCION ====== btn Editar ======
 	function btnEditarUsuario(Val0){
 		$.ajax({
 			type: 'POST',
 			url: base_url + '/usuario/edit',
-			data: { idusuario: Val0},
+			data: {idusuario: Val0},
 			success: function(msg){
-			debugger
+				debugger
 				var temp = JSON.parse(msg);
 				console.log(temp);
 				LimpiarModalDatosUsuario();
 				$('#idusuario').val(temp.idusuario);
 				$('#nombreusuario').val(temp.nombreusuario);
-
-
-
+				$('#estado').val(temp.estado);
 				$('#btnModalAgregarUsuario').toggle(false);
 				$('#btnModalEditarUsuario').toggle(true);
 				$('#btnModalEliminarUsuario').toggle(true);
@@ -369,11 +178,8 @@
 			}
 		});
 	}
-
-
 	$('#btnModalAgregarUsuario').click(function(){
-	debugger
-
+		debugger
 		if (ValidarCamposVaciosUsuario() != 0) {
 			alert('Completar campos obligatorios');
 		}else{
@@ -382,8 +188,6 @@
 			EnviarInformacionUsuario('agregar', NuevoUsuario, true);
 		}
 	});
-
-
 	$('#btnModalEditarUsuario').click(function(){
 		if (ValidarCamposVaciosUsuario() != 0) {
 			alert('Completar campos obligatorios');
@@ -392,8 +196,6 @@
 			EnviarInformacionUsuario('modificar', NuevoUsuario, true);
 		}
 	});
-
-
 	$('#btnModalEliminarUsuario').click(function(){
 		var bool=confirm('ESTA SEGURO DE ELIMINAR EL DATO?');
 		if(bool){
@@ -401,33 +203,27 @@
 			EnviarInformacionUsuario('eliminar', NuevoUsuario, true);
 		}
 	});
-
-
-
-
+	$('#btnModalCerrarHotel').click(function(){
+		$('#IdModalGrupoCodigoHotel').prop('hidden', false); 
+		LimpiarModalDatosUsuario();
+	});
 	$('#btnFiltroUsuario').click(function(){
 		RecolectarDatosUsuario();
 		EnviarInformacionUsuario('leer', NuevoUsuario, false);
 	});
-
-
 	function Paginado(pag) {
 		RecolectarDatosUsuario();
 		EnviarInformacionUsuario('leer', NuevoUsuario, false, pag);
 	}
-
-
 	function RecolectarDatosUsuario(){
 		NuevoUsuario = {
 			idusuario: $('#idusuario').val().toUpperCase(),
 			nombreusuario: $('#nombreusuario').val().toUpperCase(),
-
+			estado: $('#estado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
 		};
 	}
-
-
 	function EnviarInformacionUsuario(accion, objEvento, modal, pag=1) { 
 		$.ajax({
 			type: 'POST',
@@ -469,65 +265,63 @@
 			}
 		});
 	}
-
-
 	function LimpiarModalDatosUsuario(){
-		$('#idusuario').val('0');
+		$('#idusuario').val('');
 		$('#nombreusuario').val('');
-
 	}
-
-
 	function ValidarCamposVaciosUsuario(){
 		var error = 0;
 		if ($('#idusuario').val() == ''){
 			Resaltado('idusuario');
 			error++;
+		}else{
+			NoResaltado('idusuario');
 		}
 		if ($('#nombreusuario').val() == ''){
 			Resaltado('nombreusuario');
 			error++;
+		}else{
+			NoResaltado('nombreusuario');
 		}
-
+		if ($('#estado').val() == ''){
+			Resaltado('estado');
+			error++;
+		}else{
+			NoResaltado('estado');
+		}
 		return error;
 	}
-
-
 	function Resaltado(id){
 		$('#'+id).css('border-color', '#ef5350');
 		$('#'+id).focus();
 	}
 
-
-	function CargartablaUsuario(objeto){   
+	function NoResaltado(id){
+		$('#'+id).css('border-color', '#ced4da');
+	}
+	function CargartablaUsuario(objeto){
 		$('#TablaUsuario tr').not($('#TablaUsuario tr:first')).remove();
 		$.each(objeto, function(i, value) {
-		var fila = '<tr>'+
-			'<td >'+value.idusuario+'</td>'+
-			'<td >'+value.nombreusuario+'</td>'+
-
-			'<td>'+
-				'<div class="row">'+
-					'<div style="margin: auto;">'+
-						'<button type="button" onclick="btnEditarUsuario(\''+value.idusuario+'\')" class="btn btn-info btn-xs">'+
-							'<span class="fa fa-search fa-sm"></span>'+
-						'</button>'+
-					'</div>'+
-						'<div style="margin: auto;">'+
-							'<a class="btn btn-success btn-xs" href="<?php echo base_url();?>/reserva/add"><i class="fa fa-pencil"></i></a>'+
-					'</div>'+
-				'</div>'+
-			'</td>'+
-		'</tr>';
-		$('#TablaUsuario tbody').append(fila);
+				var fila = `<tr>
+				<td>${value.idusuario !== null ? value.idusuario : ''}</td>
+				<td>${value.nombreusuario !== null ? value.nombreusuario : ''}</td>
+				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
+				<td>${value.concatenado !== null ? value.concatenado : ''}</td>
+				<td>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
+				<td>
+				<div class='row'>
+					<div style='margin: auto;'>
+						<button type='button' onclick="btnEditarUsuario('${value.idusuario}')" class='btn btn-info btn-xs'>
+							<span class='fa fa-search fa-xs'></span>
+						</button>
+					</div>
+						<div style='margin: auto;'>
+							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$usuario['idusuario']'><i class='fa fa-pencil'></i></a>
+					</div>
+				</div>
+				</td>
+				</tr>`
+			$('#TablaUsuario tbody').append(fila);
 		});
 	}
-
-
-	function addEstado(i){
-		$('#estado_'+i).append($('<option>').val('1').text('ACTIVO'));
-		$('#estado_'+i).append($('<option>').val('0').text('DESACTIVO'));
-	}
-
-
 </script>

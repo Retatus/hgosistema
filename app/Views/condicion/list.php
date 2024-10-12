@@ -46,10 +46,12 @@
 							<table id='TablaCondicion' class='table table-sm table-bordered table-striped'>
 								<thead>
 									<tr>
-										<th hidden>Id</th>
-										<th >Nombre</th>
+										<th hidden>Idcondicion</th>
+										<th>Nombrecondicion</th>
+										<th>Estado</th>
+										<th>Concatenado</th>
+										<th>Concatenadodetalle</th>
 										<th>Acciones</th>
-
 									</tr>
 								</thead>
 								<tbody>
@@ -57,8 +59,10 @@
 										<?php foreach($datos as $condicion):?>
 											<tr>
 												<td hidden><?php echo $condicion['idcondicion'];?></td>
-												<td ><?php echo $condicion['nombrecondicion'];?></td>
-
+												<td><?php echo $condicion['nombrecondicion'];?></td>
+												<td class = 'hidden-xs'><?php echo $est = ($condicion['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
+												<td><?php echo $condicion['concatenado'];?></td>
+												<td><?php echo $condicion['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
@@ -67,7 +71,7 @@
 															</button>
 														</div>
 														<div style='margin: auto;'>
-															<a class='btn btn-success btn-xs' href='<?php echo base_url();?>reserva/add/<?php echo $condicion['idcondicion'];?>'><i class='fa fa-pencil'></i></a>
+															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $condicion['idcondicion'];?>"><i class='fa fa-pencil'></i></a>
 														</div>
 													</div>
 												</td>
@@ -77,6 +81,8 @@
 								</tbody>
 							</table>
 						</div>
+					</div>
+					<div class='card-footer'>
 						<div id='PaginadoCondicion'>
 							<?php echo $pag;?>
 						</div>
@@ -86,6 +92,7 @@
 		</div>
 	</section>
 </div>
+<!--  SECCION ====== MODAL ====== -->
 <div class='modal fade' id='modalAgregarCondicion' tabindex='-1'>
 	<div class='modal-dialog modal-lg'>
 		<div class='modal-content'>
@@ -97,19 +104,27 @@
 		</div>
 		<div class='modal-body'>
 			<div class='form-group row'>
-				<div class='col-6 form-group row'hidden>
-					<label class='col-sm-4' for='id'>id:</label>
+				<div class='col-6 form-group row'>
+					<label for = idcondicion class='col-sm-4'>Idcondicion:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='idcondicion' name='idcondicion' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='idcondicion' name='idcondicion' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label class='col-sm-4' for='id'>nombre:</label>
+					<label for = nombrecondicion class='col-sm-4' for='id'>Nombrecondicion:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='nombrecondicion' name='nombrecondicion' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='nombrecondicion' name='nombrecondicion' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
-
+				<div class='col-6 form-group row'>
+					<label for = estado class='col-sm-4' for='rol'>Estado:</label>
+					<div class='col-sm-8'>
+						<select class='form-control form-control-sm' id='estado' name='estado'>
+							<option value = '1' selected >ACTIVO</option>
+							<option value = '0' >DESACTIVO</option>
+						</select>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class='modal-footer'>
@@ -121,244 +136,38 @@
 		</div>
 	</div>
 </div>
-
+<!--  SECCION ====== SCRIPT ====== -->
 <script>
 	var NuevoCondicion;
 	var base_url= '<?php echo base_url();?>';
-
-
-
-
 	function load(pag){
 		RecolectarDatosCondicion();
 		EnviarInformacionCondicion('leer', NuevoCondicion, false, pag);
 	}
-
-
-
-	$('#idcliente').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteclientes',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idcliente,
-							
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idcliente').val('');
-			return false;
-		}
-	});
-	$('#idubicacion').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteubicacions',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idubicacion,
-							nombre: item.nombretipoubicacion,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idubicacion').val('');
-			return false;
-		}
-	});
-	$('#idbanda').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletebandas',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idbanda,
-							nombre: item.nombrebanda,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idbanda').val('');
-			return false;
-		}
-	});
-	$('#idneumatico').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteneumaticos',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idneumatico,
-							
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idneumatico').val('');
-			return false;
-		}
-	});
-	$('#idrencauchadora').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletereencauchadoras',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idrencauchadora,
-							nombre: item.nombrereencauchadora,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idrencauchadora').val('');
-			return false;
-		}
-	});
-	$('#idtiposervicio').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletetiposervicios',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idtiposervicio,
-							nombre: item.nombretiposervicio,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idtiposervicio').val('');
-			return false;
-		}
-	});
-	$('#idusuario').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteusuarios',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idusuario,
-							nombre: item.nombreusuario,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idusuario').val('');
-			return false;
-		}
-	});
-
-
-
 	$('#btnAgregarCondicion').click(function(){
 		LimpiarModalDatosCondicion();
 		$('#categoria').val(1);
 		$('#id').prop('readonly', false);  
+		$('#IdModalGrupoCodigoHotel').prop('hidden', false);
 		$('#btnModalAgregarCondicion').toggle(true);
 		$('#btnModalEditarCondicion').toggle(false);
 		$('#btnModalEliminarCondicion').toggle(false);
 		$('#modalAgregarCondicion').modal();
 	});
-
-
+//   SECCION ====== btn Editar ======
 	function btnEditarCondicion(Val0){
 		$.ajax({
 			type: 'POST',
 			url: base_url + '/condicion/edit',
-			data: { idcondicion: Val0},
+			data: {idcondicion: Val0},
 			success: function(msg){
-			debugger
+				debugger
 				var temp = JSON.parse(msg);
 				console.log(temp);
 				LimpiarModalDatosCondicion();
 				$('#idcondicion').val(temp.idcondicion);
 				$('#nombrecondicion').val(temp.nombrecondicion);
-
-
-
+				$('#estado').val(temp.estado);
 				$('#btnModalAgregarCondicion').toggle(false);
 				$('#btnModalEditarCondicion').toggle(true);
 				$('#btnModalEliminarCondicion').toggle(true);
@@ -369,11 +178,8 @@
 			}
 		});
 	}
-
-
 	$('#btnModalAgregarCondicion').click(function(){
-	debugger
-
+		debugger
 		if (ValidarCamposVaciosCondicion() != 0) {
 			alert('Completar campos obligatorios');
 		}else{
@@ -382,8 +188,6 @@
 			EnviarInformacionCondicion('agregar', NuevoCondicion, true);
 		}
 	});
-
-
 	$('#btnModalEditarCondicion').click(function(){
 		if (ValidarCamposVaciosCondicion() != 0) {
 			alert('Completar campos obligatorios');
@@ -392,8 +196,6 @@
 			EnviarInformacionCondicion('modificar', NuevoCondicion, true);
 		}
 	});
-
-
 	$('#btnModalEliminarCondicion').click(function(){
 		var bool=confirm('ESTA SEGURO DE ELIMINAR EL DATO?');
 		if(bool){
@@ -401,33 +203,27 @@
 			EnviarInformacionCondicion('eliminar', NuevoCondicion, true);
 		}
 	});
-
-
-
-
+	$('#btnModalCerrarHotel').click(function(){
+		$('#IdModalGrupoCodigoHotel').prop('hidden', false); 
+		LimpiarModalDatosCondicion();
+	});
 	$('#btnFiltroCondicion').click(function(){
 		RecolectarDatosCondicion();
 		EnviarInformacionCondicion('leer', NuevoCondicion, false);
 	});
-
-
 	function Paginado(pag) {
 		RecolectarDatosCondicion();
 		EnviarInformacionCondicion('leer', NuevoCondicion, false, pag);
 	}
-
-
 	function RecolectarDatosCondicion(){
 		NuevoCondicion = {
 			idcondicion: $('#idcondicion').val().toUpperCase(),
 			nombrecondicion: $('#nombrecondicion').val().toUpperCase(),
-
+			estado: $('#estado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
 		};
 	}
-
-
 	function EnviarInformacionCondicion(accion, objEvento, modal, pag=1) { 
 		$.ajax({
 			type: 'POST',
@@ -469,65 +265,64 @@
 			}
 		});
 	}
-
-
 	function LimpiarModalDatosCondicion(){
 		$('#idcondicion').val('0');
 		$('#nombrecondicion').val('');
-
 	}
-
-
 	function ValidarCamposVaciosCondicion(){
 		var error = 0;
-		if ($('#idcondicion').val() == ''){
+		var value = $('#idcondicion').val();
+		if (!/^\d*$/.test(value)){
 			Resaltado('idcondicion');
 			error++;
+		}else{
+			NoResaltado('idcondicion');
 		}
 		if ($('#nombrecondicion').val() == ''){
 			Resaltado('nombrecondicion');
 			error++;
+		}else{
+			NoResaltado('nombrecondicion');
 		}
-
+		if ($('#estado').val() == ''){
+			Resaltado('estado');
+			error++;
+		}else{
+			NoResaltado('estado');
+		}
 		return error;
 	}
-
-
 	function Resaltado(id){
 		$('#'+id).css('border-color', '#ef5350');
 		$('#'+id).focus();
 	}
 
-
-	function CargartablaCondicion(objeto){   
+	function NoResaltado(id){
+		$('#'+id).css('border-color', '#ced4da');
+	}
+	function CargartablaCondicion(objeto){
 		$('#TablaCondicion tr').not($('#TablaCondicion tr:first')).remove();
 		$.each(objeto, function(i, value) {
-		var fila = '<tr>'+
-			'<td hidden>'+value.idcondicion+'</td>'+
-			'<td >'+value.nombrecondicion+'</td>'+
-
-			'<td>'+
-				'<div class="row">'+
-					'<div style="margin: auto;">'+
-						'<button type="button" onclick="btnEditarCondicion(\''+value.idcondicion+'\')" class="btn btn-info btn-xs">'+
-							'<span class="fa fa-search fa-sm"></span>'+
-						'</button>'+
-					'</div>'+
-						'<div style="margin: auto;">'+
-							'<a class="btn btn-success btn-xs" href="<?php echo base_url();?>/reserva/add"><i class="fa fa-pencil"></i></a>'+
-					'</div>'+
-				'</div>'+
-			'</td>'+
-		'</tr>';
-		$('#TablaCondicion tbody').append(fila);
+				var fila = `<tr>
+				<td hidden>${value.idcondicion !== null ? value.idcondicion : ''}</td>
+				<td>${value.nombrecondicion !== null ? value.nombrecondicion : ''}</td>
+				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
+				<td>${value.concatenado !== null ? value.concatenado : ''}</td>
+				<td>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
+				<td>
+				<div class='row'>
+					<div style='margin: auto;'>
+						<button type='button' onclick="btnEditarCondicion('${value.idcondicion}')" class='btn btn-info btn-xs'>
+							<span class='fa fa-search fa-xs'></span>
+						</button>
+					</div>
+						<div style='margin: auto;'>
+							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$condicion['idcondicion']'><i class='fa fa-pencil'></i></a>
+					</div>
+				</div>
+				</td>
+				</tr>`
+			$('#TablaCondicion tbody').append(fila);
 		});
 	}
-
-
-	function addEstado(i){
-		$('#estado_'+i).append($('<option>').val('1').text('ACTIVO'));
-		$('#estado_'+i).append($('<option>').val('0').text('DESACTIVO'));
-	}
-
-
 </script>

@@ -46,23 +46,27 @@
 							<table id='TablaCliente' class='table table-sm table-bordered table-striped'>
 								<thead>
 									<tr>
-										<th >Id</th>
-										<th >Rasonsocial</th>
-										<th >Direccion</th>
-										<th >Telefono</th>
+										<th>Idcliente</th>
+										<th>Nombrecliente</th>
+										<th>Direccion</th>
+										<th>Telefono</th>
+										<th>Estado</th>
+										<th>Concatenado</th>
+										<th>Concatenadodetalle</th>
 										<th>Acciones</th>
-
 									</tr>
 								</thead>
 								<tbody>
 									<?php if(!empty($datos)):?>
 										<?php foreach($datos as $cliente):?>
 											<tr>
-												<td ><?php echo $cliente['idcliente'];?></td>
-												<td ><?php echo $cliente['rasonsocial'];?></td>
-												<td ><?php echo $cliente['direccion'];?></td>
-												<td ><?php echo $cliente['telefono'];?></td>
-
+												<td><?php echo $cliente['idcliente'];?></td>
+												<td><?php echo $cliente['nombrecliente'];?></td>
+												<td><?php echo $cliente['direccion'];?></td>
+												<td><?php echo $cliente['telefono'];?></td>
+												<td class = 'hidden-xs'><?php echo $est = ($cliente['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
+												<td><?php echo $cliente['concatenado'];?></td>
+												<td><?php echo $cliente['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
@@ -71,7 +75,7 @@
 															</button>
 														</div>
 														<div style='margin: auto;'>
-															<a class='btn btn-success btn-xs' href='<?php echo base_url();?>reserva/add/<?php echo $cliente['idcliente'];?>'><i class='fa fa-pencil'></i></a>
+															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $cliente['idcliente'];?>"><i class='fa fa-pencil'></i></a>
 														</div>
 													</div>
 												</td>
@@ -81,6 +85,8 @@
 								</tbody>
 							</table>
 						</div>
+					</div>
+					<div class='card-footer'>
 						<div id='PaginadoCliente'>
 							<?php echo $pag;?>
 						</div>
@@ -90,6 +96,7 @@
 		</div>
 	</section>
 </div>
+<!--  SECCION ====== MODAL ====== -->
 <div class='modal fade' id='modalAgregarCliente' tabindex='-1'>
 	<div class='modal-dialog modal-lg'>
 		<div class='modal-content'>
@@ -102,30 +109,38 @@
 		<div class='modal-body'>
 			<div class='form-group row'>
 				<div class='col-6 form-group row'>
-					<label class='col-sm-4' for='id'>id:</label>
+					<label for = idcliente class='col-sm-4'>Idcliente:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='idcliente' name='idcliente' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='idcliente' name='idcliente' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label class='col-sm-4' for='id'>rasonsocial:</label>
+					<label for = nombrecliente class='col-sm-4' for='id'>Nombrecliente:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='rasonsocial' name='rasonsocial' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='nombrecliente' name='nombrecliente' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label class='col-sm-4' for='id'>direccion:</label>
+					<label for = direccion class='col-sm-4' for='id'>Direccion:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='direccion' name='direccion' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='direccion' name='direccion' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label class='col-sm-4' for='id'>telefono:</label>
+					<label for = telefono class='col-sm-4' for='id'>Telefono:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='telefono' name='telefono' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='telefono' name='telefono' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
-
+				<div class='col-6 form-group row'>
+					<label for = estado class='col-sm-4' for='rol'>Estado:</label>
+					<div class='col-sm-8'>
+						<select class='form-control form-control-sm' id='estado' name='estado'>
+							<option value = '1' selected >ACTIVO</option>
+							<option value = '0' >DESACTIVO</option>
+						</select>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class='modal-footer'>
@@ -137,247 +152,40 @@
 		</div>
 	</div>
 </div>
-
+<!--  SECCION ====== SCRIPT ====== -->
 <script>
 	var NuevoCliente;
 	var base_url= '<?php echo base_url();?>';
-
-
-
-
 	function load(pag){
 		RecolectarDatosCliente();
 		EnviarInformacionCliente('leer', NuevoCliente, false, pag);
 	}
-
-
-
-	$('#idubicacion').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteubicacions',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idubicacion,
-							nombre: item.nombretipoubicacion,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idubicacion').val('');
-			return false;
-		}
-	});
-	$('#idbanda').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletebandas',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idbanda,
-							nombre: item.nombrebanda,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idbanda').val('');
-			return false;
-		}
-	});
-	$('#idcondicion').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletecondicions',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idcondicion,
-							nombre: item.nombrecondicion,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idcondicion').val('');
-			return false;
-		}
-	});
-	$('#idneumatico').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteneumaticos',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idneumatico,
-							
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idneumatico').val('');
-			return false;
-		}
-	});
-	$('#idrencauchadora').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletereencauchadoras',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idrencauchadora,
-							nombre: item.nombrereencauchadora,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idrencauchadora').val('');
-			return false;
-		}
-	});
-	$('#idtiposervicio').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletetiposervicios',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idtiposervicio,
-							nombre: item.nombretiposervicio,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idtiposervicio').val('');
-			return false;
-		}
-	});
-	$('#idusuario').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteusuarios',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idusuario,
-							nombre: item.nombreusuario,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idusuario').val('');
-			return false;
-		}
-	});
-
-
-
 	$('#btnAgregarCliente').click(function(){
 		LimpiarModalDatosCliente();
 		$('#categoria').val(1);
 		$('#id').prop('readonly', false);  
+		$('#IdModalGrupoCodigoHotel').prop('hidden', false);
 		$('#btnModalAgregarCliente').toggle(true);
 		$('#btnModalEditarCliente').toggle(false);
 		$('#btnModalEliminarCliente').toggle(false);
 		$('#modalAgregarCliente').modal();
 	});
-
-
+//   SECCION ====== btn Editar ======
 	function btnEditarCliente(Val0){
 		$.ajax({
 			type: 'POST',
 			url: base_url + '/cliente/edit',
-			data: { idcliente: Val0},
+			data: {idcliente: Val0},
 			success: function(msg){
-			debugger
+				debugger
 				var temp = JSON.parse(msg);
 				console.log(temp);
 				LimpiarModalDatosCliente();
 				$('#idcliente').val(temp.idcliente);
-				$('#rasonsocial').val(temp.rasonsocial);
+				$('#nombrecliente').val(temp.nombrecliente);
 				$('#direccion').val(temp.direccion);
 				$('#telefono').val(temp.telefono);
-
-
-
+				$('#estado').val(temp.estado);
 				$('#btnModalAgregarCliente').toggle(false);
 				$('#btnModalEditarCliente').toggle(true);
 				$('#btnModalEliminarCliente').toggle(true);
@@ -388,11 +196,8 @@
 			}
 		});
 	}
-
-
 	$('#btnModalAgregarCliente').click(function(){
-	debugger
-
+		debugger
 		if (ValidarCamposVaciosCliente() != 0) {
 			alert('Completar campos obligatorios');
 		}else{
@@ -401,8 +206,6 @@
 			EnviarInformacionCliente('agregar', NuevoCliente, true);
 		}
 	});
-
-
 	$('#btnModalEditarCliente').click(function(){
 		if (ValidarCamposVaciosCliente() != 0) {
 			alert('Completar campos obligatorios');
@@ -411,8 +214,6 @@
 			EnviarInformacionCliente('modificar', NuevoCliente, true);
 		}
 	});
-
-
 	$('#btnModalEliminarCliente').click(function(){
 		var bool=confirm('ESTA SEGURO DE ELIMINAR EL DATO?');
 		if(bool){
@@ -420,35 +221,29 @@
 			EnviarInformacionCliente('eliminar', NuevoCliente, true);
 		}
 	});
-
-
-
-
+	$('#btnModalCerrarHotel').click(function(){
+		$('#IdModalGrupoCodigoHotel').prop('hidden', false); 
+		LimpiarModalDatosCliente();
+	});
 	$('#btnFiltroCliente').click(function(){
 		RecolectarDatosCliente();
 		EnviarInformacionCliente('leer', NuevoCliente, false);
 	});
-
-
 	function Paginado(pag) {
 		RecolectarDatosCliente();
 		EnviarInformacionCliente('leer', NuevoCliente, false, pag);
 	}
-
-
 	function RecolectarDatosCliente(){
 		NuevoCliente = {
 			idcliente: $('#idcliente').val().toUpperCase(),
-			rasonsocial: $('#rasonsocial').val().toUpperCase(),
+			nombrecliente: $('#nombrecliente').val().toUpperCase(),
 			direccion: $('#direccion').val().toUpperCase(),
 			telefono: $('#telefono').val().toUpperCase(),
-
+			estado: $('#estado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
 		};
 	}
-
-
 	function EnviarInformacionCliente(accion, objEvento, modal, pag=1) { 
 		$.ajax({
 			type: 'POST',
@@ -490,77 +285,79 @@
 			}
 		});
 	}
-
-
 	function LimpiarModalDatosCliente(){
-		$('#idcliente').val('0');
-		$('#rasonsocial').val('');
+		$('#idcliente').val('');
+		$('#nombrecliente').val('');
 		$('#direccion').val('');
 		$('#telefono').val('');
-
 	}
-
-
 	function ValidarCamposVaciosCliente(){
 		var error = 0;
 		if ($('#idcliente').val() == ''){
 			Resaltado('idcliente');
 			error++;
+		}else{
+			NoResaltado('idcliente');
 		}
-		if ($('#rasonsocial').val() == ''){
-			Resaltado('rasonsocial');
+		if ($('#nombrecliente').val() == ''){
+			Resaltado('nombrecliente');
 			error++;
+		}else{
+			NoResaltado('nombrecliente');
 		}
 		if ($('#direccion').val() == ''){
 			Resaltado('direccion');
 			error++;
+		}else{
+			NoResaltado('direccion');
 		}
 		if ($('#telefono').val() == ''){
 			Resaltado('telefono');
 			error++;
+		}else{
+			NoResaltado('telefono');
 		}
-
+		if ($('#estado').val() == ''){
+			Resaltado('estado');
+			error++;
+		}else{
+			NoResaltado('estado');
+		}
 		return error;
 	}
-
-
 	function Resaltado(id){
 		$('#'+id).css('border-color', '#ef5350');
 		$('#'+id).focus();
 	}
 
-
-	function CargartablaCliente(objeto){   
+	function NoResaltado(id){
+		$('#'+id).css('border-color', '#ced4da');
+	}
+	function CargartablaCliente(objeto){
 		$('#TablaCliente tr').not($('#TablaCliente tr:first')).remove();
 		$.each(objeto, function(i, value) {
-		var fila = '<tr>'+
-			'<td >'+value.idcliente+'</td>'+
-			'<td >'+value.rasonsocial+'</td>'+
-			'<td >'+value.direccion+'</td>'+
-			'<td >'+value.telefono+'</td>'+
-
-			'<td>'+
-				'<div class="row">'+
-					'<div style="margin: auto;">'+
-						'<button type="button" onclick="btnEditarCliente(\''+value.idcliente+'\')" class="btn btn-info btn-xs">'+
-							'<span class="fa fa-search fa-sm"></span>'+
-						'</button>'+
-					'</div>'+
-						'<div style="margin: auto;">'+
-							'<a class="btn btn-success btn-xs" href="<?php echo base_url();?>/reserva/add"><i class="fa fa-pencil"></i></a>'+
-					'</div>'+
-				'</div>'+
-			'</td>'+
-		'</tr>';
-		$('#TablaCliente tbody').append(fila);
+				var fila = `<tr>
+				<td>${value.idcliente !== null ? value.idcliente : ''}</td>
+				<td>${value.nombrecliente !== null ? value.nombrecliente : ''}</td>
+				<td>${value.direccion !== null ? value.direccion : ''}</td>
+				<td>${value.telefono !== null ? value.telefono : ''}</td>
+				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
+				<td>${value.concatenado !== null ? value.concatenado : ''}</td>
+				<td>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
+				<td>
+				<div class='row'>
+					<div style='margin: auto;'>
+						<button type='button' onclick="btnEditarCliente('${value.idcliente}')" class='btn btn-info btn-xs'>
+							<span class='fa fa-search fa-xs'></span>
+						</button>
+					</div>
+						<div style='margin: auto;'>
+							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$cliente['idcliente']'><i class='fa fa-pencil'></i></a>
+					</div>
+				</div>
+				</td>
+				</tr>`
+			$('#TablaCliente tbody').append(fila);
 		});
 	}
-
-
-	function addEstado(i){
-		$('#estado_'+i).append($('<option>').val('1').text('ACTIVO'));
-		$('#estado_'+i).append($('<option>').val('0').text('DESACTIVO'));
-	}
-
-
 </script>

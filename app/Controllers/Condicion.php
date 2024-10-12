@@ -1,6 +1,6 @@
 <?php namespace App\Controllers;
-
 use App\Controllers\BaseController;
+use DateTime;
 use App\Models\PaginadoModel;
 use App\Models\CondicionModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -16,54 +16,63 @@ class Condicion extends BaseController
 	protected $condicion;
 
 
+//   SECCION ====== CONSTRUCT ======
 	public function __construct(){
 		$this->paginado = new PaginadoModel();
 		$this->condicion = new CondicionModel();
 
 	}
 
+//   SECCION ====== INDEX ======
 	public function index($bestado = 1)
 	{
-		$condicion = $this->condicion->getCondicions(1, '', 20, 1);
+		$condicion = $this->condicion->getCondicions(20, 1, 1, '');
 		$total = $this->condicion->getCount();
 		$adjacents = 1;
 		$pag = $this->paginado->pagina(1, $total, $adjacents);
 		$data = ['titulo' => 'condicion', 'pag' => $pag, 'datos' => $condicion];
+		$condicion = $this->condicion->getCondicions(10, 1, 1, '');
 
-		echo view('layouts/header');
+		echo view('layouts/header', []);
 		echo view('layouts/aside');
 		echo view('condicion/list', $data);
 		echo view('layouts/footer');
 
 	}
+//   SECCION ====== AGREGAR ======
 	public function agregar(){
-	
+
 		$total = $this->condicion->getCount('', '');
 		$pag = $this->paginado->pagina(1, $total, 1);
 		print_r($pag);
 	}
 
+//   SECCION ====== OPCIONES ======
 	public function opciones(){
 		$accion = (isset($_GET['accion'])) ? $_GET['accion']:'leer';
 		$pag = (int)(isset($_GET['pag'])) ? $_GET['pag']:1;
-
+		
 		$todos = $this->request->getPost('todos');
 		$texto = strtoupper(trim($this->request->getPost('texto')));
 
-		$nidcondicion = strtoupper(trim($this->request->getPost('idcondicion')));
-		$snombrecondicion = strtoupper(trim($this->request->getPost('nombrecondicion')));
+		if($accion !== 'leer'){
+			$nidcondicion = strtoupper(trim($this->request->getPost('idcondicion')));
+			$snombrecondicion = strtoupper(trim($this->request->getPost('nombrecondicion')));
+			$bestado = strtoupper(trim($this->request->getPost('estado')));
+		}
 
 
 		$respt = array();
 		$id = 0; $mensaje = '';
-		switch ($accion) {
+		switch ($accion){
 			case 'agregar':
 				$data  = array(
 					'nidcondicion' => $nidcondicion,
 					'snombrecondicion' => $snombrecondicion,
+					'bestado' => intval($bestado),
 
 				);
-				if ($this->condicion->existe($nidcondicion) == 1) {
+				if ($this->condicion->existe($nidcondicion) == 1){
 					$id = 0; $mensaje = 'CODIGO YA EXISTE'; 
 				} else {
 					$this->condicion->insert($data);
@@ -73,6 +82,7 @@ class Condicion extends BaseController
 			case 'modificar':
 				$data  = array(
 					'snombrecondicion' => $snombrecondicion,
+					'bestado' => intval($bestado),
 
 				);
 				$this->condicion->UpdateCondicion($nidcondicion, $data);
@@ -91,11 +101,12 @@ class Condicion extends BaseController
 		}
 		$adjacents = 1;
 		$total = $this->condicion->getCount($todos, $texto);
-		$respt = ['id' => $id, 'mensaje' => $mensaje, 'pag' => $this->paginado->pagina($pag, $total, $adjacents), 'datos' => $this->condicion->getcondicions($todos, $texto, 20, $pag)];
+		$respt = ['id' => $id, 'mensaje' => $mensaje, 'pag' => $this->paginado->pagina($pag, $total, $adjacents), 'datos' => $this->condicion->getCondicions(20, $pag, $todos, $texto)];
 		echo json_encode($respt);
 	}
 
-	public function edit(){ 
+//   SECCION ====== EDIT ======
+	public function edit(){
 		$nidcondicion = strtoupper(trim($this->request->getPost('idcondicion')));
 
 		$data = $this->condicion->getCondicion($nidcondicion);
@@ -103,13 +114,22 @@ class Condicion extends BaseController
 	}
 
 
-	public function getcondicionsSelectNombre(){
+	public function autocompletecondicions()
+	{
+		$todos = 1;
+		$keyword = $this->request->getPost('keyword');
+		$data = $this->condicion->getAutocompletecondicions($todos,$keyword);
+		echo json_encode($data);
+	}
+//   SECCION ====== Condicion SELECT NOMBRE ======
+	public function getCondicionsSelectNombre(){
 		$searchTerm = trim($this->request->getPost('term'));
-		$response = $this->condicion->getcondicionsSelectNombre($searchTerm);
+		$response = $this->condicion->getCondicionsSelectNombre($searchTerm);
 		echo json_encode($response);
 	}
 
 
+//   SECCION ====== PDF ======
 	public function pdf()
 	{
 		$pdf = new \FPDF();
@@ -120,35 +140,47 @@ class Condicion extends BaseController
 		$this->response->setHeader('Content-Type', 'application/pdf');
 	}
 
+//   SECCION ====== EXCEL ======
 	public function excel()
 	{
 		$total = $this->condicion->getCount();
 
-		$condicion = $this->condicion->getCondicions(1, '', $total, 1);
+		$condicion = $this->condicion->getCondicions($total, 1, 1, '');
 		require_once ROOTPATH . 'vendor/autoload.php';
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->setActiveSheetIndex(0);
 		$sheet->getColumnDimension('A')->setAutoSize(true);
-		$sheet->getStyle('A1:A1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
+		$sheet->getColumnDimension('B')->setAutoSize(true);
+		$sheet->getColumnDimension('C')->setAutoSize(true);
+		$sheet->getColumnDimension('D')->setAutoSize(true);
+		$sheet->getColumnDimension('E')->setAutoSize(true);
+		$sheet->getStyle('A1:E1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
 		$border = ['borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['argb' => 'FF000000'], ], ], ];
-		$sheet->setCellValue('A1', 'NOMBRE');
+		$sheet->setCellValue('A1', 'IDCONDICION');
+		$sheet->setCellValue('B1', 'NOMBRECONDICION');
+		$sheet->setCellValue('C1', 'ESTADO');
+		$sheet->setCellValue('D1', 'CONCATENADO');
+		$sheet->setCellValue('E1', 'CONCATENADODETALLE');
 		$i=2;
-		foreach ($condicion as $row) {
-			$sheet->setCellValue('A'.$i, $row['nombrecondicion']);
+		foreach ($condicion as $row){
+			$sheet->setCellValue('A'.$i, $row['idcondicion']);
+			$sheet->setCellValue('B'.$i, $row['nombrecondicion']);
+			$sheet->setCellValue('C'.$i, $row['estado']);
+			$sheet->setCellValue('D'.$i, $row['concatenado']);
+			$sheet->setCellValue('E'.$i, $row['concatenadodetalle']);
 			$i++;
 		}
-		$sheet->getStyle('A1:A1')->applyFromArray($border);
-		for ($j = 1; $j < $i ; $j++) {
-			$sheet->getStyle('A'.$j.':A'.$j)->applyFromArray($border);
+		$sheet->getStyle('A1:E1')->applyFromArray($border);
+		for ($j = 1; $j < $i ; $j++){
+			$sheet->getStyle('A'.$j.':E'.$j)->applyFromArray($border);
 		}
 
 		$writer = new Xls($spreadsheet);
-		$filename = 'Lista_condicion.xls';
+		$filename = 'Lista_Condicion.xls';
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment; filename='.$filename.'');
 		header('Cache-Control: max-age=0');
 		$writer->save('php://output');
 		exit;
 	}
-
 }

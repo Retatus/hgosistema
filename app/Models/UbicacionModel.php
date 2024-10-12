@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Models;
 use CodeIgniter\Model; 
@@ -7,11 +7,10 @@ class UbicacionModel extends Model
 {
 	protected $table      = 'tubicacion';
 	protected $primaryKey = 'nidubicacion';
-
 	protected $returnType     = 'array';
 	protected $useSoftDeletes = false;
 
-	protected $allowedFields = ['snombretipoubicacion'];
+	protected $allowedFields = ['nidubicacion', 'snombretipoubicacion', 'bestado'];
 	protected $useTimestamps = false;
 	protected $createdField  = 'tfecha_alt';
 	protected $updatedField  = 'tfecha_edi';
@@ -21,86 +20,116 @@ class UbicacionModel extends Model
 	protected $validationMessages = [];
 	protected $skipValidation     = false;
 
+//   SECCION ====== CONEXION ======
 	protected function conexion(string $table = null){
 		$this->db = \Config\Database::connect();
 		$this->builder = $this->db->table($table);
 		return $this->builder;
 	}
 
-	public function existe($id){
-		return $this->where(['nidubicacion' => $id])->countAllResults();
+//   SECCION ====== EXISTE ======
+	public function existe($nidubicacion){
+		return $this->where(['nidubicacion' => $nidubicacion])->countAllResults();
 	}
 
-	public function getUbicacions($todos = 1, $text = '', $total, $pag = 1){
+//   SECCION ====== TODOS ======
+	public function getUbicacions($total, $pag = 1, $todos = 1, $text = ''){
 		$CantidadMostrar = $total;
 		$TotalReg = $this->getCount($todos, $text);
 		$TotalRegistro = ceil($TotalReg/$CantidadMostrar);
 		$desde = ($pag - 1) * $CantidadMostrar;
+
 		$builder = $this->conexion('tubicacion t0');
-		$builder->select("t0.nidubicacion idubicacion, t0.snombretipoubicacion nombretipoubicacion,  CONCAT(t0.snombretipoubicacion) as concatenado, CONCAT(t0.snombretipoubicacion) as concatenadodetalle");
 
-		if ($todos !== '') 
+		$builder->select("t0.nidubicacion idubicacion, t0.snombretipoubicacion nombretipoubicacion, t0.bestado estado, CONCAT(t0.snombretipoubicacion) concatenado, CONCAT(t0.snombretipoubicacion) concatenadodetalle");
 
-		$builder->like('t0.nidubicacion', $text);
-		$builder->orLike('t0.snombretipoubicacion', $text);
+
+		if ($todos !== '') {
+			$builder->where('t0.bestado', intval($todos));
+		}
+
+		if ($text !== '') {
+			$builder->groupStart()
+				->like('t0.nidubicacion', $text)
+				->orLike('t0.snombretipoubicacion', $text)
+				->groupEnd();
+		}
 
 		$builder->orderBy('t0.nidubicacion', 'DESC');
 		$builder->limit($CantidadMostrar, $desde);
 		$query = $builder->get();
+
 		return $query->getResultArray();
 	}
 
-	public function getAutocompleteubicacions($todos = 1, $text = ''){
+//   SECCION ====== AUTOCOMPLETE ======
+	public function getAutocompleteUbicacions($todos = 1, $text = ''){
 		$builder = $this->conexion('tubicacion t0');
-		$builder->select("t0.nidubicacion idubicacion, t0.snombretipoubicacion nombretipoubicacion,  CONCAT(t0.snombretipoubicacion) as concatenado, CONCAT(t0.snombretipoubicacion) as concatenadodetalle");
 
-		if ($todos !== '') 
+		$builder->select("t0.nidubicacion idubicacion, t0.snombretipoubicacion nombretipoubicacion, t0.bestado estado, CONCAT(t0.snombretipoubicacion) concatenado, CONCAT(t0.snombretipoubicacion) concatenadodetalle");
 
-		$builder->like('t0.nidubicacion', $text);
-		$builder->orLike('t0.snombretipoubicacion', $text);
+		if ($todos !== '') {
+			$builder->where('t0.bestado', intval($todos));
+		}
+
+		if ($text !== '') {
+			$builder->groupStart()
+				->like('t0.nidubicacion', $text)
+				->orLike('t0.snombretipoubicacion', $text)
+				->groupEnd();
+		}
 
 		$builder->orderBy('t0.nidubicacion', 'DESC');
 		$query = $builder->get();
+
 		return $query->getResultArray();
 	}
 
-	public function getUbicacion($nidubicacion){
+//   SECCION ====== GET ======
+	public function getubicacion($nidubicacion){
 		$builder = $this->conexion('tubicacion t0');
-		$builder->select("t0.nidubicacion idubicacion, t0.snombretipoubicacion nombretipoubicacion");
+		$builder->select("t0.nidubicacion idubicacion, t0.snombretipoubicacion nombretipoubicacion, t0.bestado estado");
 		$builder->where(['nidubicacion' => $nidubicacion]);
 		$query = $builder->get();
 		return $query->getRowArray();
 	}
 
+//   SECCION ====== GET 2 ======
 	public function getUbicacion2($id){
 		$builder = $this->conexion('tubicacion t0');
-		$builder->select(" t0.nidubicacion idubicacion0, t0.snombretipoubicacion nombretipoubicacion0,");
-
-		$builder->where('t0.nidreserva', $id);
+		$builder->select("t0.nidubicacion idubicacion, t0.snombretipoubicacion nombretipoubicacion, t0.bestado estado");
+		$builder->where('t0.nidubicacion', $id);
 		$query = $builder->get();
 		return $query->getResultArray();
 	}
-
-
+//   SECCION ====== COUNT ======
 	public function getCount($todos = 1, $text = ''){
 		$builder = $this->conexion('tubicacion t0');
 		$builder->select('nidubicacion');
 
-		if ($todos !== '')
+		if ($todos !== '') {
+			$builder->where('t0.bestado', intval($todos));
+		}
 
-		$builder->like('t0.nidubicacion', $text);
-		$builder->orLike('t0.snombretipoubicacion', $text);
+		if ($text !== '') {
+			$builder->groupStart()
+				->like('t0.nidubicacion', $text)
+				->orLike('t0.snombretipoubicacion', $text)
+				->groupEnd();
+		}
 
 		return $builder->countAllResults();
 	}
 
-	public function UpdateUbicacion($nidubicacion, $datos){
+//   SECCION ====== UPDATE ======
+	public function UpdateUbicacion($nidubicacion,  $datos){
 		$builder = $this->conexion('tubicacion');
 		$builder->where(['nidubicacion' => $nidubicacion]);
 		$builder->set($datos);
 		$builder->update();
 	}
 
+//   SECCION ====== MAXIMO ID ======
 	public function getMaxid(){
 		$builder = $this->conexion('tubicacion');
 		$builder->selectMax('nidubicacion');

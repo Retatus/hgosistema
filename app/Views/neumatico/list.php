@@ -46,12 +46,14 @@
 							<table id='TablaNeumatico' class='table table-sm table-bordered table-striped'>
 								<thead>
 									<tr>
-										<th hidden>Id</th>
-										<th >Codigo</th>
-										<th >Marca</th>
-										<th >Descripcion</th>
+										<th hidden>Idneumatico</th>
+										<th>Codigo</th>
+										<th>Nombreneumatico</th>
+										<th>Marca</th>
+										<th>Estado</th>
+										<th>Concatenado</th>
+										<th>Concatenadodetalle</th>
 										<th>Acciones</th>
-
 									</tr>
 								</thead>
 								<tbody>
@@ -59,10 +61,12 @@
 										<?php foreach($datos as $neumatico):?>
 											<tr>
 												<td hidden><?php echo $neumatico['idneumatico'];?></td>
-												<td ><?php echo $neumatico['codigo'];?></td>
-												<td ><?php echo $neumatico['marca'];?></td>
-												<td ><?php echo $neumatico['descripcion'];?></td>
-
+												<td><?php echo $neumatico['codigo'];?></td>
+												<td><?php echo $neumatico['nombreneumatico'];?></td>
+												<td><?php echo $neumatico['marca'];?></td>
+												<td class = 'hidden-xs'><?php echo $est = ($neumatico['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
+												<td><?php echo $neumatico['concatenado'];?></td>
+												<td><?php echo $neumatico['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
@@ -71,7 +75,7 @@
 															</button>
 														</div>
 														<div style='margin: auto;'>
-															<a class='btn btn-success btn-xs' href='<?php echo base_url();?>reserva/add/<?php echo $neumatico['idneumatico'];?>'><i class='fa fa-pencil'></i></a>
+															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $neumatico['idneumatico'];?>"><i class='fa fa-pencil'></i></a>
 														</div>
 													</div>
 												</td>
@@ -81,6 +85,8 @@
 								</tbody>
 							</table>
 						</div>
+					</div>
+					<div class='card-footer'>
 						<div id='PaginadoNeumatico'>
 							<?php echo $pag;?>
 						</div>
@@ -90,6 +96,7 @@
 		</div>
 	</section>
 </div>
+<!--  SECCION ====== MODAL ====== -->
 <div class='modal fade' id='modalAgregarNeumatico' tabindex='-1'>
 	<div class='modal-dialog modal-lg'>
 		<div class='modal-content'>
@@ -101,31 +108,39 @@
 		</div>
 		<div class='modal-body'>
 			<div class='form-group row'>
-				<div class='col-6 form-group row'hidden>
-					<label class='col-sm-4' for='id'>id:</label>
+				<div class='col-6 form-group row' hidden>
+					<label for = idneumatico class='col-sm-4'>Idneumatico:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='idneumatico' name='idneumatico' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='idneumatico' name='idneumatico' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label class='col-sm-4' for='id'>codigo:</label>
+					<label for = codigo class='col-sm-4' for='id'>Codigo:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='codigo' name='codigo' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='codigo' name='codigo' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label class='col-sm-4' for='id'>marca:</label>
+					<label for = nombreneumatico class='col-sm-4' for='id'>Nombreneumatico:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='marca' name='marca' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='nombreneumatico' name='nombreneumatico' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
-				<div class='col-12 form-group row'>
-					<label class='col-sm-2' for='id'>descripcion:</label>
-					<div class = 'col-sm-10'>
-						<textarea type='text' class='form-control form-control-sm text-uppercase    123' id='descripcion' name='descripcion' placeholder='T001' autocomplete = 'off'></textarea>
+				<div class='col-6 form-group row'>
+					<label for = marca class='col-sm-4' for='id'>Marca:</label>
+					<div class = 'col-sm-8'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='marca' name='marca' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
-
+				<div class='col-6 form-group row'>
+					<label for = estado class='col-sm-4' for='rol'>Estado:</label>
+					<div class='col-sm-8'>
+						<select class='form-control form-control-sm' id='estado' name='estado'>
+							<option value = '1' selected >ACTIVO</option>
+							<option value = '0' >DESACTIVO</option>
+						</select>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class='modal-footer'>
@@ -137,247 +152,40 @@
 		</div>
 	</div>
 </div>
-
+<!--  SECCION ====== SCRIPT ====== -->
 <script>
 	var NuevoNeumatico;
 	var base_url= '<?php echo base_url();?>';
-
-
-
-
 	function load(pag){
 		RecolectarDatosNeumatico();
 		EnviarInformacionNeumatico('leer', NuevoNeumatico, false, pag);
 	}
-
-
-
-	$('#idcliente').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteclientes',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idcliente,
-							
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idcliente').val('');
-			return false;
-		}
-	});
-	$('#idubicacion').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteubicacions',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idubicacion,
-							nombre: item.nombretipoubicacion,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idubicacion').val('');
-			return false;
-		}
-	});
-	$('#idbanda').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletebandas',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idbanda,
-							nombre: item.nombrebanda,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idbanda').val('');
-			return false;
-		}
-	});
-	$('#idcondicion').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletecondicions',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idcondicion,
-							nombre: item.nombrecondicion,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idcondicion').val('');
-			return false;
-		}
-	});
-	$('#idrencauchadora').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletereencauchadoras',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idrencauchadora,
-							nombre: item.nombrereencauchadora,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idrencauchadora').val('');
-			return false;
-		}
-	});
-	$('#idtiposervicio').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletetiposervicios',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idtiposervicio,
-							nombre: item.nombretiposervicio,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idtiposervicio').val('');
-			return false;
-		}
-	});
-	$('#idusuario').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteusuarios',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idusuario,
-							nombre: item.nombreusuario,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idusuario').val('');
-			return false;
-		}
-	});
-
-
-
 	$('#btnAgregarNeumatico').click(function(){
 		LimpiarModalDatosNeumatico();
 		$('#categoria').val(1);
 		$('#id').prop('readonly', false);  
+		$('#IdModalGrupoCodigoHotel').prop('hidden', false);
 		$('#btnModalAgregarNeumatico').toggle(true);
 		$('#btnModalEditarNeumatico').toggle(false);
 		$('#btnModalEliminarNeumatico').toggle(false);
 		$('#modalAgregarNeumatico').modal();
 	});
-
-
+//   SECCION ====== btn Editar ======
 	function btnEditarNeumatico(Val0){
 		$.ajax({
 			type: 'POST',
 			url: base_url + '/neumatico/edit',
-			data: { idneumatico: Val0},
+			data: {idneumatico: Val0},
 			success: function(msg){
-			debugger
+				debugger
 				var temp = JSON.parse(msg);
 				console.log(temp);
 				LimpiarModalDatosNeumatico();
 				$('#idneumatico').val(temp.idneumatico);
 				$('#codigo').val(temp.codigo);
+				$('#nombreneumatico').val(temp.nombreneumatico);
 				$('#marca').val(temp.marca);
-				$('#descripcion').val(temp.descripcion);
-
-
-
+				$('#estado').val(temp.estado);
 				$('#btnModalAgregarNeumatico').toggle(false);
 				$('#btnModalEditarNeumatico').toggle(true);
 				$('#btnModalEliminarNeumatico').toggle(true);
@@ -388,11 +196,8 @@
 			}
 		});
 	}
-
-
 	$('#btnModalAgregarNeumatico').click(function(){
-	debugger
-
+		debugger
 		if (ValidarCamposVaciosNeumatico() != 0) {
 			alert('Completar campos obligatorios');
 		}else{
@@ -401,8 +206,6 @@
 			EnviarInformacionNeumatico('agregar', NuevoNeumatico, true);
 		}
 	});
-
-
 	$('#btnModalEditarNeumatico').click(function(){
 		if (ValidarCamposVaciosNeumatico() != 0) {
 			alert('Completar campos obligatorios');
@@ -411,8 +214,6 @@
 			EnviarInformacionNeumatico('modificar', NuevoNeumatico, true);
 		}
 	});
-
-
 	$('#btnModalEliminarNeumatico').click(function(){
 		var bool=confirm('ESTA SEGURO DE ELIMINAR EL DATO?');
 		if(bool){
@@ -420,35 +221,29 @@
 			EnviarInformacionNeumatico('eliminar', NuevoNeumatico, true);
 		}
 	});
-
-
-
-
+	$('#btnModalCerrarHotel').click(function(){
+		$('#IdModalGrupoCodigoHotel').prop('hidden', false); 
+		LimpiarModalDatosNeumatico();
+	});
 	$('#btnFiltroNeumatico').click(function(){
 		RecolectarDatosNeumatico();
 		EnviarInformacionNeumatico('leer', NuevoNeumatico, false);
 	});
-
-
 	function Paginado(pag) {
 		RecolectarDatosNeumatico();
 		EnviarInformacionNeumatico('leer', NuevoNeumatico, false, pag);
 	}
-
-
 	function RecolectarDatosNeumatico(){
 		NuevoNeumatico = {
 			idneumatico: $('#idneumatico').val().toUpperCase(),
 			codigo: $('#codigo').val().toUpperCase(),
+			nombreneumatico: $('#nombreneumatico').val().toUpperCase(),
 			marca: $('#marca').val().toUpperCase(),
-			descripcion: $('#descripcion').val().toUpperCase(),
-
+			estado: $('#estado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
 		};
 	}
-
-
 	function EnviarInformacionNeumatico(accion, objEvento, modal, pag=1) { 
 		$.ajax({
 			type: 'POST',
@@ -490,77 +285,80 @@
 			}
 		});
 	}
-
-
 	function LimpiarModalDatosNeumatico(){
 		$('#idneumatico').val('0');
 		$('#codigo').val('');
+		$('#nombreneumatico').val('');
 		$('#marca').val('');
-		$('#descripcion').val('');
-
 	}
-
-
 	function ValidarCamposVaciosNeumatico(){
 		var error = 0;
-		if ($('#idneumatico').val() == ''){
+		var value = $('#idneumatico').val();
+		if (!/^\d*$/.test(value)){
 			Resaltado('idneumatico');
 			error++;
+		}else{
+			NoResaltado('idneumatico');
 		}
 		if ($('#codigo').val() == ''){
 			Resaltado('codigo');
 			error++;
+		}else{
+			NoResaltado('codigo');
+		}
+		if ($('#nombreneumatico').val() == ''){
+			Resaltado('nombreneumatico');
+			error++;
+		}else{
+			NoResaltado('nombreneumatico');
 		}
 		if ($('#marca').val() == ''){
 			Resaltado('marca');
 			error++;
+		}else{
+			NoResaltado('marca');
 		}
-		if ($('#descripcion').val() == ''){
-			Resaltado('descripcion');
+		if ($('#estado').val() == ''){
+			Resaltado('estado');
 			error++;
+		}else{
+			NoResaltado('estado');
 		}
-
 		return error;
 	}
-
-
 	function Resaltado(id){
 		$('#'+id).css('border-color', '#ef5350');
 		$('#'+id).focus();
 	}
 
-
-	function CargartablaNeumatico(objeto){   
+	function NoResaltado(id){
+		$('#'+id).css('border-color', '#ced4da');
+	}
+	function CargartablaNeumatico(objeto){
 		$('#TablaNeumatico tr').not($('#TablaNeumatico tr:first')).remove();
 		$.each(objeto, function(i, value) {
-		var fila = '<tr>'+
-			'<td hidden>'+value.idneumatico+'</td>'+
-			'<td >'+value.codigo+'</td>'+
-			'<td >'+value.marca+'</td>'+
-			'<td >'+value.descripcion+'</td>'+
-
-			'<td>'+
-				'<div class="row">'+
-					'<div style="margin: auto;">'+
-						'<button type="button" onclick="btnEditarNeumatico(\''+value.idneumatico+'\')" class="btn btn-info btn-xs">'+
-							'<span class="fa fa-search fa-sm"></span>'+
-						'</button>'+
-					'</div>'+
-						'<div style="margin: auto;">'+
-							'<a class="btn btn-success btn-xs" href="<?php echo base_url();?>/reserva/add"><i class="fa fa-pencil"></i></a>'+
-					'</div>'+
-				'</div>'+
-			'</td>'+
-		'</tr>';
-		$('#TablaNeumatico tbody').append(fila);
+				var fila = `<tr>
+				<td hidden>${value.idneumatico !== null ? value.idneumatico : ''}</td>
+				<td>${value.codigo !== null ? value.codigo : ''}</td>
+				<td>${value.nombreneumatico !== null ? value.nombreneumatico : ''}</td>
+				<td>${value.marca !== null ? value.marca : ''}</td>
+				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
+				<td>${value.concatenado !== null ? value.concatenado : ''}</td>
+				<td>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
+				<td>
+				<div class='row'>
+					<div style='margin: auto;'>
+						<button type='button' onclick="btnEditarNeumatico('${value.idneumatico}')" class='btn btn-info btn-xs'>
+							<span class='fa fa-search fa-xs'></span>
+						</button>
+					</div>
+						<div style='margin: auto;'>
+							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$neumatico['idneumatico']'><i class='fa fa-pencil'></i></a>
+					</div>
+				</div>
+				</td>
+				</tr>`
+			$('#TablaNeumatico tbody').append(fila);
 		});
 	}
-
-
-	function addEstado(i){
-		$('#estado_'+i).append($('<option>').val('1').text('ACTIVO'));
-		$('#estado_'+i).append($('<option>').val('0').text('DESACTIVO'));
-	}
-
-
 </script>

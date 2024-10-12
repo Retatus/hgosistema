@@ -47,10 +47,12 @@
 								<thead>
 									<tr>
 										<th hidden>Idrencauchadora</th>
-										<th >Nombre</th>
-										<th >Direccion</th>
+										<th>Nombrereencauchadora</th>
+										<th>Direccion</th>
+										<th>Estado</th>
+										<th>Concatenado</th>
+										<th>Concatenadodetalle</th>
 										<th>Acciones</th>
-
 									</tr>
 								</thead>
 								<tbody>
@@ -58,9 +60,11 @@
 										<?php foreach($datos as $reencauchadora):?>
 											<tr>
 												<td hidden><?php echo $reencauchadora['idrencauchadora'];?></td>
-												<td ><?php echo $reencauchadora['nombrereencauchadora'];?></td>
-												<td ><?php echo $reencauchadora['direccion'];?></td>
-
+												<td><?php echo $reencauchadora['nombrereencauchadora'];?></td>
+												<td><?php echo $reencauchadora['direccion'];?></td>
+												<td class = 'hidden-xs'><?php echo $est = ($reencauchadora['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
+												<td><?php echo $reencauchadora['concatenado'];?></td>
+												<td><?php echo $reencauchadora['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
@@ -69,7 +73,7 @@
 															</button>
 														</div>
 														<div style='margin: auto;'>
-															<a class='btn btn-success btn-xs' href='<?php echo base_url();?>reserva/add/<?php echo $reencauchadora['idrencauchadora'];?>'><i class='fa fa-pencil'></i></a>
+															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $reencauchadora['idrencauchadora'];?>"><i class='fa fa-pencil'></i></a>
 														</div>
 													</div>
 												</td>
@@ -79,6 +83,8 @@
 								</tbody>
 							</table>
 						</div>
+					</div>
+					<div class='card-footer'>
 						<div id='PaginadoReencauchadora'>
 							<?php echo $pag;?>
 						</div>
@@ -88,6 +94,7 @@
 		</div>
 	</section>
 </div>
+<!--  SECCION ====== MODAL ====== -->
 <div class='modal fade' id='modalAgregarReencauchadora' tabindex='-1'>
 	<div class='modal-dialog modal-lg'>
 		<div class='modal-content'>
@@ -99,25 +106,33 @@
 		</div>
 		<div class='modal-body'>
 			<div class='form-group row'>
-				<div class='col-6 form-group row'hidden>
-					<label class='col-sm-4' for='id'>idrencauchadora:</label>
+				<div class='col-6 form-group row' hidden>
+					<label for = idrencauchadora class='col-sm-4'>Idrencauchadora:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='idrencauchadora' name='idrencauchadora' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='idrencauchadora' name='idrencauchadora' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label class='col-sm-4' for='id'>nombre:</label>
+					<label for = nombrereencauchadora class='col-sm-4' for='id'>Nombrereencauchadora:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='nombrereencauchadora' name='nombrereencauchadora' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='nombrereencauchadora' name='nombrereencauchadora' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label class='col-sm-4' for='id'>direccion:</label>
+					<label for = direccion class='col-sm-4' for='id'>Direccion:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='direccion' name='direccion' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='direccion' name='direccion' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
-
+				<div class='col-6 form-group row'>
+					<label for = estado class='col-sm-4' for='rol'>Estado:</label>
+					<div class='col-sm-8'>
+						<select class='form-control form-control-sm' id='estado' name='estado'>
+							<option value = '1' selected >ACTIVO</option>
+							<option value = '0' >DESACTIVO</option>
+						</select>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class='modal-footer'>
@@ -129,245 +144,39 @@
 		</div>
 	</div>
 </div>
-
+<!--  SECCION ====== SCRIPT ====== -->
 <script>
 	var NuevoReencauchadora;
 	var base_url= '<?php echo base_url();?>';
-
-
-
-
 	function load(pag){
 		RecolectarDatosReencauchadora();
 		EnviarInformacionReencauchadora('leer', NuevoReencauchadora, false, pag);
 	}
-
-
-
-	$('#idcliente').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteclientes',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idcliente,
-							
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idcliente').val('');
-			return false;
-		}
-	});
-	$('#idubicacion').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteubicacions',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idubicacion,
-							nombre: item.nombretipoubicacion,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idubicacion').val('');
-			return false;
-		}
-	});
-	$('#idbanda').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletebandas',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idbanda,
-							nombre: item.nombrebanda,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idbanda').val('');
-			return false;
-		}
-	});
-	$('#idcondicion').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletecondicions',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idcondicion,
-							nombre: item.nombrecondicion,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idcondicion').val('');
-			return false;
-		}
-	});
-	$('#idneumatico').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteneumaticos',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idneumatico,
-							
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idneumatico').val('');
-			return false;
-		}
-	});
-	$('#idtiposervicio').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletetiposervicios',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idtiposervicio,
-							nombre: item.nombretiposervicio,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idtiposervicio').val('');
-			return false;
-		}
-	});
-	$('#idusuario').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteusuarios',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idusuario,
-							nombre: item.nombreusuario,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idusuario').val('');
-			return false;
-		}
-	});
-
-
-
 	$('#btnAgregarReencauchadora').click(function(){
 		LimpiarModalDatosReencauchadora();
 		$('#categoria').val(1);
 		$('#id').prop('readonly', false);  
+		$('#IdModalGrupoCodigoHotel').prop('hidden', false);
 		$('#btnModalAgregarReencauchadora').toggle(true);
 		$('#btnModalEditarReencauchadora').toggle(false);
 		$('#btnModalEliminarReencauchadora').toggle(false);
 		$('#modalAgregarReencauchadora').modal();
 	});
-
-
+//   SECCION ====== btn Editar ======
 	function btnEditarReencauchadora(Val0){
 		$.ajax({
 			type: 'POST',
 			url: base_url + '/reencauchadora/edit',
-			data: { idrencauchadora: Val0},
+			data: {idrencauchadora: Val0},
 			success: function(msg){
-			debugger
+				debugger
 				var temp = JSON.parse(msg);
 				console.log(temp);
 				LimpiarModalDatosReencauchadora();
 				$('#idrencauchadora').val(temp.idrencauchadora);
 				$('#nombrereencauchadora').val(temp.nombrereencauchadora);
 				$('#direccion').val(temp.direccion);
-
-
-
+				$('#estado').val(temp.estado);
 				$('#btnModalAgregarReencauchadora').toggle(false);
 				$('#btnModalEditarReencauchadora').toggle(true);
 				$('#btnModalEliminarReencauchadora').toggle(true);
@@ -378,11 +187,8 @@
 			}
 		});
 	}
-
-
 	$('#btnModalAgregarReencauchadora').click(function(){
-	debugger
-
+		debugger
 		if (ValidarCamposVaciosReencauchadora() != 0) {
 			alert('Completar campos obligatorios');
 		}else{
@@ -391,8 +197,6 @@
 			EnviarInformacionReencauchadora('agregar', NuevoReencauchadora, true);
 		}
 	});
-
-
 	$('#btnModalEditarReencauchadora').click(function(){
 		if (ValidarCamposVaciosReencauchadora() != 0) {
 			alert('Completar campos obligatorios');
@@ -401,8 +205,6 @@
 			EnviarInformacionReencauchadora('modificar', NuevoReencauchadora, true);
 		}
 	});
-
-
 	$('#btnModalEliminarReencauchadora').click(function(){
 		var bool=confirm('ESTA SEGURO DE ELIMINAR EL DATO?');
 		if(bool){
@@ -410,34 +212,28 @@
 			EnviarInformacionReencauchadora('eliminar', NuevoReencauchadora, true);
 		}
 	});
-
-
-
-
+	$('#btnModalCerrarHotel').click(function(){
+		$('#IdModalGrupoCodigoHotel').prop('hidden', false); 
+		LimpiarModalDatosReencauchadora();
+	});
 	$('#btnFiltroReencauchadora').click(function(){
 		RecolectarDatosReencauchadora();
 		EnviarInformacionReencauchadora('leer', NuevoReencauchadora, false);
 	});
-
-
 	function Paginado(pag) {
 		RecolectarDatosReencauchadora();
 		EnviarInformacionReencauchadora('leer', NuevoReencauchadora, false, pag);
 	}
-
-
 	function RecolectarDatosReencauchadora(){
 		NuevoReencauchadora = {
 			idrencauchadora: $('#idrencauchadora').val().toUpperCase(),
 			nombrereencauchadora: $('#nombrereencauchadora').val().toUpperCase(),
 			direccion: $('#direccion').val().toUpperCase(),
-
+			estado: $('#estado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
 		};
 	}
-
-
 	function EnviarInformacionReencauchadora(accion, objEvento, modal, pag=1) { 
 		$.ajax({
 			type: 'POST',
@@ -479,71 +275,72 @@
 			}
 		});
 	}
-
-
 	function LimpiarModalDatosReencauchadora(){
 		$('#idrencauchadora').val('0');
 		$('#nombrereencauchadora').val('');
 		$('#direccion').val('');
-
 	}
-
-
 	function ValidarCamposVaciosReencauchadora(){
 		var error = 0;
-		if ($('#idrencauchadora').val() == ''){
+		var value = $('#idrencauchadora').val();
+		if (!/^\d*$/.test(value)){
 			Resaltado('idrencauchadora');
 			error++;
+		}else{
+			NoResaltado('idrencauchadora');
 		}
 		if ($('#nombrereencauchadora').val() == ''){
 			Resaltado('nombrereencauchadora');
 			error++;
+		}else{
+			NoResaltado('nombrereencauchadora');
 		}
 		if ($('#direccion').val() == ''){
 			Resaltado('direccion');
 			error++;
+		}else{
+			NoResaltado('direccion');
 		}
-
+		if ($('#estado').val() == ''){
+			Resaltado('estado');
+			error++;
+		}else{
+			NoResaltado('estado');
+		}
 		return error;
 	}
-
-
 	function Resaltado(id){
 		$('#'+id).css('border-color', '#ef5350');
 		$('#'+id).focus();
 	}
 
-
-	function CargartablaReencauchadora(objeto){   
+	function NoResaltado(id){
+		$('#'+id).css('border-color', '#ced4da');
+	}
+	function CargartablaReencauchadora(objeto){
 		$('#TablaReencauchadora tr').not($('#TablaReencauchadora tr:first')).remove();
 		$.each(objeto, function(i, value) {
-		var fila = '<tr>'+
-			'<td hidden>'+value.idrencauchadora+'</td>'+
-			'<td >'+value.nombrereencauchadora+'</td>'+
-			'<td >'+value.direccion+'</td>'+
-
-			'<td>'+
-				'<div class="row">'+
-					'<div style="margin: auto;">'+
-						'<button type="button" onclick="btnEditarReencauchadora(\''+value.idrencauchadora+'\')" class="btn btn-info btn-xs">'+
-							'<span class="fa fa-search fa-sm"></span>'+
-						'</button>'+
-					'</div>'+
-						'<div style="margin: auto;">'+
-							'<a class="btn btn-success btn-xs" href="<?php echo base_url();?>/reserva/add"><i class="fa fa-pencil"></i></a>'+
-					'</div>'+
-				'</div>'+
-			'</td>'+
-		'</tr>';
-		$('#TablaReencauchadora tbody').append(fila);
+				var fila = `<tr>
+				<td hidden>${value.idrencauchadora !== null ? value.idrencauchadora : ''}</td>
+				<td>${value.nombrereencauchadora !== null ? value.nombrereencauchadora : ''}</td>
+				<td>${value.direccion !== null ? value.direccion : ''}</td>
+				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
+				<td>${value.concatenado !== null ? value.concatenado : ''}</td>
+				<td>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
+				<td>
+				<div class='row'>
+					<div style='margin: auto;'>
+						<button type='button' onclick="btnEditarReencauchadora('${value.idrencauchadora}')" class='btn btn-info btn-xs'>
+							<span class='fa fa-search fa-xs'></span>
+						</button>
+					</div>
+						<div style='margin: auto;'>
+							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$reencauchadora['idrencauchadora']'><i class='fa fa-pencil'></i></a>
+					</div>
+				</div>
+				</td>
+				</tr>`
+			$('#TablaReencauchadora tbody').append(fila);
 		});
 	}
-
-
-	function addEstado(i){
-		$('#estado_'+i).append($('<option>').val('1').text('ACTIVO'));
-		$('#estado_'+i).append($('<option>').val('0').text('DESACTIVO'));
-	}
-
-
 </script>

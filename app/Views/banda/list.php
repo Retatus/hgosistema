@@ -46,11 +46,13 @@
 							<table id='TablaBanda' class='table table-sm table-bordered table-striped'>
 								<thead>
 									<tr>
-										<th hidden>Id</th>
-										<th >Nombre</th>
-										<th >Marca</th>
+										<th hidden>Idbanda</th>
+										<th>Nombrebanda</th>
+										<th>Marca</th>
+										<th>Estado</th>
+										<th>Concatenado</th>
+										<th>Concatenadodetalle</th>
 										<th>Acciones</th>
-
 									</tr>
 								</thead>
 								<tbody>
@@ -58,9 +60,11 @@
 										<?php foreach($datos as $banda):?>
 											<tr>
 												<td hidden><?php echo $banda['idbanda'];?></td>
-												<td ><?php echo $banda['nombrebanda'];?></td>
-												<td ><?php echo $banda['marca'];?></td>
-
+												<td><?php echo $banda['nombrebanda'];?></td>
+												<td><?php echo $banda['marca'];?></td>
+												<td class = 'hidden-xs'><?php echo $est = ($banda['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
+												<td><?php echo $banda['concatenado'];?></td>
+												<td><?php echo $banda['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
@@ -69,7 +73,7 @@
 															</button>
 														</div>
 														<div style='margin: auto;'>
-															<a class='btn btn-success btn-xs' href='<?php echo base_url();?>reserva/add/<?php echo $banda['idbanda'];?>'><i class='fa fa-pencil'></i></a>
+															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $banda['idbanda'];?>"><i class='fa fa-pencil'></i></a>
 														</div>
 													</div>
 												</td>
@@ -79,6 +83,8 @@
 								</tbody>
 							</table>
 						</div>
+					</div>
+					<div class='card-footer'>
 						<div id='PaginadoBanda'>
 							<?php echo $pag;?>
 						</div>
@@ -88,6 +94,7 @@
 		</div>
 	</section>
 </div>
+<!--  SECCION ====== MODAL ====== -->
 <div class='modal fade' id='modalAgregarBanda' tabindex='-1'>
 	<div class='modal-dialog modal-lg'>
 		<div class='modal-content'>
@@ -99,25 +106,33 @@
 		</div>
 		<div class='modal-body'>
 			<div class='form-group row'>
-				<div class='col-6 form-group row'hidden>
-					<label class='col-sm-4' for='id'>id:</label>
+				<div class='col-6 form-group row' hidden>
+					<label for = idbanda class='col-sm-4'>Idbanda:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='idbanda' name='idbanda' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='idbanda' name='idbanda' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label class='col-sm-4' for='id'>nombre:</label>
+					<label for = nombrebanda class='col-sm-4' for='id'>Nombrebanda:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='nombrebanda' name='nombrebanda' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='nombrebanda' name='nombrebanda' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label class='col-sm-4' for='id'>marca:</label>
+					<label for = marca class='col-sm-4' for='id'>Marca:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase    123' id='marca' name='marca' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='marca' name='marca' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
-
+				<div class='col-6 form-group row'>
+					<label for = estado class='col-sm-4' for='rol'>Estado:</label>
+					<div class='col-sm-8'>
+						<select class='form-control form-control-sm' id='estado' name='estado'>
+							<option value = '1' selected >ACTIVO</option>
+							<option value = '0' >DESACTIVO</option>
+						</select>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class='modal-footer'>
@@ -129,245 +144,39 @@
 		</div>
 	</div>
 </div>
-
+<!--  SECCION ====== SCRIPT ====== -->
 <script>
 	var NuevoBanda;
 	var base_url= '<?php echo base_url();?>';
-
-
-
-
 	function load(pag){
 		RecolectarDatosBanda();
 		EnviarInformacionBanda('leer', NuevoBanda, false, pag);
 	}
-
-
-
-	$('#idcliente').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteclientes',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idcliente,
-							
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idcliente').val('');
-			return false;
-		}
-	});
-	$('#idubicacion').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteubicacions',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idubicacion,
-							nombre: item.nombretipoubicacion,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idubicacion').val('');
-			return false;
-		}
-	});
-	$('#idcondicion').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletecondicions',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idcondicion,
-							nombre: item.nombrecondicion,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idcondicion').val('');
-			return false;
-		}
-	});
-	$('#idneumatico').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteneumaticos',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idneumatico,
-							
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idneumatico').val('');
-			return false;
-		}
-	});
-	$('#idrencauchadora').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletereencauchadoras',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idrencauchadora,
-							nombre: item.nombrereencauchadora,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idrencauchadora').val('');
-			return false;
-		}
-	});
-	$('#idtiposervicio').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompletetiposervicios',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idtiposervicio,
-							nombre: item.nombretiposervicio,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idtiposervicio').val('');
-			return false;
-		}
-	});
-	$('#idusuario').autocomplete({ 
-		source: function(request, response) {
-			$.ajax({
-				type: 'POST',
-				url: base_url + 'servicio/autocompleteusuarios',
-				dataType: 'json',
-				data: { keyword: request.term },
-				success: function(data){
-					response($.map(data, function(item) {
-						return {
-							label: item.concatenado,
-							concatenado: item.concatenado,
-							idtour: item.idusuario,
-							nombre: item.nombreusuario,
-
-							
-							
-						}
-					}))
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#idusuario').val('');
-			return false;
-		}
-	});
-
-
-
 	$('#btnAgregarBanda').click(function(){
 		LimpiarModalDatosBanda();
 		$('#categoria').val(1);
 		$('#id').prop('readonly', false);  
+		$('#IdModalGrupoCodigoHotel').prop('hidden', false);
 		$('#btnModalAgregarBanda').toggle(true);
 		$('#btnModalEditarBanda').toggle(false);
 		$('#btnModalEliminarBanda').toggle(false);
 		$('#modalAgregarBanda').modal();
 	});
-
-
+//   SECCION ====== btn Editar ======
 	function btnEditarBanda(Val0){
 		$.ajax({
 			type: 'POST',
 			url: base_url + '/banda/edit',
-			data: { idbanda: Val0},
+			data: {idbanda: Val0},
 			success: function(msg){
-			debugger
+				debugger
 				var temp = JSON.parse(msg);
 				console.log(temp);
 				LimpiarModalDatosBanda();
 				$('#idbanda').val(temp.idbanda);
 				$('#nombrebanda').val(temp.nombrebanda);
 				$('#marca').val(temp.marca);
-
-
-
+				$('#estado').val(temp.estado);
 				$('#btnModalAgregarBanda').toggle(false);
 				$('#btnModalEditarBanda').toggle(true);
 				$('#btnModalEliminarBanda').toggle(true);
@@ -378,11 +187,8 @@
 			}
 		});
 	}
-
-
 	$('#btnModalAgregarBanda').click(function(){
-	debugger
-
+		debugger
 		if (ValidarCamposVaciosBanda() != 0) {
 			alert('Completar campos obligatorios');
 		}else{
@@ -391,8 +197,6 @@
 			EnviarInformacionBanda('agregar', NuevoBanda, true);
 		}
 	});
-
-
 	$('#btnModalEditarBanda').click(function(){
 		if (ValidarCamposVaciosBanda() != 0) {
 			alert('Completar campos obligatorios');
@@ -401,8 +205,6 @@
 			EnviarInformacionBanda('modificar', NuevoBanda, true);
 		}
 	});
-
-
 	$('#btnModalEliminarBanda').click(function(){
 		var bool=confirm('ESTA SEGURO DE ELIMINAR EL DATO?');
 		if(bool){
@@ -410,34 +212,28 @@
 			EnviarInformacionBanda('eliminar', NuevoBanda, true);
 		}
 	});
-
-
-
-
+	$('#btnModalCerrarHotel').click(function(){
+		$('#IdModalGrupoCodigoHotel').prop('hidden', false); 
+		LimpiarModalDatosBanda();
+	});
 	$('#btnFiltroBanda').click(function(){
 		RecolectarDatosBanda();
 		EnviarInformacionBanda('leer', NuevoBanda, false);
 	});
-
-
 	function Paginado(pag) {
 		RecolectarDatosBanda();
 		EnviarInformacionBanda('leer', NuevoBanda, false, pag);
 	}
-
-
 	function RecolectarDatosBanda(){
 		NuevoBanda = {
 			idbanda: $('#idbanda').val().toUpperCase(),
 			nombrebanda: $('#nombrebanda').val().toUpperCase(),
 			marca: $('#marca').val().toUpperCase(),
-
+			estado: $('#estado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
 		};
 	}
-
-
 	function EnviarInformacionBanda(accion, objEvento, modal, pag=1) { 
 		$.ajax({
 			type: 'POST',
@@ -479,71 +275,72 @@
 			}
 		});
 	}
-
-
 	function LimpiarModalDatosBanda(){
 		$('#idbanda').val('0');
 		$('#nombrebanda').val('');
 		$('#marca').val('');
-
 	}
-
-
 	function ValidarCamposVaciosBanda(){
 		var error = 0;
-		if ($('#idbanda').val() == ''){
+		var value = $('#idbanda').val();
+		if (!/^\d*$/.test(value)){
 			Resaltado('idbanda');
 			error++;
+		}else{
+			NoResaltado('idbanda');
 		}
 		if ($('#nombrebanda').val() == ''){
 			Resaltado('nombrebanda');
 			error++;
+		}else{
+			NoResaltado('nombrebanda');
 		}
 		if ($('#marca').val() == ''){
 			Resaltado('marca');
 			error++;
+		}else{
+			NoResaltado('marca');
 		}
-
+		if ($('#estado').val() == ''){
+			Resaltado('estado');
+			error++;
+		}else{
+			NoResaltado('estado');
+		}
 		return error;
 	}
-
-
 	function Resaltado(id){
 		$('#'+id).css('border-color', '#ef5350');
 		$('#'+id).focus();
 	}
 
-
-	function CargartablaBanda(objeto){   
+	function NoResaltado(id){
+		$('#'+id).css('border-color', '#ced4da');
+	}
+	function CargartablaBanda(objeto){
 		$('#TablaBanda tr').not($('#TablaBanda tr:first')).remove();
 		$.each(objeto, function(i, value) {
-		var fila = '<tr>'+
-			'<td hidden>'+value.idbanda+'</td>'+
-			'<td >'+value.nombrebanda+'</td>'+
-			'<td >'+value.marca+'</td>'+
-
-			'<td>'+
-				'<div class="row">'+
-					'<div style="margin: auto;">'+
-						'<button type="button" onclick="btnEditarBanda(\''+value.idbanda+'\')" class="btn btn-info btn-xs">'+
-							'<span class="fa fa-search fa-sm"></span>'+
-						'</button>'+
-					'</div>'+
-						'<div style="margin: auto;">'+
-							'<a class="btn btn-success btn-xs" href="<?php echo base_url();?>/reserva/add"><i class="fa fa-pencil"></i></a>'+
-					'</div>'+
-				'</div>'+
-			'</td>'+
-		'</tr>';
-		$('#TablaBanda tbody').append(fila);
+				var fila = `<tr>
+				<td hidden>${value.idbanda !== null ? value.idbanda : ''}</td>
+				<td>${value.nombrebanda !== null ? value.nombrebanda : ''}</td>
+				<td>${value.marca !== null ? value.marca : ''}</td>
+				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
+				<td>${value.concatenado !== null ? value.concatenado : ''}</td>
+				<td>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
+				<td>
+				<div class='row'>
+					<div style='margin: auto;'>
+						<button type='button' onclick="btnEditarBanda('${value.idbanda}')" class='btn btn-info btn-xs'>
+							<span class='fa fa-search fa-xs'></span>
+						</button>
+					</div>
+						<div style='margin: auto;'>
+							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$banda['idbanda']'><i class='fa fa-pencil'></i></a>
+					</div>
+				</div>
+				</td>
+				</tr>`
+			$('#TablaBanda tbody').append(fila);
 		});
 	}
-
-
-	function addEstado(i){
-		$('#estado_'+i).append($('<option>').val('1').text('ACTIVO'));
-		$('#estado_'+i).append($('<option>').val('0').text('DESACTIVO'));
-	}
-
-
 </script>

@@ -1,6 +1,6 @@
 <?php namespace App\Controllers;
-
 use App\Controllers\BaseController;
+use DateTime;
 use App\Models\PaginadoModel;
 use App\Models\NeumaticoModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -16,58 +16,67 @@ class Neumatico extends BaseController
 	protected $neumatico;
 
 
+//   SECCION ====== CONSTRUCT ======
 	public function __construct(){
 		$this->paginado = new PaginadoModel();
 		$this->neumatico = new NeumaticoModel();
 
 	}
 
+//   SECCION ====== INDEX ======
 	public function index($bestado = 1)
 	{
-		$neumatico = $this->neumatico->getNeumaticos(1, '', 20, 1);
+		$neumatico = $this->neumatico->getNeumaticos(20, 1, 1, '');
 		$total = $this->neumatico->getCount();
 		$adjacents = 1;
 		$pag = $this->paginado->pagina(1, $total, $adjacents);
 		$data = ['titulo' => 'neumatico', 'pag' => $pag, 'datos' => $neumatico];
+		$neumatico = $this->neumatico->getNeumaticos(10, 1, 1, '');
 
-		echo view('layouts/header');
+		echo view('layouts/header', []);
 		echo view('layouts/aside');
 		echo view('neumatico/list', $data);
 		echo view('layouts/footer');
 
 	}
+//   SECCION ====== AGREGAR ======
 	public function agregar(){
-	
+
 		$total = $this->neumatico->getCount('', '');
 		$pag = $this->paginado->pagina(1, $total, 1);
 		print_r($pag);
 	}
 
+//   SECCION ====== OPCIONES ======
 	public function opciones(){
 		$accion = (isset($_GET['accion'])) ? $_GET['accion']:'leer';
 		$pag = (int)(isset($_GET['pag'])) ? $_GET['pag']:1;
-
+		
 		$todos = $this->request->getPost('todos');
 		$texto = strtoupper(trim($this->request->getPost('texto')));
 
-		$nidneumatico = strtoupper(trim($this->request->getPost('idneumatico')));
-		$scodigo = strtoupper(trim($this->request->getPost('codigo')));
-		$smarca = strtoupper(trim($this->request->getPost('marca')));
-		$sdescripcion = strtoupper(trim($this->request->getPost('descripcion')));
+		if($accion !== 'leer'){
+			$nidneumatico = strtoupper(trim($this->request->getPost('idneumatico')));
+			$scodigo = strtoupper(trim($this->request->getPost('codigo')));
+			$snombreneumatico = strtoupper(trim($this->request->getPost('nombreneumatico')));
+			$smarca = strtoupper(trim($this->request->getPost('marca')));
+			$bestado = strtoupper(trim($this->request->getPost('estado')));
+		}
 
 
 		$respt = array();
 		$id = 0; $mensaje = '';
-		switch ($accion) {
+		switch ($accion){
 			case 'agregar':
 				$data  = array(
 					'nidneumatico' => intval($nidneumatico),
 					'scodigo' => $scodigo,
+					'snombreneumatico' => $snombreneumatico,
 					'smarca' => $smarca,
-					'sdescripcion' => $sdescripcion,
+					'bestado' => intval($bestado),
 
 				);
-				if ($this->neumatico->existe($nidneumatico) == 1) {
+				if ($this->neumatico->existe($nidneumatico) == 1){
 					$id = 0; $mensaje = 'CODIGO YA EXISTE'; 
 				} else {
 					$this->neumatico->insert($data);
@@ -77,8 +86,9 @@ class Neumatico extends BaseController
 			case 'modificar':
 				$data  = array(
 					'scodigo' => $scodigo,
+					'snombreneumatico' => $snombreneumatico,
 					'smarca' => $smarca,
-					'sdescripcion' => $sdescripcion,
+					'bestado' => intval($bestado),
 
 				);
 				$this->neumatico->UpdateNeumatico($nidneumatico, $data);
@@ -97,11 +107,12 @@ class Neumatico extends BaseController
 		}
 		$adjacents = 1;
 		$total = $this->neumatico->getCount($todos, $texto);
-		$respt = ['id' => $id, 'mensaje' => $mensaje, 'pag' => $this->paginado->pagina($pag, $total, $adjacents), 'datos' => $this->neumatico->getneumaticos($todos, $texto, 20, $pag)];
+		$respt = ['id' => $id, 'mensaje' => $mensaje, 'pag' => $this->paginado->pagina($pag, $total, $adjacents), 'datos' => $this->neumatico->getNeumaticos(20, $pag, $todos, $texto)];
 		echo json_encode($respt);
 	}
 
-	public function edit(){ 
+//   SECCION ====== EDIT ======
+	public function edit(){
 		$nidneumatico = strtoupper(trim($this->request->getPost('idneumatico')));
 
 		$data = $this->neumatico->getNeumatico($nidneumatico);
@@ -109,13 +120,22 @@ class Neumatico extends BaseController
 	}
 
 
-	public function getneumaticosSelectNombre(){
+	public function autocompleteneumaticos()
+	{
+		$todos = 1;
+		$keyword = $this->request->getPost('keyword');
+		$data = $this->neumatico->getAutocompleteneumaticos($todos,$keyword);
+		echo json_encode($data);
+	}
+//   SECCION ====== Neumatico SELECT NOMBRE ======
+	public function getNeumaticosSelectNombre(){
 		$searchTerm = trim($this->request->getPost('term'));
-		$response = $this->neumatico->getneumaticosSelectNombre($searchTerm);
+		$response = $this->neumatico->getNeumaticosSelectNombre($searchTerm);
 		echo json_encode($response);
 	}
 
 
+//   SECCION ====== PDF ======
 	public function pdf()
 	{
 		$pdf = new \FPDF();
@@ -126,41 +146,53 @@ class Neumatico extends BaseController
 		$this->response->setHeader('Content-Type', 'application/pdf');
 	}
 
+//   SECCION ====== EXCEL ======
 	public function excel()
 	{
 		$total = $this->neumatico->getCount();
 
-		$neumatico = $this->neumatico->getNeumaticos(1, '', $total, 1);
+		$neumatico = $this->neumatico->getNeumaticos($total, 1, 1, '');
 		require_once ROOTPATH . 'vendor/autoload.php';
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->setActiveSheetIndex(0);
 		$sheet->getColumnDimension('A')->setAutoSize(true);
 		$sheet->getColumnDimension('B')->setAutoSize(true);
 		$sheet->getColumnDimension('C')->setAutoSize(true);
-		$sheet->getStyle('A1:C1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
+		$sheet->getColumnDimension('D')->setAutoSize(true);
+		$sheet->getColumnDimension('E')->setAutoSize(true);
+		$sheet->getColumnDimension('F')->setAutoSize(true);
+		$sheet->getColumnDimension('G')->setAutoSize(true);
+		$sheet->getStyle('A1:G1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
 		$border = ['borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['argb' => 'FF000000'], ], ], ];
-		$sheet->setCellValue('A1', 'CODIGO');
-		$sheet->setCellValue('B1', 'MARCA');
-		$sheet->setCellValue('C1', 'DESCRIPCION');
+		$sheet->setCellValue('A1', 'IDNEUMATICO');
+		$sheet->setCellValue('B1', 'CODIGO');
+		$sheet->setCellValue('C1', 'NOMBRENEUMATICO');
+		$sheet->setCellValue('D1', 'MARCA');
+		$sheet->setCellValue('E1', 'ESTADO');
+		$sheet->setCellValue('F1', 'CONCATENADO');
+		$sheet->setCellValue('G1', 'CONCATENADODETALLE');
 		$i=2;
-		foreach ($neumatico as $row) {
-			$sheet->setCellValue('A'.$i, $row['codigo']);
-			$sheet->setCellValue('B'.$i, $row['marca']);
-			$sheet->setCellValue('C'.$i, $row['descripcion']);
+		foreach ($neumatico as $row){
+			$sheet->setCellValue('A'.$i, $row['idneumatico']);
+			$sheet->setCellValue('B'.$i, $row['codigo']);
+			$sheet->setCellValue('C'.$i, $row['nombreneumatico']);
+			$sheet->setCellValue('D'.$i, $row['marca']);
+			$sheet->setCellValue('E'.$i, $row['estado']);
+			$sheet->setCellValue('F'.$i, $row['concatenado']);
+			$sheet->setCellValue('G'.$i, $row['concatenadodetalle']);
 			$i++;
 		}
-		$sheet->getStyle('A1:C1')->applyFromArray($border);
-		for ($j = 1; $j < $i ; $j++) {
-			$sheet->getStyle('A'.$j.':C'.$j)->applyFromArray($border);
+		$sheet->getStyle('A1:G1')->applyFromArray($border);
+		for ($j = 1; $j < $i ; $j++){
+			$sheet->getStyle('A'.$j.':G'.$j)->applyFromArray($border);
 		}
 
 		$writer = new Xls($spreadsheet);
-		$filename = 'Lista_neumatico.xls';
+		$filename = 'Lista_Neumatico.xls';
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment; filename='.$filename.'');
 		header('Cache-Control: max-age=0');
 		$writer->save('php://output');
 		exit;
 	}
-
 }
