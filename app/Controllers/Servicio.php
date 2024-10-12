@@ -104,6 +104,7 @@ class Servicio extends BaseController
 			$sobservacionsalida = strtoupper(trim($this->request->getPost('observacionsalida')));
 			$nidcondicion = strtoupper(trim($this->request->getPost('idcondicion')));
 			$bestado = strtoupper(trim($this->request->getPost('estado')));
+			$scodigo = strtoupper(trim($this->request->getPost('codigo')));
 		}
 
 
@@ -126,6 +127,7 @@ class Servicio extends BaseController
 					'sobservacionsalida' => $sobservacionsalida,
 					'nidcondicion' => $nidcondicion,
 					'bestado' => intval($bestado),
+					'scodigo' => $scodigo,
 
 				);
 				if ($this->servicio->existe($nidservicio, $sidusuario, $sidcliente, $nidtiposervicio, $nidbanda, $nidneumatico, $nidubicacion, $nidrencauchadora, $nidcondicion) == 1){
@@ -154,8 +156,9 @@ class Servicio extends BaseController
 					'sobservacionsalida' => $sobservacionsalida,
 					'nidcondicion' => $nidcondicion,
 					'bestado' => intval($bestado),
+					'scodigo' => $scodigo,
 
-				);
+				);				
 				$this->servicio->insert($data);
 				$id = 1; $mensaje = 'ATUALIZADO CORRECTAMENTE';
 				break;
@@ -308,7 +311,8 @@ class Servicio extends BaseController
 		$sheet->getColumnDimension('V')->setAutoSize(true);
 		$sheet->getColumnDimension('W')->setAutoSize(true);
 		$sheet->getColumnDimension('X')->setAutoSize(true);
-		$sheet->getStyle('A1:X1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
+		$sheet->getColumnDimension('Y')->setAutoSize(true);
+		$sheet->getStyle('A1:Y1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
 		$border = ['borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['argb' => 'FF000000'], ], ], ];
 		$sheet->setCellValue('A1', 'IDSERVICIO');
 		$sheet->setCellValue('B1', 'FECHAINGRESO');
@@ -316,24 +320,25 @@ class Servicio extends BaseController
 		$sheet->setCellValue('D1', 'FECHASALIDA');
 		$sheet->setCellValue('E1', 'OBSERVACIONSALIDA');
 		$sheet->setCellValue('F1', 'ESTADO');
-		$sheet->setCellValue('G1', 'IDCLIENTE');
-		$sheet->setCellValue('H1', 'NOMBRECLIENTE');
-		$sheet->setCellValue('I1', 'IDUBICACION');
-		$sheet->setCellValue('J1', 'NOMBRETIPOUBICACION');
-		$sheet->setCellValue('K1', 'IDBANDA');
-		$sheet->setCellValue('L1', 'NOMBREBANDA');
-		$sheet->setCellValue('M1', 'IDCONDICION');
-		$sheet->setCellValue('N1', 'NOMBRECONDICION');
-		$sheet->setCellValue('O1', 'IDNEUMATICO');
-		$sheet->setCellValue('P1', 'NOMBRENEUMATICO');
-		$sheet->setCellValue('Q1', 'IDRENCAUCHADORA');
-		$sheet->setCellValue('R1', 'NOMBREREENCAUCHADORA');
-		$sheet->setCellValue('S1', 'IDTIPOSERVICIO');
-		$sheet->setCellValue('T1', 'NOMBRETIPOSERVICIO');
-		$sheet->setCellValue('U1', 'IDUSUARIO');
-		$sheet->setCellValue('V1', 'NOMBREUSUARIO');
-		$sheet->setCellValue('W1', 'CONCATENADO');
-		$sheet->setCellValue('X1', 'CONCATENADODETALLE');
+		$sheet->setCellValue('G1', 'CODIGO');
+		$sheet->setCellValue('H1', 'IDCLIENTE');
+		$sheet->setCellValue('I1', 'NOMBRECLIENTE');
+		$sheet->setCellValue('J1', 'IDUBICACION');
+		$sheet->setCellValue('K1', 'NOMBRETIPOUBICACION');
+		$sheet->setCellValue('L1', 'IDBANDA');
+		$sheet->setCellValue('M1', 'NOMBREBANDA');
+		$sheet->setCellValue('N1', 'IDCONDICION');
+		$sheet->setCellValue('O1', 'NOMBRECONDICION');
+		$sheet->setCellValue('P1', 'IDNEUMATICO');
+		$sheet->setCellValue('Q1', 'NOMBRENEUMATICO');
+		$sheet->setCellValue('R1', 'IDRENCAUCHADORA');
+		$sheet->setCellValue('S1', 'NOMBREREENCAUCHADORA');
+		$sheet->setCellValue('T1', 'IDTIPOSERVICIO');
+		$sheet->setCellValue('U1', 'NOMBRETIPOSERVICIO');
+		$sheet->setCellValue('V1', 'IDUSUARIO');
+		$sheet->setCellValue('W1', 'NOMBREUSUARIO');
+		$sheet->setCellValue('X1', 'CONCATENADO');
+		$sheet->setCellValue('Y1', 'CONCATENADODETALLE');
 		$i=2;
 		foreach ($servicio as $row){
 			$sheet->setCellValue('A'.$i, $row['idservicio']);
@@ -342,29 +347,30 @@ class Servicio extends BaseController
 			$sheet->setCellValue('D'.$i, $row['fechasalida']);
 			$sheet->setCellValue('E'.$i, $row['observacionsalida']);
 			$sheet->setCellValue('F'.$i, $row['estado']);
-			$sheet->setCellValue('G'.$i, $row['idcliente']);
-			$sheet->setCellValue('H'.$i, $row['nombrecliente']);
-			$sheet->setCellValue('I'.$i, $row['idubicacion']);
-			$sheet->setCellValue('J'.$i, $row['nombretipoubicacion']);
-			$sheet->setCellValue('K'.$i, $row['idbanda']);
-			$sheet->setCellValue('L'.$i, $row['nombrebanda']);
-			$sheet->setCellValue('M'.$i, $row['idcondicion']);
-			$sheet->setCellValue('N'.$i, $row['nombrecondicion']);
-			$sheet->setCellValue('O'.$i, $row['idneumatico']);
-			$sheet->setCellValue('P'.$i, $row['nombreneumatico']);
-			$sheet->setCellValue('Q'.$i, $row['idrencauchadora']);
-			$sheet->setCellValue('R'.$i, $row['nombrereencauchadora']);
-			$sheet->setCellValue('S'.$i, $row['idtiposervicio']);
-			$sheet->setCellValue('T'.$i, $row['nombretiposervicio']);
-			$sheet->setCellValue('U'.$i, $row['idusuario']);
-			$sheet->setCellValue('V'.$i, $row['nombreusuario']);
-			$sheet->setCellValue('W'.$i, $row['concatenado']);
-			$sheet->setCellValue('X'.$i, $row['concatenadodetalle']);
+			$sheet->setCellValue('G'.$i, $row['codigo']);
+			$sheet->setCellValue('H'.$i, $row['idcliente']);
+			$sheet->setCellValue('I'.$i, $row['nombrecliente']);
+			$sheet->setCellValue('J'.$i, $row['idubicacion']);
+			$sheet->setCellValue('K'.$i, $row['nombretipoubicacion']);
+			$sheet->setCellValue('L'.$i, $row['idbanda']);
+			$sheet->setCellValue('M'.$i, $row['nombrebanda']);
+			$sheet->setCellValue('N'.$i, $row['idcondicion']);
+			$sheet->setCellValue('O'.$i, $row['nombrecondicion']);
+			$sheet->setCellValue('P'.$i, $row['idneumatico']);
+			$sheet->setCellValue('Q'.$i, $row['nombreneumatico']);
+			$sheet->setCellValue('R'.$i, $row['idrencauchadora']);
+			$sheet->setCellValue('S'.$i, $row['nombrereencauchadora']);
+			$sheet->setCellValue('T'.$i, $row['idtiposervicio']);
+			$sheet->setCellValue('U'.$i, $row['nombretiposervicio']);
+			$sheet->setCellValue('V'.$i, $row['idusuario']);
+			$sheet->setCellValue('W'.$i, $row['nombreusuario']);
+			$sheet->setCellValue('X'.$i, $row['concatenado']);
+			$sheet->setCellValue('Y'.$i, $row['concatenadodetalle']);
 			$i++;
 		}
-		$sheet->getStyle('A1:X1')->applyFromArray($border);
+		$sheet->getStyle('A1:Y1')->applyFromArray($border);
 		for ($j = 1; $j < $i ; $j++){
-			$sheet->getStyle('A'.$j.':X'.$j)->applyFromArray($border);
+			$sheet->getStyle('A'.$j.':Y'.$j)->applyFromArray($border);
 		}
 
 		$writer = new Xls($spreadsheet);

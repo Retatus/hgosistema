@@ -43,9 +43,9 @@
 					</div>
 					<div class='card-body'>
 						<div class='demo-content scroll'>
-						<table id='TablaServicio' class='table table-sm table-bordered table-striped'>
+							<table id='TablaServicio' class='table table-sm table-bordered table-striped'>
 								<thead>
-									<tr>
+									<tr>	
 										<th hidden>Idservicio</th>										
 										<th>Idcliente</th>
 										<th style="width: 15%;">Cliente</th>
@@ -56,18 +56,16 @@
 										<th hidden>Idbanda</th>
 										<th>Banda</th>
 										<th>Fechasalida</th>
-										<th>Observacionsalida</th>
-																			
-										<th hidden>Idubicacion</th>
-										<th>Ubicacion</th>
-										
-										<th hidden>Idcondicion</th>
-										<th>Condicion</th>
+										<th>Observacionsalida</th>	
 										<th hidden>Idneumatico</th>
 										<th>Nombre</th>
+										<th>Codigo</th>
+										<th hidden>Idubicacion</th>
+										<th>Ubicacion</th>
 										<th hidden>Idrencauchadora</th>
-										<th>Reencauchadora</th>
-										
+										<th>Reencauchadora</th>		
+										<th hidden>Idcondicion</th>
+										<th>Condicion</th>								
 										<th hidden>Idusuario</th>
 										<th hidden>Nombreusuario</th>
 										<th hidden>Concatenado</th>
@@ -79,7 +77,7 @@
 								<tbody>
 									<?php if(!empty($datos)):?>
 										<?php foreach($datos as $servicio):?>
-											<tr>
+											<tr>											
 												<td hidden><?php echo $servicio['idservicio'];?></td>												
 												<td><?php echo $servicio['idcliente'];?></td>
 												<td><?php echo $servicio['nombrecliente'];?></td>
@@ -90,15 +88,16 @@
 												<td hidden><?php echo $servicio['idbanda'];?></td>
 												<td><?php echo $servicio['nombrebanda'];?></td>
 												<td><?php echo $servicio['fechasalida'];?></td>
-												<td><?php echo $servicio['observacionsalida'];?></td>																								
-												<td hidden><?php echo $servicio['idubicacion'];?></td>
-												<td><?php echo $servicio['nombretipoubicacion'];?></td>												
-												<td hidden><?php echo $servicio['idcondicion'];?></td>
-												<td><?php echo $servicio['nombrecondicion'];?></td>
+												<td><?php echo $servicio['observacionsalida'];?></td>												
 												<td hidden><?php echo $servicio['idneumatico'];?></td>
 												<td><?php echo $servicio['nombreneumatico'];?></td>
+												<td><?php echo $servicio['codigo'];?></td>
+												<td hidden><?php echo $servicio['idubicacion'];?></td>
+												<td><?php echo $servicio['nombretipoubicacion'];?></td>	
 												<td hidden><?php echo $servicio['idrencauchadora'];?></td>
-												<td><?php echo $servicio['nombrereencauchadora'];?></td>												
+												<td><?php echo $servicio['nombrereencauchadora'];?></td>
+												<td hidden><?php echo $servicio['idcondicion'];?></td>
+												<td><?php echo $servicio['nombrecondicion'];?></td>												
 												<td hidden><?php echo $servicio['idusuario'];?></td>
 												<td hidden><?php echo $servicio['nombreusuario'];?></td>
 												<td hidden><?php echo $servicio['concatenado'];?></td>
@@ -290,6 +289,12 @@
 						</select>
 					</div>
 				</div>
+				<div class='col-6 form-group row'>
+					<label for = codigo class='col-sm-4' for='id'>Codigo:</label>
+					<div class = 'col-sm-8'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='codigo' name='codigo' placeholder='T001' autocomplete = 'off'>
+					</div>
+				</div>
 				<div class='col-12 form-group row'>
 					<label for = observacioningreso class='col-sm-4' for='id'>Observacioningreso:</label>
 					<div class = 'col-sm-12'>
@@ -358,6 +363,7 @@
 		LimpiarModalDatosServicio();
 		$('#categoria').val(1);
 		$('#id').prop('readonly', false);  
+		$('#IdModalGrupoCodigoHotel').prop('hidden', false);
 		$('#btnModalAgregarServicio').toggle(true);
 		$('#btnModalEditarServicio').toggle(false);
 		$('#btnModalEliminarServicio').toggle(false);
@@ -390,6 +396,7 @@
 				$('#observacionsalida').val(temp.observacionsalida);
 				$('#idcondicion').select2().val(temp.idcondicion).select2('destroy').select2();
 				$('#estado').val(temp.estado);
+				$('#codigo').val(temp.codigo);
 				$('#btnModalAgregarServicio').toggle(false);
 				$('#btnModalEditarServicio').toggle(true);
 				$('#btnModalEliminarServicio').toggle(true);
@@ -453,6 +460,7 @@
 			observacionsalida: $('#observacionsalida').val().toUpperCase(),
 			idcondicion: $('#idcondicion').val().toUpperCase(),
 			estado: $('#estado').val().toUpperCase(),
+			codigo: $('#codigo').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
 		};
@@ -512,6 +520,7 @@
 		$('#fechasalida').val('');
 		$('#observacionsalida').val('');
 		$('#idcondicion').select2().val(0).select2('destroy').select2();
+		$('#codigo').val('');
 	}
 	function ValidarCamposVaciosServicio(){
 		var error = 0;
@@ -606,6 +615,12 @@
 		}else{
 			NoResaltado('estado');
 		}
+		if ($('#codigo').val() == ''){
+			Resaltado('codigo');
+			error++;
+		}else{
+			NoResaltado('codigo');
+		}
 		return error;
 	}
 	function Resaltado(id){
@@ -630,20 +645,21 @@
 				<td hidden>${value.idbanda !== null ? value.idbanda : ''}</td>
 				<td>${value.nombrebanda !== null ? value.nombrebanda : ''}</td>			
 				<td>${value.fechasalida !== null ? value.fechasalida : ''}</td>
-				<td>${value.observacionsalida !== null ? value.observacionsalida : ''}</td>				
-				<td hidden>${value.idubicacion !== null ? value.idubicacion : ''}</td>
-				<td>${value.nombretipoubicacion !== null ? value.nombretipoubicacion : ''}</td>								
-				<td hidden>${value.idcondicion !== null ? value.idcondicion : ''}</td>
-				<td>${value.nombrecondicion !== null ? value.nombrecondicion : ''}</td>
+				<td>${value.observacionsalida !== null ? value.observacionsalida : ''}</td>	
 				<td hidden>${value.idneumatico !== null ? value.idneumatico : ''}</td>
 				<td>${value.nombreneumatico !== null ? value.nombreneumatico : ''}</td>
+				<td>${value.codigo !== null ? value.codigo : ''}</td>
+				<td hidden>${value.idubicacion !== null ? value.idubicacion : ''}</td>
+				<td>${value.nombretipoubicacion !== null ? value.nombretipoubicacion : ''}</td>	
 				<td hidden>${value.idrencauchadora !== null ? value.idrencauchadora : ''}</td>
-				<td>${value.nombrereencauchadora !== null ? value.nombrereencauchadora : ''}</td>				
+				<td>${value.nombrereencauchadora !== null ? value.nombrereencauchadora : ''}</td>	
+				<td hidden>${value.idcondicion !== null ? value.idcondicion : ''}</td>
+				<td>${value.nombrecondicion !== null ? value.nombrecondicion : ''}</td>			
 				<td hidden>${value.idusuario !== null ? value.idusuario : ''}</td>
 				<td hidden>${value.nombreusuario !== null ? value.nombreusuario : ''}</td>
 				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
 				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
-				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>				
+				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
 				<td>
 				<div class='row'>
 					<div style='margin: auto;'>
