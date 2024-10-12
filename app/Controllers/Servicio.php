@@ -46,6 +46,26 @@ class Servicio extends BaseController
 
 	}
 
+	// Definir la función en el controlador
+    private function formatDateOrDefault($dateInput, $default = null) {
+        // Limpiar espacios en blanco y verificar si la fecha está presente
+        $tempdate = trim($dateInput);
+    
+        // Verificar si no está vacío y contiene '/'
+        if (!empty($tempdate) && strpos($tempdate, '/') !== false) {
+            $tempdateArray = explode('/', $tempdate);
+            
+            // Asegurarse de que el formato tenga tres partes (día/mes/año)
+            if (count($tempdateArray) === 3) {
+                // Formatear la fecha a Y-m-d
+                return date('Y-m-d', strtotime($tempdateArray[1] . '/' . $tempdateArray[0] . '/' . $tempdateArray[2]));
+            }
+        }
+        
+        // Si no es válido, devolver el valor por defecto (puede ser null o un valor específico)
+        return $default;
+    }
+
 	public function index($bestado = 1)
 	{
 		$servicio = $this->servicio->getServicios(1, '', 20, 1);
@@ -83,9 +103,12 @@ class Servicio extends BaseController
 		$texto = strtoupper(trim($this->request->getPost('texto')));
 
 		$nidservicio = strtoupper(trim($this->request->getPost('idservicio')));
-		$tempdate = trim($this->request->getPost('fechaingreso'));
-		$tempdate = explode('/', $tempdate);
-		$tfechaingreso = date('Y-m-d', strtotime($tempdate[1].'/'.$tempdate[0].'/'.$tempdate[2]));
+
+		$tfechaingreso = trim($this->request->getPost('fechaingreso'));
+		// $tempdate = explode('/', $tempdate);
+		// $tfechaingreso = date('Y-m-d', strtotime($tempdate[1].'/'.$tempdate[0].'/'.$tempdate[2]));
+		$tfechaingreso = $this->formatDateOrDefault($tfechaingreso, null);
+
 		$sidusuario = strtoupper(trim($this->request->getPost('idusuario')));
 		$sobservacioningreso = strtoupper(trim($this->request->getPost('observacioningreso')));
 		$sidcliente = strtoupper(trim($this->request->getPost('idcliente')));
@@ -94,13 +117,15 @@ class Servicio extends BaseController
 		$nidneumatico = strtoupper(trim($this->request->getPost('idneumatico')));
 		$nidubicacion = strtoupper(trim($this->request->getPost('idubicacion')));
 		$nidrencauchadora = strtoupper(trim($this->request->getPost('idrencauchadora')));
-		$tempdate = trim($this->request->getPost('fecchasalida'));
-		$tempdate = explode('/', $tempdate);
-		$tfecchasalida = date('Y-m-d', strtotime($tempdate[1].'/'.$tempdate[0].'/'.$tempdate[2]));
+
+		$tfecchasalida = trim($this->request->getPost('fecchasalida'));
+		// $tempdate = explode('/', $tempdate);
+		// $tfecchasalida = date('Y-m-d', strtotime($tempdate[1].'/'.$tempdate[0].'/'.$tempdate[2]));
+		$tfecchasalida = $this->formatDateOrDefault($tfecchasalida, null);
+		
 		$sobservacionsalida = strtoupper(trim($this->request->getPost('observacionsalida')));
 		$nidcondicion = strtoupper(trim($this->request->getPost('idcondicion')));
 		$nestado = strtoupper(trim($this->request->getPost('estado')));
-
 
 		$respt = array();
 		$id = 0; $mensaje = '';
@@ -132,6 +157,12 @@ class Servicio extends BaseController
 				break;
 			case 'modificar':
 				$data  = array(
+					'nestado' => 0
+				);
+				$this->servicio->UpdateServicio($nidservicio, $data);
+
+				$data  = array(
+					'nidservicio' => intval($nidservicio),
 					'tfechaingreso' => $tfechaingreso,
 					'sidusuario' => $sidusuario,
 					'sobservacioningreso' => $sobservacioningreso,
@@ -147,12 +178,12 @@ class Servicio extends BaseController
 					'nestado' => $nestado,
 
 				);
-				$this->servicio->UpdateServicio($nidservicio, $data);
+				$this->servicio->insert($data);
 				$id = 1; $mensaje = 'ATUALIZADO CORRECTAMENTE';
 				break;
 			case 'eliminar':
 				$data  = array(
-					'bestado' => 0
+					'nestado' => 0
 				);
 				$this->servicio->UpdateServicio($nidservicio, $data);
 				$id = 1; $mensaje = 'ANULADO CORRECTAMENTE';

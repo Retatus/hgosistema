@@ -48,10 +48,10 @@
 									<tr>
 										<th hidden>Id</th>
 										<th >Fechaingreso</th>
-										<th>Usuario</th>
+										<th >Idcliente</th>
+										<th hidden>Usuario</th>
 										<th hidden>Idusuario</th>
 										<th >Observacioningreso</th>
-										<th hidden>Idcliente</th>
 										<th>Tiposervicio</th>
 										<th hidden>Idtipo</th>
 										<th>Banda</th>
@@ -76,10 +76,10 @@
 											<tr>
 												<td hidden><?php echo $servicio['idservicio'];?></td>
 												<td ><?php echo $servicio['fechaingreso'];?></td>
-												<td><?php echo $servicio['nombreusuario'];?></td>
+												<td ><?php echo $servicio['idcliente'];?></td>
+												<td hidden><?php echo $servicio['nombreusuario'];?></td>
 												<td hidden><?php echo $servicio['idusuario'];?></td>
-												<td ><?php echo $servicio['observacioningreso'];?></td>
-												<td hidden><?php echo $servicio['idcliente'];?></td>
+												<td ><?php echo $servicio['observacioningreso'];?></td>												
 												<td><?php echo $servicio['nombretiposervicio'];?></td>
 												<td hidden><?php echo $servicio['idtiposervicio'];?></td>
 												<td><?php echo $servicio['nombrebanda'];?></td>
@@ -514,15 +514,31 @@
 		clearBtn: true,
 		format: 'mm/dd/yyyy',
 		multidate: false,
-		todayHighlight: true
+		todayHighlight: true, 
+		onSelect: function(selectedDate) {
+			// Cuando se selecciona una fecha de ingreso, actualizar la fecha mínima de salida
+			var fechaIngreso = $('#fechaingreso').datepicker('getDate');
+			$('#fecchasalida').datepicker('option', 'minDate', fechaIngreso);
+		}
 	});
+	
 	$('#fecchasalida').datepicker({
 		language: 'es',
 		todayBtn: 'linked',
 		clearBtn: true,
 		format: 'mm/dd/yyyy',
 		multidate: false,
-		todayHighlight: true
+		todayHighlight: true,
+		onSelect: function(selectedDate) {
+			var fechaIngreso = $('#fechaingreso').datepicker('getDate');
+			var fechaSalida = $('#fecchasalida').datepicker('getDate');
+			
+			// Verifica si la fecha de salida es anterior a la de ingreso
+			if (fechaSalida < fechaIngreso) {
+				alert("La fecha de salida no puede ser menor que la fecha de ingreso.");
+				$('#fecchasalida').val(''); // Limpia el campo si la validación falla
+			}
+		}
 	});
 
 
@@ -536,6 +552,9 @@
 		$('#btnModalEditarServicio').toggle(false);
 		$('#btnModalEliminarServicio').toggle(false);
 		$('#modalAgregarServicio').modal();
+		$('#fechaingreso').datepicker('enable');
+		$('#idcliente').select2().val(temp.idcliente).prop('disabled', false);
+
 	});
 
 
@@ -551,9 +570,11 @@
 				LimpiarModalDatosServicio();
 				$('#idservicio').val(temp.idservicio);
 				$('#fechaingreso').val(temp.fechaingreso);
+				$('#fechaingreso').datepicker('disable');
 				$('#idusuario').select2().val(temp.idusuario).select2('destroy').select2();
 				$('#observacioningreso').val(temp.observacioningreso);
 				$('#idcliente').select2().val(temp.idcliente).select2('destroy').select2();
+				$('#idcliente').select2().val(temp.idcliente).prop('disabled', true);
 				$('#idtiposervicio').select2().val(temp.idtiposervicio).select2('destroy').select2();
 				$('#idbanda').select2().val(temp.idbanda).select2('destroy').select2();
 				$('#idneumatico').select2().val(temp.idneumatico).select2('destroy').select2();
@@ -613,6 +634,7 @@
 
 
 	$('#btnFiltroServicio').click(function(){
+		debugger
 		RecolectarDatosServicio();
 		EnviarInformacionServicio('leer', NuevoServicio, false);
 	});
@@ -653,6 +675,7 @@
 			url: base_url+'/servicio/opciones?accion='+accion+'&pag='+pag,
 			data: objEvento,
 			success: function(msg){
+				debugger
 				var resp = JSON.parse(msg);
 				$('#PaginadoServicio').empty();
 				$('#PaginadoServicio').append(resp.pag);
@@ -750,14 +773,14 @@
 			Resaltado('idrencauchadora');
 			error++;
 		}
-		if ($('#fecchasalida').val() == ''){
-			Resaltado('fecchasalida');
-			error++;
-		}
-		if ($('#observacionsalida').val() == ''){
-			Resaltado('observacionsalida');
-			error++;
-		}
+		// if ($('#fecchasalida').val() == ''){
+		// 	Resaltado('fecchasalida');
+		// 	error++;
+		// }
+		// if ($('#observacionsalida').val() == ''){
+		// 	Resaltado('observacionsalida');
+		// 	error++;
+		// }
 		if ($('#idcondicion').val() == ''){
 			Resaltado('idcondicion');
 			error++;
@@ -781,25 +804,25 @@
 		$('#TablaServicio tr').not($('#TablaServicio tr:first')).remove();
 		$.each(objeto, function(i, value) {
 		var fila = '<tr>'+
-			'<td hidden>'+value.idservicio+'</td>'+
-			'<td >'+value.fechaingreso+'</td>'+
-			'<td>'+value.nombreusuario+'</td>'+
-			'<td hidden>'+value.idusuario+'</td>'+
-			'<td >'+value.observacioningreso+'</td>'+
-			'<td hidden>'+value.idcliente+'</td>'+
-			'<td>'+value.nombretiposervicio+'</td>'+
-			'<td hidden>'+value.idtiposervicio+'</td>'+
-			'<td>'+value.nombrebanda+'</td>'+
-			'<td hidden>'+value.idbanda+'</td>'+
-			'<td hidden>'+value.idneumatico+'</td>'+
-			'<td>'+value.nombretipoubicacion+'</td>'+
-			'<td hidden>'+value.idubicacion+'</td>'+
-			'<td>'+value.nombrereencauchadora+'</td>'+
-			'<td hidden>'+value.idrencauchadora+'</td>'+
-			'<td >'+value.fecchasalida+'</td>'+
-			'<td >'+value.observacionsalida+'</td>'+
-			'<td>'+value.nombrecondicion+'</td>'+
-			'<td hidden>'+value.idcondicion+'</td>'+
+			'<td hidden>'+(value.idservicio !== null ? value.idservicio : '')+'</td>'+
+			'<td >'+(value.fechaingreso !== null ? value.fechaingreso : '')+'</td>'+
+			'<td >'+(value.idcliente !== null ? value.idcliente : '')+'</td>'+
+			'<td hidden>'+(value.nombreusuario !== null ? value.nombreusuario : '')+'</td>'+
+			'<td hidden>'+(value.idusuario !== null ? value.idusuario : '')+'</td>'+
+			'<td >'+(value.observacioningreso !== null ? value.observacioningreso : '')+'</td>'+			
+			'<td>'+(value.nombretiposervicio !== null ? value.nombretiposervicio : '')+'</td>'+
+			'<td hidden>'+(value.idtiposervicio !== null ? value.idtiposervicio : '')+'</td>'+
+			'<td>'+(value.nombrebanda !== null ? value.nombrebanda : '')+'</td>'+
+			'<td hidden>'+(value.idbanda !== null ? value.idbanda : '')+'</td>'+
+			'<td hidden>'+(value.idneumatico !== null ? value.idneumatico : '')+'</td>'+
+			'<td>'+(value.nombretipoubicacion !== null ? value.nombretipoubicacion : '')+'</td>'+
+			'<td hidden>'+(value.idubicacion !== null ? value.idubicacion : '')+'</td>'+
+			'<td>'+(value.nombrereencauchadora !== null ? value.nombrereencauchadora : '')+'</td>'+
+			'<td hidden>'+(value.idrencauchadora !== null ? value.idrencauchadora : '')+'</td>'+
+			'<td >'+(value.fecchasalida !== null ? value.fecchasalida : '')+'</td>'+
+			'<td >'+(value.observacionsalida !== null ? value.observacionsalida : '')+'</td>'+
+			'<td>'+(value.nombrecondicion !== null ? value.nombrecondicion : '')+'</td>'+
+			'<td hidden>'+(value.idcondicion !== null ? value.idcondicion : '')+'</td>'+
 			'<td class = "hidden -xs">' + ((value.estado == '1') ? 'ACTIVO' : 'DESACTIVO') + '</td>'+
 
 			'<td>'+

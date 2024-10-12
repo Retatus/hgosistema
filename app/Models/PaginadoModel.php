@@ -6,10 +6,12 @@ use CodeIgniter\Model;
 class PaginadoModel extends Model
 {          
     public function pagina($page, $tpages, $adjacents) {
-        $tpages = ceil($tpages/10);
+        $total = $tpages;
+        $tpages = ceil($tpages/20);
         $prevlabel = "&lsaquo; Anterior";
         $nextlabel = "Siguiente &rsaquo;";
-        $out = '<ul class="pagination pagination-sm m-0 float-right">';        
+        $out = "<label id='total'>Total registros $total</label>"; 
+        $out .= "<ul class='pagination pagination-sm m-0 float-right'>";        
         // previous label    
         if($page==1) {
             $out.= "<li class='page-item disabled'><a class='page-link'>$prevlabel</a></li>";
