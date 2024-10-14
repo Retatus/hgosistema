@@ -122,7 +122,7 @@ class ReencauchadoraModel extends Model
 	}
 
 //   SECCION ====== UPDATE ======
-	public function UpdateReencauchadora($nidrencauchadora,  $datos){
+	public function UpdateReencauchadora($nidrencauchadora, $datos){
 		$builder = $this->conexion('treencauchadora');
 		$builder->where(['nidrencauchadora' => $nidrencauchadora]);
 		$builder->set($datos);

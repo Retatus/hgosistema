@@ -122,7 +122,7 @@ class ClienteModel extends Model
 	}
 
 //   SECCION ====== UPDATE ======
-	public function UpdateCliente($sidcliente,  $datos){
+	public function UpdateCliente($sidcliente, $datos){
 		$builder = $this->conexion('tcliente');
 		$builder->where(['sidcliente' => $sidcliente]);
 		$builder->set($datos);

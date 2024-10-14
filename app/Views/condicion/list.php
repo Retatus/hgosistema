@@ -49,8 +49,8 @@
 										<th hidden>Idcondicion</th>
 										<th>Nombrecondicion</th>
 										<th>Estado</th>
-										<th>Concatenado</th>
-										<th>Concatenadodetalle</th>
+										<th hidden>Concatenado</th>
+										<th hidden>Concatenadodetalle</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
@@ -61,8 +61,8 @@
 												<td hidden><?php echo $condicion['idcondicion'];?></td>
 												<td><?php echo $condicion['nombrecondicion'];?></td>
 												<td class = 'hidden-xs'><?php echo $est = ($condicion['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
-												<td><?php echo $condicion['concatenado'];?></td>
-												<td><?php echo $condicion['concatenadodetalle'];?></td>
+												<td hidden><?php echo $condicion['concatenado'];?></td>
+												<td hidden><?php echo $condicion['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
@@ -307,8 +307,8 @@
 				<td hidden>${value.idcondicion !== null ? value.idcondicion : ''}</td>
 				<td>${value.nombrecondicion !== null ? value.nombrecondicion : ''}</td>
 				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
-				<td>${value.concatenado !== null ? value.concatenado : ''}</td>
-				<td>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
+				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
+				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
 				<td>
 				<div class='row'>
 					<div style='margin: auto;'>

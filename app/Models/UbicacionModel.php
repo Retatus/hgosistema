@@ -122,7 +122,7 @@ class UbicacionModel extends Model
 	}
 
 //   SECCION ====== UPDATE ======
-	public function UpdateUbicacion($nidubicacion,  $datos){
+	public function UpdateUbicacion($nidubicacion, $datos){
 		$builder = $this->conexion('tubicacion');
 		$builder->where(['nidubicacion' => $nidubicacion]);
 		$builder->set($datos);

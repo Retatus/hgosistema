@@ -50,8 +50,8 @@
 										<th>Nombrereencauchadora</th>
 										<th>Direccion</th>
 										<th>Estado</th>
-										<th>Concatenado</th>
-										<th>Concatenadodetalle</th>
+										<th hidden>Concatenado</th>
+										<th hidden>Concatenadodetalle</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
@@ -63,8 +63,8 @@
 												<td><?php echo $reencauchadora['nombrereencauchadora'];?></td>
 												<td><?php echo $reencauchadora['direccion'];?></td>
 												<td class = 'hidden-xs'><?php echo $est = ($reencauchadora['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
-												<td><?php echo $reencauchadora['concatenado'];?></td>
-												<td><?php echo $reencauchadora['concatenadodetalle'];?></td>
+												<td hidden><?php echo $reencauchadora['concatenado'];?></td>
+												<td hidden><?php echo $reencauchadora['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
@@ -325,8 +325,8 @@
 				<td>${value.nombrereencauchadora !== null ? value.nombrereencauchadora : ''}</td>
 				<td>${value.direccion !== null ? value.direccion : ''}</td>
 				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
-				<td>${value.concatenado !== null ? value.concatenado : ''}</td>
-				<td>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
+				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
+				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
 				<td>
 				<div class='row'>
 					<div style='margin: auto;'>

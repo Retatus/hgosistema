@@ -122,7 +122,7 @@ class UsuarioModel extends Model
 	}
 
 //   SECCION ====== UPDATE ======
-	public function UpdateUsuario($sidusuario,  $datos){
+	public function UpdateUsuario($sidusuario, $datos){
 		$builder = $this->conexion('tusuario');
 		$builder->where(['sidusuario' => $sidusuario]);
 		$builder->set($datos);

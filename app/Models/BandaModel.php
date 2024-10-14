@@ -122,7 +122,7 @@ class BandaModel extends Model
 	}
 
 //   SECCION ====== UPDATE ======
-	public function UpdateBanda($nidbanda,  $datos){
+	public function UpdateBanda($nidbanda, $datos){
 		$builder = $this->conexion('tbanda');
 		$builder->where(['nidbanda' => $nidbanda]);
 		$builder->set($datos);

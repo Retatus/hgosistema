@@ -50,8 +50,8 @@
 										<th>Nombrebanda</th>
 										<th>Marca</th>
 										<th>Estado</th>
-										<th>Concatenado</th>
-										<th>Concatenadodetalle</th>
+										<th hidden>Concatenado</th>
+										<th hidden>Concatenadodetalle</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
@@ -63,8 +63,8 @@
 												<td><?php echo $banda['nombrebanda'];?></td>
 												<td><?php echo $banda['marca'];?></td>
 												<td class = 'hidden-xs'><?php echo $est = ($banda['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
-												<td><?php echo $banda['concatenado'];?></td>
-												<td><?php echo $banda['concatenadodetalle'];?></td>
+												<td hidden><?php echo $banda['concatenado'];?></td>
+												<td hidden><?php echo $banda['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
@@ -325,8 +325,8 @@
 				<td>${value.nombrebanda !== null ? value.nombrebanda : ''}</td>
 				<td>${value.marca !== null ? value.marca : ''}</td>
 				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
-				<td>${value.concatenado !== null ? value.concatenado : ''}</td>
-				<td>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
+				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
+				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
 				<td>
 				<div class='row'>
 					<div style='margin: auto;'>

@@ -57,9 +57,7 @@ class Neumatico extends BaseController
 
 		if($accion !== 'leer'){
 			$nidneumatico = strtoupper(trim($this->request->getPost('idneumatico')));
-			$scodigo = strtoupper(trim($this->request->getPost('codigo')));
 			$snombreneumatico = strtoupper(trim($this->request->getPost('nombreneumatico')));
-			$smarca = strtoupper(trim($this->request->getPost('marca')));
 			$bestado = strtoupper(trim($this->request->getPost('estado')));
 		}
 
@@ -70,9 +68,7 @@ class Neumatico extends BaseController
 			case 'agregar':
 				$data  = array(
 					'nidneumatico' => intval($nidneumatico),
-					'scodigo' => $scodigo,
 					'snombreneumatico' => $snombreneumatico,
-					'smarca' => $smarca,
 					'bestado' => intval($bestado),
 
 				);
@@ -85,9 +81,7 @@ class Neumatico extends BaseController
 				break;
 			case 'modificar':
 				$data  = array(
-					'scodigo' => $scodigo,
 					'snombreneumatico' => $snombreneumatico,
-					'smarca' => $smarca,
 					'bestado' => intval($bestado),
 
 				);
@@ -160,31 +154,25 @@ class Neumatico extends BaseController
 		$sheet->getColumnDimension('C')->setAutoSize(true);
 		$sheet->getColumnDimension('D')->setAutoSize(true);
 		$sheet->getColumnDimension('E')->setAutoSize(true);
-		$sheet->getColumnDimension('F')->setAutoSize(true);
-		$sheet->getColumnDimension('G')->setAutoSize(true);
-		$sheet->getStyle('A1:G1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
+		$sheet->getStyle('A1:E1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
 		$border = ['borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['argb' => 'FF000000'], ], ], ];
 		$sheet->setCellValue('A1', 'IDNEUMATICO');
-		$sheet->setCellValue('B1', 'CODIGO');
-		$sheet->setCellValue('C1', 'NOMBRENEUMATICO');
-		$sheet->setCellValue('D1', 'MARCA');
-		$sheet->setCellValue('E1', 'ESTADO');
-		$sheet->setCellValue('F1', 'CONCATENADO');
-		$sheet->setCellValue('G1', 'CONCATENADODETALLE');
+		$sheet->setCellValue('B1', 'NOMBRENEUMATICO');
+		$sheet->setCellValue('C1', 'ESTADO');
+		$sheet->setCellValue('D1', 'CONCATENADO');
+		$sheet->setCellValue('E1', 'CONCATENADODETALLE');
 		$i=2;
 		foreach ($neumatico as $row){
 			$sheet->setCellValue('A'.$i, $row['idneumatico']);
-			$sheet->setCellValue('B'.$i, $row['codigo']);
-			$sheet->setCellValue('C'.$i, $row['nombreneumatico']);
-			$sheet->setCellValue('D'.$i, $row['marca']);
-			$sheet->setCellValue('E'.$i, $row['estado']);
-			$sheet->setCellValue('F'.$i, $row['concatenado']);
-			$sheet->setCellValue('G'.$i, $row['concatenadodetalle']);
+			$sheet->setCellValue('B'.$i, $row['nombreneumatico']);
+			$sheet->setCellValue('C'.$i, $row['estado']);
+			$sheet->setCellValue('D'.$i, $row['concatenado']);
+			$sheet->setCellValue('E'.$i, $row['concatenadodetalle']);
 			$i++;
 		}
-		$sheet->getStyle('A1:G1')->applyFromArray($border);
+		$sheet->getStyle('A1:E1')->applyFromArray($border);
 		for ($j = 1; $j < $i ; $j++){
-			$sheet->getStyle('A'.$j.':G'.$j)->applyFromArray($border);
+			$sheet->getStyle('A'.$j.':E'.$j)->applyFromArray($border);
 		}
 
 		$writer = new Xls($spreadsheet);

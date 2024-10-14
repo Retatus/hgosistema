@@ -49,8 +49,8 @@
 										<th hidden>Idubicacion</th>
 										<th>Nombretipoubicacion</th>
 										<th>Estado</th>
-										<th>Concatenado</th>
-										<th>Concatenadodetalle</th>
+										<th hidden>Concatenado</th>
+										<th hidden>Concatenadodetalle</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
@@ -61,8 +61,8 @@
 												<td hidden><?php echo $ubicacion['idubicacion'];?></td>
 												<td><?php echo $ubicacion['nombretipoubicacion'];?></td>
 												<td class = 'hidden-xs'><?php echo $est = ($ubicacion['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
-												<td><?php echo $ubicacion['concatenado'];?></td>
-												<td><?php echo $ubicacion['concatenadodetalle'];?></td>
+												<td hidden><?php echo $ubicacion['concatenado'];?></td>
+												<td hidden><?php echo $ubicacion['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
@@ -307,8 +307,8 @@
 				<td hidden>${value.idubicacion !== null ? value.idubicacion : ''}</td>
 				<td>${value.nombretipoubicacion !== null ? value.nombretipoubicacion : ''}</td>
 				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
-				<td>${value.concatenado !== null ? value.concatenado : ''}</td>
-				<td>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
+				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
+				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
 				<td>
 				<div class='row'>
 					<div style='margin: auto;'>

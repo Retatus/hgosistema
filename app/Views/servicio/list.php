@@ -45,73 +45,79 @@
 						<div class='demo-content scroll'>
 							<table id='TablaServicio' class='table table-sm table-bordered table-striped'>
 								<thead>
-									<tr>	
-										<th hidden>Idservicio</th>										
-										<th>Idcliente</th>
-										<th style="width: 15%;">Cliente</th>
+									<tr>
+										<th hidden>Idservicio</th>
+										<th>Fecharecepcion</th>
+										<th>Placa</th>
 										<th>Observacioningreso</th>
-										<th hidden>Idtiposervicio</th>
-										<th>Tiposervicio</th>
-										<th>Fechaingreso</th>
-										<th hidden>Idbanda</th>
-										<th>Banda</th>
-										<th>Fechasalida</th>
-										<th>Observacionsalida</th>	
-										<th hidden>Idneumatico</th>
-										<th>Nombre</th>
+										<th>Numero</th>
 										<th>Codigo</th>
+										<th>Fechatienda</th>
+										<th>Fechaentrega</th>
+										<th>Observacionsalida</th>
+										<th>Estado</th>
+										<th>Idcliente</th>
+										<th>Nombrecliente</th>
 										<th hidden>Idubicacion</th>
-										<th>Ubicacion</th>
-										<th hidden>Idrencauchadora</th>
-										<th>Reencauchadora</th>		
+										<th>Nombretipoubicacion</th>
+										<th hidden>Idbanda</th>
+										<th>Nombrebanda</th>
 										<th hidden>Idcondicion</th>
-										<th>Condicion</th>								
-										<th hidden>Idusuario</th>
-										<th hidden>Nombreusuario</th>
+										<th>Nombrecondicion</th>
+										<th hidden>Idneumatico</th>
+										<th>Nombreneumatico</th>
+										<th hidden>Idrencauchadora</th>
+										<th>Nombrereencauchadora</th>
+										<th hidden>Idtiposervicio</th>
+										<th>Nombretiposervicio</th>
+										<th>Idusuario</th>
+										<th>Nombreusuario</th>
 										<th hidden>Concatenado</th>
 										<th hidden>Concatenadodetalle</th>
-										<th>Estado</th>	
 										<th>Acciones</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php if(!empty($datos)):?>
 										<?php foreach($datos as $servicio):?>
-											<tr>											
-												<td hidden><?php echo $servicio['idservicio'];?></td>												
+											<tr>
+												<td hidden><?php echo $servicio['idservicio'];?></td>
+												<td><?php echo $servicio['fecharecepcion'];?></td>
+												<td><?php echo $servicio['placa'];?></td>
+												<td><?php echo $servicio['observacioningreso'];?></td>
+												<td><?php echo $servicio['numero'];?></td>
+												<td><?php echo $servicio['codigo'];?></td>
+												<td><?php echo $servicio['fechatienda'];?></td>
+												<td><?php echo $servicio['fechaentrega'];?></td>
+												<td><?php echo $servicio['observacionsalida'];?></td>
+												<td class = 'hidden-xs'><?php echo $est = ($servicio['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
 												<td><?php echo $servicio['idcliente'];?></td>
 												<td><?php echo $servicio['nombrecliente'];?></td>
-												<td><?php echo $servicio['observacioningreso'];?></td>
-												<td hidden><?php echo $servicio['idtiposervicio'];?></td>
-												<td><?php echo $servicio['nombretiposervicio'];?></td>
-												<td><?php echo $servicio['fechaingreso'];?></td>
+												<td hidden><?php echo $servicio['idubicacion'];?></td>
+												<td><?php echo $servicio['nombretipoubicacion'];?></td>
 												<td hidden><?php echo $servicio['idbanda'];?></td>
 												<td><?php echo $servicio['nombrebanda'];?></td>
-												<td><?php echo $servicio['fechasalida'];?></td>
-												<td><?php echo $servicio['observacionsalida'];?></td>												
+												<td hidden><?php echo $servicio['idcondicion'];?></td>
+												<td><?php echo $servicio['nombrecondicion'];?></td>
 												<td hidden><?php echo $servicio['idneumatico'];?></td>
 												<td><?php echo $servicio['nombreneumatico'];?></td>
-												<td><?php echo $servicio['codigo'];?></td>
-												<td hidden><?php echo $servicio['idubicacion'];?></td>
-												<td><?php echo $servicio['nombretipoubicacion'];?></td>	
 												<td hidden><?php echo $servicio['idrencauchadora'];?></td>
 												<td><?php echo $servicio['nombrereencauchadora'];?></td>
-												<td hidden><?php echo $servicio['idcondicion'];?></td>
-												<td><?php echo $servicio['nombrecondicion'];?></td>												
-												<td hidden><?php echo $servicio['idusuario'];?></td>
-												<td hidden><?php echo $servicio['nombreusuario'];?></td>
+												<td hidden><?php echo $servicio['idtiposervicio'];?></td>
+												<td><?php echo $servicio['nombretiposervicio'];?></td>
+												<td><?php echo $servicio['idusuario'];?></td>
+												<td><?php echo $servicio['nombreusuario'];?></td>
 												<td hidden><?php echo $servicio['concatenado'];?></td>
 												<td hidden><?php echo $servicio['concatenadodetalle'];?></td>
-												<td class = 'hidden-xs'><?php echo $est = ($servicio['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
-															<button type='button' onclick="btnEditarServicio('<?php echo $servicio['idservicio'].'\',\''.$servicio['idusuario'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion'];?>')" class='btn btn-info btn-xs'>
+															<button type='button' onclick="btnEditarServicio('<?php echo $servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idusuario'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion'];?>')" class='btn btn-info btn-xs'>
 																<span class='fa fa-search fa-xs'></span>
 															</button>
 														</div>
 														<div style='margin: auto;'>
-															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $servicio['idservicio'].'\',\''.$servicio['idusuario'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion'];?>"><i class='fa fa-pencil'></i></a>
+															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idusuario'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion'];?>"><i class='fa fa-pencil'></i></a>
 														</div>
 													</div>
 												</td>
@@ -151,7 +157,20 @@
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label for = fechaingreso class='col-sm-4'>Fechaingreso:</label>
+					<label for = idcliente class='col-sm-4'>Cliente:</label>
+					<div class = 'col-sm-8'>
+						<select class='form-control form-control-sm select2' id='idcliente'>
+							<option value='0'>-- SELECCIONAR1 --</option>
+							<?php if (!empty($clientes)):?>
+								<?php foreach($clientes as $cliente):?>
+									<option value= '<?php echo $cliente['idcliente'];?>'><?php echo $cliente['concatenado'];?></option>
+								<?php endforeach;?>
+							<?php endif;?>
+						</select>
+					</div>
+				</div>
+				<div class='col-6 form-group row'>
+					<label for = fecharecepcion class='col-sm-4'>Fecharecepcion:</label>
 					<div class='col-sm-8'>
 						<div class='input-group'>
 							<div class='input-group-prepend'>
@@ -159,8 +178,27 @@
 									<i class='far fa-calendar-alt'></i>
 								</span>
 							</div>
-							<input type='text' class='form-control form-control-sm' id='fechaingreso' name='fechaingreso' placeholder='dd/mm/yyyy' readonly>
+							<input type='text' class='form-control form-control-sm' id='fecharecepcion' name='fecharecepcion' placeholder='dd/mm/yyyy' readonly>
 						</div>
+					</div>
+				</div>
+				<div class='col-6 form-group row'>
+					<label for = idbanda class='col-sm-4'>Banda:</label>
+					<div class = 'col-sm-8'>
+						<select class='form-control form-control-sm select2' id='idbanda'>
+							<option value='0'>-- SELECCIONAR1 --</option>
+							<?php if (!empty($bandas)):?>
+								<?php foreach($bandas as $banda):?>
+									<option value= '<?php echo $banda['idbanda'];?>'><?php echo $banda['concatenado'];?></option>
+								<?php endforeach;?>
+							<?php endif;?>
+						</select>
+					</div>
+				</div>
+				<div class='col-6 form-group row'>
+					<label for = placa class='col-sm-4' for='id'>Placa:</label>
+					<div class = 'col-sm-8'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='placa' name='placa' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -171,19 +209,6 @@
 							<?php if (!empty($usuarios)):?>
 								<?php foreach($usuarios as $usuario):?>
 									<option value= '<?php echo $usuario['idusuario'];?>'><?php echo $usuario['concatenado'];?></option>
-								<?php endforeach;?>
-							<?php endif;?>
-						</select>
-					</div>
-				</div>
-				<div class='col-6 form-group row'>
-					<label for = idcliente class='col-sm-4'>Cliente:</label>
-					<div class = 'col-sm-8'>
-						<select class='form-control form-control-sm select2' id='idcliente'>
-							<option value='0'>-- SELECCIONAR1 --</option>
-							<?php if (!empty($clientes)):?>
-								<?php foreach($clientes as $cliente):?>
-									<option value= '<?php echo $cliente['idcliente'];?>'><?php echo $cliente['concatenado'];?></option>
 								<?php endforeach;?>
 							<?php endif;?>
 						</select>
@@ -203,16 +228,9 @@
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label for = idbanda class='col-sm-4'>Banda:</label>
+					<label for = numero class='col-sm-4' for='id'>Numero:</label>
 					<div class = 'col-sm-8'>
-						<select class='form-control form-control-sm select2' id='idbanda'>
-							<option value='0'>-- SELECCIONAR1 --</option>
-							<?php if (!empty($bandas)):?>
-								<?php foreach($bandas as $banda):?>
-									<option value= '<?php echo $banda['idbanda'];?>'><?php echo $banda['concatenado'];?></option>
-								<?php endforeach;?>
-							<?php endif;?>
-						</select>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='numero' name='numero' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -226,6 +244,12 @@
 								<?php endforeach;?>
 							<?php endif;?>
 						</select>
+					</div>
+				</div>
+				<div class='col-6 form-group row'>
+					<label for = codigo class='col-sm-4' for='id'>Codigo:</label>
+					<div class = 'col-sm-8'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='codigo' name='codigo' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -255,7 +279,7 @@
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label for = fechasalida class='col-sm-4'>Fechasalida:</label>
+					<label for = fechatienda class='col-sm-4'>Fechatienda:</label>
 					<div class='col-sm-8'>
 						<div class='input-group'>
 							<div class='input-group-prepend'>
@@ -263,7 +287,7 @@
 									<i class='far fa-calendar-alt'></i>
 								</span>
 							</div>
-							<input type='text' class='form-control form-control-sm' id='fechasalida' name='fechasalida' placeholder='dd/mm/yyyy' readonly>
+							<input type='text' class='form-control form-control-sm' id='fechatienda' name='fechatienda' placeholder='dd/mm/yyyy' readonly>
 						</div>
 					</div>
 				</div>
@@ -281,18 +305,25 @@
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
+					<label for = fechaentrega class='col-sm-4'>Fechaentrega:</label>
+					<div class='col-sm-8'>
+						<div class='input-group'>
+							<div class='input-group-prepend'>
+								<span class='input-group-text'>
+									<i class='far fa-calendar-alt'></i>
+								</span>
+							</div>
+							<input type='text' class='form-control form-control-sm' id='fechaentrega' name='fechaentrega' placeholder='dd/mm/yyyy' readonly>
+						</div>
+					</div>
+				</div>
+				<div class='col-6 form-group row'>
 					<label for = estado class='col-sm-4' for='rol'>Estado:</label>
 					<div class='col-sm-8'>
 						<select class='form-control form-control-sm' id='estado' name='estado'>
 							<option value = '1' selected >ACTIVO</option>
 							<option value = '0' >DESACTIVO</option>
 						</select>
-					</div>
-				</div>
-				<div class='col-6 form-group row'>
-					<label for = codigo class='col-sm-4' for='id'>Codigo:</label>
-					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase' id='codigo' name='codigo' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-12 form-group row'>
@@ -326,37 +357,31 @@
 		RecolectarDatosServicio();
 		EnviarInformacionServicio('leer', NuevoServicio, false, pag);
 	}
-	$('#fechaingreso').datepicker({
+	$('#fecharecepcion').datepicker({
 		language: 'es',
 		todayBtn: 'linked',
 		clearBtn: true,
 		format: 'mm/dd/yyyy',
 		multidate: false,
-		todayHighlight: true, 
-		onSelect: function(selectedDate) {
-			// Cuando se selecciona una fecha de ingreso, actualizar la fecha mínima de salida
-			var fechaIngreso = $('#fechaingreso').datepicker('getDate');
-			$('#fechasalida').datepicker('option', 'minDate', fechaIngreso);
-		}
+		todayHighlight: true
 	});
 	
-	$('#fechasalida').datepicker({
+	$('#fechatienda').datepicker({
 		language: 'es',
 		todayBtn: 'linked',
 		clearBtn: true,
 		format: 'mm/dd/yyyy',
 		multidate: false,
-		todayHighlight: true,
-		onSelect: function(selectedDate) {
-			var fechaIngreso = $('#fechaingreso').datepicker('getDate');
-			var fechaSalida = $('#fechasalida').datepicker('getDate');
-			
-			// Verifica si la fecha de salida es anterior a la de ingreso
-			if (fechasalida < fechaIngreso) {
-				alert("La fecha de salida no puede ser menor que la fecha de ingreso.");
-				$('#fechasalida').val(''); // Limpia el campo si la validación falla
-			}
-		}
+		todayHighlight: true
+	});
+	
+	$('#fechaentrega').datepicker({
+		language: 'es',
+		todayBtn: 'linked',
+		clearBtn: true,
+		format: 'mm/dd/yyyy',
+		multidate: false,
+		todayHighlight: true
 	});
 	
 	$('#btnAgregarServicio').click(function(){
@@ -374,29 +399,30 @@
 		$.ajax({
 			type: 'POST',
 			url: base_url + '/servicio/edit',
-			data: {idservicio: Val0, idusuario: Val1, idcliente: Val2, idtiposervicio: Val3, idbanda: Val4, idneumatico: Val5, idubicacion: Val6, idrencauchadora: Val7, idcondicion: Val8},
+			data: {idservicio: Val0, idcliente: Val1, idbanda: Val2, idusuario: Val3, idtiposervicio: Val4, idneumatico: Val5, idubicacion: Val6, idrencauchadora: Val7, idcondicion: Val8},
 			success: function(msg){
 				debugger
 				var temp = JSON.parse(msg);
 				console.log(temp);
 				LimpiarModalDatosServicio();
 				$('#idservicio').val(temp.idservicio);
-				$('#fechaingreso').val(temp.fechaingreso);
-				$('#fechaingreso').datepicker('disable');
+				$('#idcliente').select2().val(temp.idcliente).select2('destroy').select2();
+				$('#fecharecepcion').val(temp.fecharecepcion);
+				$('#idbanda').select2().val(temp.idbanda).select2('destroy').select2();
+				$('#placa').val(temp.placa);
 				$('#idusuario').select2().val(temp.idusuario).select2('destroy').select2();
 				$('#observacioningreso').val(temp.observacioningreso);
-				$('#idcliente').select2().val(temp.idcliente).select2('destroy').select2();
-				$('#idcliente').select2().val(temp.idcliente).prop('disabled', true);
 				$('#idtiposervicio').select2().val(temp.idtiposervicio).select2('destroy').select2();
-				$('#idbanda').select2().val(temp.idbanda).select2('destroy').select2();
+				$('#numero').val(temp.numero);
 				$('#idneumatico').select2().val(temp.idneumatico).select2('destroy').select2();
+				$('#codigo').val(temp.codigo);
 				$('#idubicacion').select2().val(temp.idubicacion).select2('destroy').select2();
 				$('#idrencauchadora').select2().val(temp.idrencauchadora).select2('destroy').select2();
-				$('#fechasalida').val(temp.fechasalida);
-				$('#observacionsalida').val(temp.observacionsalida);
+				$('#fechatienda').val(temp.fechatienda);
 				$('#idcondicion').select2().val(temp.idcondicion).select2('destroy').select2();
+				$('#fechaentrega').val(temp.fechaentrega);
+				$('#observacionsalida').val(temp.observacionsalida);
 				$('#estado').val(temp.estado);
-				$('#codigo').val(temp.codigo);
 				$('#btnModalAgregarServicio').toggle(false);
 				$('#btnModalEditarServicio').toggle(true);
 				$('#btnModalEliminarServicio').toggle(true);
@@ -447,20 +473,23 @@
 	function RecolectarDatosServicio(){
 		NuevoServicio = {
 			idservicio: $('#idservicio').val().toUpperCase(),
-			fechaingreso: $('#fechaingreso').val().toUpperCase(),
+			idcliente: $('#idcliente').val().toUpperCase(),
+			fecharecepcion: $('#fecharecepcion').val().toUpperCase(),
+			idbanda: $('#idbanda').val().toUpperCase(),
+			placa: $('#placa').val().toUpperCase(),
 			idusuario: $('#idusuario').val().toUpperCase(),
 			observacioningreso: $('#observacioningreso').val().toUpperCase(),
-			idcliente: $('#idcliente').val().toUpperCase(),
 			idtiposervicio: $('#idtiposervicio').val().toUpperCase(),
-			idbanda: $('#idbanda').val().toUpperCase(),
+			numero: $('#numero').val().toUpperCase(),
 			idneumatico: $('#idneumatico').val().toUpperCase(),
+			codigo: $('#codigo').val().toUpperCase(),
 			idubicacion: $('#idubicacion').val().toUpperCase(),
 			idrencauchadora: $('#idrencauchadora').val().toUpperCase(),
-			fechasalida: $('#fechasalida').val().toUpperCase(),
-			observacionsalida: $('#observacionsalida').val().toUpperCase(),
+			fechatienda: $('#fechatienda').val().toUpperCase(),
 			idcondicion: $('#idcondicion').val().toUpperCase(),
+			fechaentrega: $('#fechaentrega').val().toUpperCase(),
+			observacionsalida: $('#observacionsalida').val().toUpperCase(),
 			estado: $('#estado').val().toUpperCase(),
-			codigo: $('#codigo').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
 		};
@@ -508,19 +537,22 @@
 	}
 	function LimpiarModalDatosServicio(){
 		$('#idservicio').val('0');
-		$('#fechaingreso').val('');
+		$('#idcliente').select2().val(0).select2('destroy').select2();
+		$('#fecharecepcion').val('');
+		$('#idbanda').select2().val(0).select2('destroy').select2();
+		$('#placa').val('');
 		$('#idusuario').select2().val(0).select2('destroy').select2();
 		$('#observacioningreso').val('');
-		$('#idcliente').select2().val(0).select2('destroy').select2();
 		$('#idtiposervicio').select2().val(0).select2('destroy').select2();
-		$('#idbanda').select2().val(0).select2('destroy').select2();
+		$('#numero').val('');
 		$('#idneumatico').select2().val(0).select2('destroy').select2();
+		$('#codigo').val('');
 		$('#idubicacion').select2().val(0).select2('destroy').select2();
 		$('#idrencauchadora').select2().val(0).select2('destroy').select2();
-		$('#fechasalida').val('');
-		$('#observacionsalida').val('');
+		$('#fechatienda').val('');
 		$('#idcondicion').select2().val(0).select2('destroy').select2();
-		$('#codigo').val('');
+		$('#fechaentrega').val('');
+		$('#observacionsalida').val('');
 	}
 	function ValidarCamposVaciosServicio(){
 		var error = 0;
@@ -531,11 +563,30 @@
 		}else{
 			NoResaltado('idservicio');
 		}
-		if ($('#fechaingreso').val() == ''){
-			Resaltado('fechaingreso');
+		if ($('#idcliente').val() == ''){
+			Resaltado('idcliente');
 			error++;
 		}else{
-			NoResaltado('fechaingreso');
+			NoResaltado('idcliente');
+		}
+		if ($('#fecharecepcion').val() == ''){
+			Resaltado('fecharecepcion');
+			error++;
+		}else{
+			NoResaltado('fecharecepcion');
+		}
+		var value = $('#idbanda').val();
+		if (!/^\d*$/.test(value)){
+			Resaltado('idbanda');
+			error++;
+		}else{
+			NoResaltado('idbanda');
+		}
+		if ($('#placa').val() == ''){
+			Resaltado('placa');
+			error++;
+		}else{
+			NoResaltado('placa');
 		}
 		if ($('#idusuario').val() == ''){
 			Resaltado('idusuario');
@@ -549,12 +600,6 @@
 		}else{
 			NoResaltado('observacioningreso');
 		}
-		if ($('#idcliente').val() == ''){
-			Resaltado('idcliente');
-			error++;
-		}else{
-			NoResaltado('idcliente');
-		}
 		var value = $('#idtiposervicio').val();
 		if (!/^\d*$/.test(value)){
 			Resaltado('idtiposervicio');
@@ -562,12 +607,11 @@
 		}else{
 			NoResaltado('idtiposervicio');
 		}
-		var value = $('#idbanda').val();
-		if (!/^\d*$/.test(value)){
-			Resaltado('idbanda');
+		if ($('#numero').val() == ''){
+			Resaltado('numero');
 			error++;
 		}else{
-			NoResaltado('idbanda');
+			NoResaltado('numero');
 		}
 		var value = $('#idneumatico').val();
 		if (!/^\d*$/.test(value)){
@@ -575,6 +619,12 @@
 			error++;
 		}else{
 			NoResaltado('idneumatico');
+		}
+		if ($('#codigo').val() == ''){
+			Resaltado('codigo');
+			error++;
+		}else{
+			NoResaltado('codigo');
 		}
 		var value = $('#idubicacion').val();
 		if (!/^\d*$/.test(value)){
@@ -590,18 +640,12 @@
 		}else{
 			NoResaltado('idrencauchadora');
 		}
-		// if ($('#fechasalida').val() == ''){
-		// 	Resaltado('fechasalida');
-		// 	error++;
-		// }else{
-		// 	NoResaltado('fechasalida');
-		// }
-		// if ($('#observacionsalida').val() == ''){
-		// 	Resaltado('observacionsalida');
-		// 	error++;
-		// }else{
-		// 	NoResaltado('observacionsalida');
-		// }
+		if ($('#fechatienda').val() == ''){
+			Resaltado('fechatienda');
+			error++;
+		}else{
+			NoResaltado('fechatienda');
+		}
 		var value = $('#idcondicion').val();
 		if (!/^\d*$/.test(value)){
 			Resaltado('idcondicion');
@@ -609,17 +653,23 @@
 		}else{
 			NoResaltado('idcondicion');
 		}
+		if ($('#fechaentrega').val() == ''){
+			Resaltado('fechaentrega');
+			error++;
+		}else{
+			NoResaltado('fechaentrega');
+		}
+		if ($('#observacionsalida').val() == ''){
+			Resaltado('observacionsalida');
+			error++;
+		}else{
+			NoResaltado('observacionsalida');
+		}
 		if ($('#estado').val() == ''){
 			Resaltado('estado');
 			error++;
 		}else{
 			NoResaltado('estado');
-		}
-		if ($('#codigo').val() == ''){
-			Resaltado('codigo');
-			error++;
-		}else{
-			NoResaltado('codigo');
 		}
 		return error;
 	}
@@ -635,40 +685,43 @@
 		$('#TablaServicio tr').not($('#TablaServicio tr:first')).remove();
 		$.each(objeto, function(i, value) {
 				var fila = `<tr>
-				<td hidden>${value.idservicio !== null ? value.idservicio : ''}</td>	
-				<td>${value.idcliente !== null ? value.idcliente : ''}</td>
-				<td>${value.nombrecliente !== null ? value.nombrecliente : ''}</td>			
+				<td hidden>${value.idservicio !== null ? value.idservicio : ''}</td>
+				<td>${value.fecharecepcion !== null ? value.fecharecepcion : ''}</td>
+				<td>${value.placa !== null ? value.placa : ''}</td>
 				<td>${value.observacioningreso !== null ? value.observacioningreso : ''}</td>
-				<td hidden>${value.idtiposervicio !== null ? value.idtiposervicio : ''}</td>
-				<td>${value.nombretiposervicio !== null ? value.nombretiposervicio : ''}</td>
-				<td>${value.fechaingreso !== null ? value.fechaingreso : ''}</td>
+				<td>${value.numero !== null ? value.numero : ''}</td>
+				<td>${value.codigo !== null ? value.codigo : ''}</td>
+				<td>${value.fechatienda !== null ? value.fechatienda : ''}</td>
+				<td>${value.fechaentrega !== null ? value.fechaentrega : ''}</td>
+				<td>${value.observacionsalida !== null ? value.observacionsalida : ''}</td>
+				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
+				<td>${value.idcliente !== null ? value.idcliente : ''}</td>
+				<td>${value.nombrecliente !== null ? value.nombrecliente : ''}</td>
+				<td hidden>${value.idubicacion !== null ? value.idubicacion : ''}</td>
+				<td>${value.nombretipoubicacion !== null ? value.nombretipoubicacion : ''}</td>
 				<td hidden>${value.idbanda !== null ? value.idbanda : ''}</td>
-				<td>${value.nombrebanda !== null ? value.nombrebanda : ''}</td>			
-				<td>${value.fechasalida !== null ? value.fechasalida : ''}</td>
-				<td>${value.observacionsalida !== null ? value.observacionsalida : ''}</td>	
+				<td>${value.nombrebanda !== null ? value.nombrebanda : ''}</td>
+				<td hidden>${value.idcondicion !== null ? value.idcondicion : ''}</td>
+				<td>${value.nombrecondicion !== null ? value.nombrecondicion : ''}</td>
 				<td hidden>${value.idneumatico !== null ? value.idneumatico : ''}</td>
 				<td>${value.nombreneumatico !== null ? value.nombreneumatico : ''}</td>
-				<td>${value.codigo !== null ? value.codigo : ''}</td>
-				<td hidden>${value.idubicacion !== null ? value.idubicacion : ''}</td>
-				<td>${value.nombretipoubicacion !== null ? value.nombretipoubicacion : ''}</td>	
 				<td hidden>${value.idrencauchadora !== null ? value.idrencauchadora : ''}</td>
-				<td>${value.nombrereencauchadora !== null ? value.nombrereencauchadora : ''}</td>	
-				<td hidden>${value.idcondicion !== null ? value.idcondicion : ''}</td>
-				<td>${value.nombrecondicion !== null ? value.nombrecondicion : ''}</td>			
-				<td hidden>${value.idusuario !== null ? value.idusuario : ''}</td>
-				<td hidden>${value.nombreusuario !== null ? value.nombreusuario : ''}</td>
+				<td>${value.nombrereencauchadora !== null ? value.nombrereencauchadora : ''}</td>
+				<td hidden>${value.idtiposervicio !== null ? value.idtiposervicio : ''}</td>
+				<td>${value.nombretiposervicio !== null ? value.nombretiposervicio : ''}</td>
+				<td>${value.idusuario !== null ? value.idusuario : ''}</td>
+				<td>${value.nombreusuario !== null ? value.nombreusuario : ''}</td>
 				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
 				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
-				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
 				<td>
 				<div class='row'>
 					<div style='margin: auto;'>
-						<button type='button' onclick="btnEditarServicio('${value.idservicio}', '${value.idusuario}', '${value.idcliente}', '${value.idtiposervicio}', '${value.idbanda}', '${value.idneumatico}', '${value.idubicacion}', '${value.idrencauchadora}', '${value.idcondicion}')" class='btn btn-info btn-xs'>
+						<button type='button' onclick="btnEditarServicio('${value.idservicio}', '${value.idcliente}', '${value.idbanda}', '${value.idusuario}', '${value.idtiposervicio}', '${value.idneumatico}', '${value.idubicacion}', '${value.idrencauchadora}', '${value.idcondicion}')" class='btn btn-info btn-xs'>
 							<span class='fa fa-search fa-xs'></span>
 						</button>
 					</div>
 						<div style='margin: auto;'>
-							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$servicio['idservicio'].'\',\''.$servicio['idusuario'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion']'><i class='fa fa-pencil'></i></a>
+							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idusuario'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion']'><i class='fa fa-pencil'></i></a>
 					</div>
 				</div>
 				</td>

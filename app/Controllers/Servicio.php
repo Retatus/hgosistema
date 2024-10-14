@@ -1,6 +1,7 @@
 <?php namespace App\Controllers;
 use App\Controllers\BaseController;
 use DateTime;
+use App\Models\AuditoriaModel;
 use App\Models\PaginadoModel;
 use App\Models\ServicioModel;
 use App\Models\ClienteModel;
@@ -20,6 +21,7 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 
 class Servicio extends BaseController
 {
+	protected $auditoria;
 	protected $paginado;
 	protected $servicio;
 	protected $cliente;
@@ -34,6 +36,7 @@ class Servicio extends BaseController
 
 //   SECCION ====== CONSTRUCT ======
 	public function __construct(){
+		$this->auditoria = new AuditoriaModel();
 		$this->paginado = new PaginadoModel();
 		$this->servicio = new ServicioModel();
 		$this->cliente = new ClienteModel();
@@ -89,22 +92,26 @@ class Servicio extends BaseController
 
 		if($accion !== 'leer'){
 			$nidservicio = strtoupper(trim($this->request->getPost('idservicio')));
-			$tfechaingreso = trim($this->request->getPost('fechaingreso'));
-			$tfechaingreso = $this->formatDateOrDefault($tfechaingreso, null);
+			$sidcliente = strtoupper(trim($this->request->getPost('idcliente')));
+			$tfecharecepcion = trim($this->request->getPost('fecharecepcion'));
+			$tfecharecepcion = $this->formatDateOrDefault($tfecharecepcion, null);
+			$nidbanda = strtoupper(trim($this->request->getPost('idbanda')));
+			$splaca = strtoupper(trim($this->request->getPost('placa')));
 			$sidusuario = strtoupper(trim($this->request->getPost('idusuario')));
 			$sobservacioningreso = strtoupper(trim($this->request->getPost('observacioningreso')));
-			$sidcliente = strtoupper(trim($this->request->getPost('idcliente')));
 			$nidtiposervicio = strtoupper(trim($this->request->getPost('idtiposervicio')));
-			$nidbanda = strtoupper(trim($this->request->getPost('idbanda')));
+			$snumero = strtoupper(trim($this->request->getPost('numero')));
 			$nidneumatico = strtoupper(trim($this->request->getPost('idneumatico')));
+			$scodigo = strtoupper(trim($this->request->getPost('codigo')));
 			$nidubicacion = strtoupper(trim($this->request->getPost('idubicacion')));
 			$nidrencauchadora = strtoupper(trim($this->request->getPost('idrencauchadora')));
-			$tfechasalida = trim($this->request->getPost('fechasalida'));
-			$tfechasalida = $this->formatDateOrDefault($tfechasalida, null);
-			$sobservacionsalida = strtoupper(trim($this->request->getPost('observacionsalida')));
+			$tfechatienda = trim($this->request->getPost('fechatienda'));
+			$tfechatienda = $this->formatDateOrDefault($tfechatienda, null);
 			$nidcondicion = strtoupper(trim($this->request->getPost('idcondicion')));
+			$tfechaentrega = trim($this->request->getPost('fechaentrega'));
+			$tfechaentrega = $this->formatDateOrDefault($tfechaentrega, null);
+			$sobservacionsalida = strtoupper(trim($this->request->getPost('observacionsalida')));
 			$bestado = strtoupper(trim($this->request->getPost('estado')));
-			$scodigo = strtoupper(trim($this->request->getPost('codigo')));
 		}
 
 
@@ -114,23 +121,26 @@ class Servicio extends BaseController
 			case 'agregar':
 				$data  = array(
 					'nidservicio' => intval($nidservicio),
-					'tfechaingreso' => $tfechaingreso,
+					'sidcliente' => $sidcliente,
+					'tfecharecepcion' => $tfecharecepcion,
+					'nidbanda' => intval($nidbanda),
+					'splaca' => $splaca,
 					'sidusuario' => $sidusuario,
 					'sobservacioningreso' => $sobservacioningreso,
-					'sidcliente' => $sidcliente,
 					'nidtiposervicio' => intval($nidtiposervicio),
-					'nidbanda' => intval($nidbanda),
+					'snumero' => $snumero,
 					'nidneumatico' => intval($nidneumatico),
+					'scodigo' => $scodigo,
 					'nidubicacion' => intval($nidubicacion),
 					'nidrencauchadora' => intval($nidrencauchadora),
-					'tfechasalida' => $tfechasalida,
-					'sobservacionsalida' => $sobservacionsalida,
+					'tfechatienda' => $tfechatienda,
 					'nidcondicion' => $nidcondicion,
+					'tfechaentrega' => $tfechaentrega,
+					'sobservacionsalida' => $sobservacionsalida,
 					'bestado' => intval($bestado),
-					'scodigo' => $scodigo,
 
 				);
-				if ($this->servicio->existe($nidservicio, $sidusuario, $sidcliente, $nidtiposervicio, $nidbanda, $nidneumatico, $nidubicacion, $nidrencauchadora, $nidcondicion) == 1){
+				if ($this->servicio->existe($nidservicio, $sidcliente, $nidbanda, $sidusuario, $nidtiposervicio, $nidneumatico, $nidubicacion, $nidrencauchadora, $nidcondicion) == 1){
 					$id = 0; $mensaje = 'CODIGO YA EXISTE'; 
 				} else {
 					$this->servicio->insert($data);
@@ -139,27 +149,29 @@ class Servicio extends BaseController
 				break;
 			case 'modificar':
 				$data  = array(
-					'bestado' => 0
-				);
-				$this->servicio->UpdateServicio($nidservicio, $data);
-				$data  = array(
-					'tfechaingreso' => $tfechaingreso,
+					'sidcliente' => $sidcliente,
+					'tfecharecepcion' => $tfecharecepcion,
+					'nidbanda' => intval($nidbanda),
+					'splaca' => $splaca,
 					'sidusuario' => $sidusuario,
 					'sobservacioningreso' => $sobservacioningreso,
-					'sidcliente' => $sidcliente,
 					'nidtiposervicio' => intval($nidtiposervicio),
-					'nidbanda' => intval($nidbanda),
+					'snumero' => $snumero,
 					'nidneumatico' => intval($nidneumatico),
+					'scodigo' => $scodigo,
 					'nidubicacion' => intval($nidubicacion),
 					'nidrencauchadora' => intval($nidrencauchadora),
-					'tfechasalida' => $tfechasalida,
-					'sobservacionsalida' => $sobservacionsalida,
+					'tfechatienda' => $tfechatienda,
 					'nidcondicion' => $nidcondicion,
+					'tfechaentrega' => $tfechaentrega,
+					'sobservacionsalida' => $sobservacionsalida,
 					'bestado' => intval($bestado),
-					'scodigo' => $scodigo,
 
-				);				
-				$this->servicio->insert($data);
+				);
+
+				$this->Auditoria($nidservicio, $data, "Renato" );
+
+				$this->servicio->UpdateServicio($nidservicio, $data);
 				$id = 1; $mensaje = 'ATUALIZADO CORRECTAMENTE';
 				break;
 			case 'eliminar':
@@ -179,19 +191,39 @@ class Servicio extends BaseController
 		echo json_encode($respt);
 	}
 
+	public function Auditoria($nidservicio, $datosActualizados, $usuario) {
+		$datosAnteriores = $this->servicio->find($nidservicio);
+		foreach ($datosActualizados as $campo => $nuevoValor) {
+			$valorAnterior = $datosAnteriores[$campo] ?? null;
+			if ($valorAnterior != $nuevoValor) {
+				$campo_modificado = $campo;
+				$fecha_modificacion = date('Y-m-d H:i:s');
+				$data = [
+					'nidservicio' => intval($nidservicio),
+					'campo_modificado' => $campo_modificado,
+					'valor_anterior' => $valorAnterior,
+					'valor_nuevo' => $nuevoValor,
+					'fecha_modificacion' => $fecha_modificacion,
+					'usuario_modificacion' => $usuario,
+				];
+				$this->auditoria->insert($data);
+			}
+		}
+	}
+
 //   SECCION ====== EDIT ======
 	public function edit(){
 		$nidservicio = strtoupper(trim($this->request->getPost('idservicio')));
-		$sidusuario = strtoupper(trim($this->request->getPost('idusuario')));
 		$sidcliente = strtoupper(trim($this->request->getPost('idcliente')));
-		$nidtiposervicio = strtoupper(trim($this->request->getPost('idtiposervicio')));
 		$nidbanda = strtoupper(trim($this->request->getPost('idbanda')));
+		$sidusuario = strtoupper(trim($this->request->getPost('idusuario')));
+		$nidtiposervicio = strtoupper(trim($this->request->getPost('idtiposervicio')));
 		$nidneumatico = strtoupper(trim($this->request->getPost('idneumatico')));
 		$nidubicacion = strtoupper(trim($this->request->getPost('idubicacion')));
 		$nidrencauchadora = strtoupper(trim($this->request->getPost('idrencauchadora')));
 		$nidcondicion = strtoupper(trim($this->request->getPost('idcondicion')));
 
-		$data = $this->servicio->getServicio($nidservicio, $sidusuario, $sidcliente, $nidtiposervicio, $nidbanda, $nidneumatico, $nidubicacion, $nidrencauchadora, $nidcondicion);
+		$data = $this->servicio->getServicio($nidservicio, $sidcliente, $nidbanda, $sidusuario, $nidtiposervicio, $nidneumatico, $nidubicacion, $nidrencauchadora, $nidcondicion);
 		echo json_encode($data);
 	}
 
@@ -312,65 +344,74 @@ class Servicio extends BaseController
 		$sheet->getColumnDimension('W')->setAutoSize(true);
 		$sheet->getColumnDimension('X')->setAutoSize(true);
 		$sheet->getColumnDimension('Y')->setAutoSize(true);
-		$sheet->getStyle('A1:Y1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
+		$sheet->getColumnDimension('Z')->setAutoSize(true);
+		$sheet->getColumnDimension('AA')->setAutoSize(true);
+		$sheet->getColumnDimension('AB')->setAutoSize(true);
+		$sheet->getStyle('A1:AB1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
 		$border = ['borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['argb' => 'FF000000'], ], ], ];
 		$sheet->setCellValue('A1', 'IDSERVICIO');
-		$sheet->setCellValue('B1', 'FECHAINGRESO');
-		$sheet->setCellValue('C1', 'OBSERVACIONINGRESO');
-		$sheet->setCellValue('D1', 'FECHASALIDA');
-		$sheet->setCellValue('E1', 'OBSERVACIONSALIDA');
-		$sheet->setCellValue('F1', 'ESTADO');
-		$sheet->setCellValue('G1', 'CODIGO');
-		$sheet->setCellValue('H1', 'IDCLIENTE');
-		$sheet->setCellValue('I1', 'NOMBRECLIENTE');
-		$sheet->setCellValue('J1', 'IDUBICACION');
-		$sheet->setCellValue('K1', 'NOMBRETIPOUBICACION');
-		$sheet->setCellValue('L1', 'IDBANDA');
-		$sheet->setCellValue('M1', 'NOMBREBANDA');
-		$sheet->setCellValue('N1', 'IDCONDICION');
-		$sheet->setCellValue('O1', 'NOMBRECONDICION');
-		$sheet->setCellValue('P1', 'IDNEUMATICO');
-		$sheet->setCellValue('Q1', 'NOMBRENEUMATICO');
-		$sheet->setCellValue('R1', 'IDRENCAUCHADORA');
-		$sheet->setCellValue('S1', 'NOMBREREENCAUCHADORA');
-		$sheet->setCellValue('T1', 'IDTIPOSERVICIO');
-		$sheet->setCellValue('U1', 'NOMBRETIPOSERVICIO');
-		$sheet->setCellValue('V1', 'IDUSUARIO');
-		$sheet->setCellValue('W1', 'NOMBREUSUARIO');
-		$sheet->setCellValue('X1', 'CONCATENADO');
-		$sheet->setCellValue('Y1', 'CONCATENADODETALLE');
+		$sheet->setCellValue('B1', 'FECHARECEPCION');
+		$sheet->setCellValue('C1', 'PLACA');
+		$sheet->setCellValue('D1', 'OBSERVACIONINGRESO');
+		$sheet->setCellValue('E1', 'NUMERO');
+		$sheet->setCellValue('F1', 'CODIGO');
+		$sheet->setCellValue('G1', 'FECHATIENDA');
+		$sheet->setCellValue('H1', 'FECHAENTREGA');
+		$sheet->setCellValue('I1', 'OBSERVACIONSALIDA');
+		$sheet->setCellValue('J1', 'ESTADO');
+		$sheet->setCellValue('K1', 'IDCLIENTE');
+		$sheet->setCellValue('L1', 'NOMBRECLIENTE');
+		$sheet->setCellValue('M1', 'IDUBICACION');
+		$sheet->setCellValue('N1', 'NOMBRETIPOUBICACION');
+		$sheet->setCellValue('O1', 'IDBANDA');
+		$sheet->setCellValue('P1', 'NOMBREBANDA');
+		$sheet->setCellValue('Q1', 'IDCONDICION');
+		$sheet->setCellValue('R1', 'NOMBRECONDICION');
+		$sheet->setCellValue('S1', 'IDNEUMATICO');
+		$sheet->setCellValue('T1', 'NOMBRENEUMATICO');
+		$sheet->setCellValue('U1', 'IDRENCAUCHADORA');
+		$sheet->setCellValue('V1', 'NOMBREREENCAUCHADORA');
+		$sheet->setCellValue('W1', 'IDTIPOSERVICIO');
+		$sheet->setCellValue('X1', 'NOMBRETIPOSERVICIO');
+		$sheet->setCellValue('Y1', 'IDUSUARIO');
+		$sheet->setCellValue('Z1', 'NOMBREUSUARIO');
+		$sheet->setCellValue('AA1', 'CONCATENADO');
+		$sheet->setCellValue('AB1', 'CONCATENADODETALLE');
 		$i=2;
 		foreach ($servicio as $row){
 			$sheet->setCellValue('A'.$i, $row['idservicio']);
-			$sheet->setCellValue('B'.$i, $row['fechaingreso']);
-			$sheet->setCellValue('C'.$i, $row['observacioningreso']);
-			$sheet->setCellValue('D'.$i, $row['fechasalida']);
-			$sheet->setCellValue('E'.$i, $row['observacionsalida']);
-			$sheet->setCellValue('F'.$i, $row['estado']);
-			$sheet->setCellValue('G'.$i, $row['codigo']);
-			$sheet->setCellValue('H'.$i, $row['idcliente']);
-			$sheet->setCellValue('I'.$i, $row['nombrecliente']);
-			$sheet->setCellValue('J'.$i, $row['idubicacion']);
-			$sheet->setCellValue('K'.$i, $row['nombretipoubicacion']);
-			$sheet->setCellValue('L'.$i, $row['idbanda']);
-			$sheet->setCellValue('M'.$i, $row['nombrebanda']);
-			$sheet->setCellValue('N'.$i, $row['idcondicion']);
-			$sheet->setCellValue('O'.$i, $row['nombrecondicion']);
-			$sheet->setCellValue('P'.$i, $row['idneumatico']);
-			$sheet->setCellValue('Q'.$i, $row['nombreneumatico']);
-			$sheet->setCellValue('R'.$i, $row['idrencauchadora']);
-			$sheet->setCellValue('S'.$i, $row['nombrereencauchadora']);
-			$sheet->setCellValue('T'.$i, $row['idtiposervicio']);
-			$sheet->setCellValue('U'.$i, $row['nombretiposervicio']);
-			$sheet->setCellValue('V'.$i, $row['idusuario']);
-			$sheet->setCellValue('W'.$i, $row['nombreusuario']);
-			$sheet->setCellValue('X'.$i, $row['concatenado']);
-			$sheet->setCellValue('Y'.$i, $row['concatenadodetalle']);
+			$sheet->setCellValue('B'.$i, $row['fecharecepcion']);
+			$sheet->setCellValue('C'.$i, $row['placa']);
+			$sheet->setCellValue('D'.$i, $row['observacioningreso']);
+			$sheet->setCellValue('E'.$i, $row['numero']);
+			$sheet->setCellValue('F'.$i, $row['codigo']);
+			$sheet->setCellValue('G'.$i, $row['fechatienda']);
+			$sheet->setCellValue('H'.$i, $row['fechaentrega']);
+			$sheet->setCellValue('I'.$i, $row['observacionsalida']);
+			$sheet->setCellValue('J'.$i, $row['estado']);
+			$sheet->setCellValue('K'.$i, $row['idcliente']);
+			$sheet->setCellValue('L'.$i, $row['nombrecliente']);
+			$sheet->setCellValue('M'.$i, $row['idubicacion']);
+			$sheet->setCellValue('N'.$i, $row['nombretipoubicacion']);
+			$sheet->setCellValue('O'.$i, $row['idbanda']);
+			$sheet->setCellValue('P'.$i, $row['nombrebanda']);
+			$sheet->setCellValue('Q'.$i, $row['idcondicion']);
+			$sheet->setCellValue('R'.$i, $row['nombrecondicion']);
+			$sheet->setCellValue('S'.$i, $row['idneumatico']);
+			$sheet->setCellValue('T'.$i, $row['nombreneumatico']);
+			$sheet->setCellValue('U'.$i, $row['idrencauchadora']);
+			$sheet->setCellValue('V'.$i, $row['nombrereencauchadora']);
+			$sheet->setCellValue('W'.$i, $row['idtiposervicio']);
+			$sheet->setCellValue('X'.$i, $row['nombretiposervicio']);
+			$sheet->setCellValue('Y'.$i, $row['idusuario']);
+			$sheet->setCellValue('Z'.$i, $row['nombreusuario']);
+			$sheet->setCellValue('AA'.$i, $row['concatenado']);
+			$sheet->setCellValue('AB'.$i, $row['concatenadodetalle']);
 			$i++;
 		}
-		$sheet->getStyle('A1:Y1')->applyFromArray($border);
+		$sheet->getStyle('A1:AB1')->applyFromArray($border);
 		for ($j = 1; $j < $i ; $j++){
-			$sheet->getStyle('A'.$j.':Y'.$j)->applyFromArray($border);
+			$sheet->getStyle('A'.$j.':AB'.$j)->applyFromArray($border);
 		}
 
 		$writer = new Xls($spreadsheet);
@@ -396,4 +437,6 @@ class Servicio extends BaseController
 		}
 		return $default;
 	}
+
+	
 }

@@ -122,7 +122,7 @@ class TiposervicioModel extends Model
 	}
 
 //   SECCION ====== UPDATE ======
-	public function UpdateTiposervicio($nidtiposervicio,  $datos){
+	public function UpdateTiposervicio($nidtiposervicio, $datos){
 		$builder = $this->conexion('ttiposervicio');
 		$builder->where(['nidtiposervicio' => $nidtiposervicio]);
 		$builder->set($datos);

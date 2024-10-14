@@ -47,12 +47,10 @@
 								<thead>
 									<tr>
 										<th hidden>Idneumatico</th>
-										<th>Codigo</th>
 										<th>Nombreneumatico</th>
-										<th>Marca</th>
 										<th>Estado</th>
-										<th>Concatenado</th>
-										<th>Concatenadodetalle</th>
+										<th hidden>Concatenado</th>
+										<th hidden>Concatenadodetalle</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
@@ -61,12 +59,10 @@
 										<?php foreach($datos as $neumatico):?>
 											<tr>
 												<td hidden><?php echo $neumatico['idneumatico'];?></td>
-												<td><?php echo $neumatico['codigo'];?></td>
 												<td><?php echo $neumatico['nombreneumatico'];?></td>
-												<td><?php echo $neumatico['marca'];?></td>
 												<td class = 'hidden-xs'><?php echo $est = ($neumatico['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
-												<td><?php echo $neumatico['concatenado'];?></td>
-												<td><?php echo $neumatico['concatenadodetalle'];?></td>
+												<td hidden><?php echo $neumatico['concatenado'];?></td>
+												<td hidden><?php echo $neumatico['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
@@ -115,21 +111,9 @@
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label for = codigo class='col-sm-4' for='id'>Codigo:</label>
-					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase' id='codigo' name='codigo' placeholder='T001' autocomplete = 'off'>
-					</div>
-				</div>
-				<div class='col-6 form-group row'>
 					<label for = nombreneumatico class='col-sm-4' for='id'>Nombreneumatico:</label>
 					<div class = 'col-sm-8'>
 						<input type='text' class='form-control form-control-sm text-uppercase' id='nombreneumatico' name='nombreneumatico' placeholder='T001' autocomplete = 'off'>
-					</div>
-				</div>
-				<div class='col-6 form-group row'>
-					<label for = marca class='col-sm-4' for='id'>Marca:</label>
-					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase' id='marca' name='marca' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -182,9 +166,7 @@
 				console.log(temp);
 				LimpiarModalDatosNeumatico();
 				$('#idneumatico').val(temp.idneumatico);
-				$('#codigo').val(temp.codigo);
 				$('#nombreneumatico').val(temp.nombreneumatico);
-				$('#marca').val(temp.marca);
 				$('#estado').val(temp.estado);
 				$('#btnModalAgregarNeumatico').toggle(false);
 				$('#btnModalEditarNeumatico').toggle(true);
@@ -236,9 +218,7 @@
 	function RecolectarDatosNeumatico(){
 		NuevoNeumatico = {
 			idneumatico: $('#idneumatico').val().toUpperCase(),
-			codigo: $('#codigo').val().toUpperCase(),
 			nombreneumatico: $('#nombreneumatico').val().toUpperCase(),
-			marca: $('#marca').val().toUpperCase(),
 			estado: $('#estado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
@@ -287,9 +267,7 @@
 	}
 	function LimpiarModalDatosNeumatico(){
 		$('#idneumatico').val('0');
-		$('#codigo').val('');
 		$('#nombreneumatico').val('');
-		$('#marca').val('');
 	}
 	function ValidarCamposVaciosNeumatico(){
 		var error = 0;
@@ -300,23 +278,11 @@
 		}else{
 			NoResaltado('idneumatico');
 		}
-		if ($('#codigo').val() == ''){
-			Resaltado('codigo');
-			error++;
-		}else{
-			NoResaltado('codigo');
-		}
 		if ($('#nombreneumatico').val() == ''){
 			Resaltado('nombreneumatico');
 			error++;
 		}else{
 			NoResaltado('nombreneumatico');
-		}
-		if ($('#marca').val() == ''){
-			Resaltado('marca');
-			error++;
-		}else{
-			NoResaltado('marca');
 		}
 		if ($('#estado').val() == ''){
 			Resaltado('estado');
@@ -339,12 +305,10 @@
 		$.each(objeto, function(i, value) {
 				var fila = `<tr>
 				<td hidden>${value.idneumatico !== null ? value.idneumatico : ''}</td>
-				<td>${value.codigo !== null ? value.codigo : ''}</td>
 				<td>${value.nombreneumatico !== null ? value.nombreneumatico : ''}</td>
-				<td>${value.marca !== null ? value.marca : ''}</td>
 				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
-				<td>${value.concatenado !== null ? value.concatenado : ''}</td>
-				<td>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
+				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
+				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
 				<td>
 				<div class='row'>
 					<div style='margin: auto;'>

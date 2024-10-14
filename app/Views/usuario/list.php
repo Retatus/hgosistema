@@ -49,8 +49,8 @@
 										<th>Idusuario</th>
 										<th>Nombreusuario</th>
 										<th>Estado</th>
-										<th>Concatenado</th>
-										<th>Concatenadodetalle</th>
+										<th hidden>Concatenado</th>
+										<th hidden>Concatenadodetalle</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
@@ -61,8 +61,8 @@
 												<td><?php echo $usuario['idusuario'];?></td>
 												<td><?php echo $usuario['nombreusuario'];?></td>
 												<td class = 'hidden-xs'><?php echo $est = ($usuario['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
-												<td><?php echo $usuario['concatenado'];?></td>
-												<td><?php echo $usuario['concatenadodetalle'];?></td>
+												<td hidden><?php echo $usuario['concatenado'];?></td>
+												<td hidden><?php echo $usuario['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
@@ -306,8 +306,8 @@
 				<td>${value.idusuario !== null ? value.idusuario : ''}</td>
 				<td>${value.nombreusuario !== null ? value.nombreusuario : ''}</td>
 				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
-				<td>${value.concatenado !== null ? value.concatenado : ''}</td>
-				<td>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
+				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
+				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
 				<td>
 				<div class='row'>
 					<div style='margin: auto;'>

@@ -122,7 +122,7 @@ class CondicionModel extends Model
 	}
 
 //   SECCION ====== UPDATE ======
-	public function UpdateCondicion($nidcondicion,  $datos){
+	public function UpdateCondicion($nidcondicion, $datos){
 		$builder = $this->conexion('tcondicion');
 		$builder->where(['nidcondicion' => $nidcondicion]);
 		$builder->set($datos);

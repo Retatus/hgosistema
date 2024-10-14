@@ -10,7 +10,7 @@ class NeumaticoModel extends Model
 	protected $returnType     = 'array';
 	protected $useSoftDeletes = false;
 
-	protected $allowedFields = ['nidneumatico', 'scodigo', 'snombreneumatico', 'smarca', 'bestado'];
+	protected $allowedFields = ['nidneumatico', 'snombreneumatico', 'bestado'];
 	protected $useTimestamps = false;
 	protected $createdField  = 'tfecha_alt';
 	protected $updatedField  = 'tfecha_edi';
@@ -41,7 +41,7 @@ class NeumaticoModel extends Model
 
 		$builder = $this->conexion('tneumatico t0');
 
-		$builder->select("t0.nidneumatico idneumatico, t0.scodigo codigo, t0.snombreneumatico nombreneumatico, t0.smarca marca, t0.bestado estado, CONCAT(t0.snombreneumatico) concatenado, CONCAT(t0.snombreneumatico) concatenadodetalle");
+		$builder->select("t0.nidneumatico idneumatico, t0.snombreneumatico nombreneumatico, t0.bestado estado, CONCAT(t0.snombreneumatico) concatenado, CONCAT(t0.snombreneumatico) concatenadodetalle");
 
 
 		if ($todos !== '') {
@@ -66,7 +66,7 @@ class NeumaticoModel extends Model
 	public function getAutocompleteNeumaticos($todos = 1, $text = ''){
 		$builder = $this->conexion('tneumatico t0');
 
-		$builder->select("t0.nidneumatico idneumatico, t0.scodigo codigo, t0.snombreneumatico nombreneumatico, t0.smarca marca, t0.bestado estado, CONCAT(t0.snombreneumatico) concatenado, CONCAT(t0.snombreneumatico) concatenadodetalle");
+		$builder->select("t0.nidneumatico idneumatico, t0.snombreneumatico nombreneumatico, t0.bestado estado, CONCAT(t0.snombreneumatico) concatenado, CONCAT(t0.snombreneumatico) concatenadodetalle");
 
 		if ($todos !== '') {
 			$builder->where('t0.bestado', intval($todos));
@@ -88,7 +88,7 @@ class NeumaticoModel extends Model
 //   SECCION ====== GET ======
 	public function getneumatico($nidneumatico){
 		$builder = $this->conexion('tneumatico t0');
-		$builder->select("t0.nidneumatico idneumatico, t0.scodigo codigo, t0.snombreneumatico nombreneumatico, t0.smarca marca, t0.bestado estado");
+		$builder->select("t0.nidneumatico idneumatico, t0.snombreneumatico nombreneumatico, t0.bestado estado");
 		$builder->where(['nidneumatico' => $nidneumatico]);
 		$query = $builder->get();
 		return $query->getRowArray();
@@ -97,7 +97,7 @@ class NeumaticoModel extends Model
 //   SECCION ====== GET 2 ======
 	public function getNeumatico2($id){
 		$builder = $this->conexion('tneumatico t0');
-		$builder->select("t0.nidneumatico idneumatico, t0.scodigo codigo, t0.snombreneumatico nombreneumatico, t0.smarca marca, t0.bestado estado");
+		$builder->select("t0.nidneumatico idneumatico, t0.snombreneumatico nombreneumatico, t0.bestado estado");
 		$builder->where('t0.nidneumatico', $id);
 		$query = $builder->get();
 		return $query->getResultArray();
@@ -122,7 +122,7 @@ class NeumaticoModel extends Model
 	}
 
 //   SECCION ====== UPDATE ======
-	public function UpdateNeumatico($nidneumatico,  $datos){
+	public function UpdateNeumatico($nidneumatico, $datos){
 		$builder = $this->conexion('tneumatico');
 		$builder->where(['nidneumatico' => $nidneumatico]);
 		$builder->set($datos);

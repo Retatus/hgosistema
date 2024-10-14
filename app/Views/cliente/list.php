@@ -51,8 +51,8 @@
 										<th>Direccion</th>
 										<th>Telefono</th>
 										<th>Estado</th>
-										<th>Concatenado</th>
-										<th>Concatenadodetalle</th>
+										<th hidden>Concatenado</th>
+										<th hidden>Concatenadodetalle</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
@@ -65,8 +65,8 @@
 												<td><?php echo $cliente['direccion'];?></td>
 												<td><?php echo $cliente['telefono'];?></td>
 												<td class = 'hidden-xs'><?php echo $est = ($cliente['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
-												<td><?php echo $cliente['concatenado'];?></td>
-												<td><?php echo $cliente['concatenadodetalle'];?></td>
+												<td hidden><?php echo $cliente['concatenado'];?></td>
+												<td hidden><?php echo $cliente['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
@@ -342,8 +342,8 @@
 				<td>${value.direccion !== null ? value.direccion : ''}</td>
 				<td>${value.telefono !== null ? value.telefono : ''}</td>
 				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
-				<td>${value.concatenado !== null ? value.concatenado : ''}</td>
-				<td>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
+				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
+				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
 				<td>
 				<div class='row'>
 					<div style='margin: auto;'>
