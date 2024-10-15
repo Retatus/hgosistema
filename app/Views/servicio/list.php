@@ -55,6 +55,7 @@
 										<th>Fechatienda</th>
 										<th>Fechaentrega</th>
 										<th>Observacionsalida</th>
+										<th>Usuario</th>
 										<th>Estado</th>
 										<th>Idcliente</th>
 										<th>Nombrecliente</th>
@@ -70,8 +71,6 @@
 										<th>Nombrereencauchadora</th>
 										<th hidden>Idtiposervicio</th>
 										<th>Nombretiposervicio</th>
-										<th>Idusuario</th>
-										<th>Nombreusuario</th>
 										<th hidden>Concatenado</th>
 										<th hidden>Concatenadodetalle</th>
 										<th>Acciones</th>
@@ -90,6 +89,7 @@
 												<td><?php echo $servicio['fechatienda'];?></td>
 												<td><?php echo $servicio['fechaentrega'];?></td>
 												<td><?php echo $servicio['observacionsalida'];?></td>
+												<td><?php echo $servicio['usuario'];?></td>
 												<td class = 'hidden-xs'><?php echo $est = ($servicio['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
 												<td><?php echo $servicio['idcliente'];?></td>
 												<td><?php echo $servicio['nombrecliente'];?></td>
@@ -105,19 +105,17 @@
 												<td><?php echo $servicio['nombrereencauchadora'];?></td>
 												<td hidden><?php echo $servicio['idtiposervicio'];?></td>
 												<td><?php echo $servicio['nombretiposervicio'];?></td>
-												<td><?php echo $servicio['idusuario'];?></td>
-												<td><?php echo $servicio['nombreusuario'];?></td>
 												<td hidden><?php echo $servicio['concatenado'];?></td>
 												<td hidden><?php echo $servicio['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
-															<button type='button' onclick="btnEditarServicio('<?php echo $servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idusuario'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion'];?>')" class='btn btn-info btn-xs'>
+															<button type='button' onclick="btnEditarServicio('<?php echo $servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion'];?>')" class='btn btn-info btn-xs'>
 																<span class='fa fa-search fa-xs'></span>
 															</button>
 														</div>
 														<div style='margin: auto;'>
-															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idusuario'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion'];?>"><i class='fa fa-pencil'></i></a>
+															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion'];?>"><i class='fa fa-pencil'></i></a>
 														</div>
 													</div>
 												</td>
@@ -199,19 +197,6 @@
 					<label for = placa class='col-sm-4' for='id'>Placa:</label>
 					<div class = 'col-sm-8'>
 						<input type='text' class='form-control form-control-sm text-uppercase' id='placa' name='placa' placeholder='T001' autocomplete = 'off'>
-					</div>
-				</div>
-				<div class='col-6 form-group row'>
-					<label for = idusuario class='col-sm-4'>Usuario:</label>
-					<div class = 'col-sm-8'>
-						<select class='form-control form-control-sm select2' id='idusuario'>
-							<option value='0'>-- SELECCIONAR1 --</option>
-							<?php if (!empty($usuarios)):?>
-								<?php foreach($usuarios as $usuario):?>
-									<option value= '<?php echo $usuario['idusuario'];?>'><?php echo $usuario['concatenado'];?></option>
-								<?php endforeach;?>
-							<?php endif;?>
-						</select>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -318,6 +303,12 @@
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
+					<label for = usuario class='col-sm-4' for='id'>Usuario:</label>
+					<div class = 'col-sm-8'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='usuario' name='usuario' placeholder='T001' autocomplete = 'off'>
+					</div>
+				</div>
+				<div class='col-6 form-group row'>
 					<label for = estado class='col-sm-4' for='rol'>Estado:</label>
 					<div class='col-sm-8'>
 						<select class='form-control form-control-sm' id='estado' name='estado'>
@@ -368,7 +359,12 @@
 		clearBtn: true,
 		format: 'mm/dd/yyyy',
 		multidate: false,
-		todayHighlight: true
+		todayHighlight: true,
+		onSelect: function(selectedDate) {
+			// Cuando se selecciona una fecha de ingreso, actualizar la fecha mínima de salida
+			var fecharecepcion = $('#fecharecepcion').datepicker('getDate');
+			$('#fechatienda').datepicker('option', 'minDate', fecharecepcion);			
+		}
 	});
 	
 	$('#fechatienda').datepicker({
@@ -377,7 +373,17 @@
 		clearBtn: true,
 		format: 'mm/dd/yyyy',
 		multidate: false,
-		todayHighlight: true
+		todayHighlight: true,
+		onSelect: function(selectedDate) {
+			var fecharecepcion = $('#fecharecepcion').datepicker('getDate');
+			var fechatienda = $('#fechatienda').datepicker('getDate');
+			$('#fechaentrega').datepicker('option', 'minDate', fechatienda);
+			// Verifica si la fecha de salida es anterior a la de ingreso
+			if (fechatienda < fecharecepcion) {
+				alert("La fecha de salida no puede ser menor que la fecha de ingreso.");
+				$('#fechatienda').val(''); // Limpia el campo si la validación falla
+			}
+		}
 	});
 	
 	$('#fechaentrega').datepicker({
@@ -386,7 +392,17 @@
 		clearBtn: true,
 		format: 'mm/dd/yyyy',
 		multidate: false,
-		todayHighlight: true
+		todayHighlight: true,
+		onSelect: function(selectedDate) {
+			var fecharecepcion = $('#fecharecepcion').datepicker('getDate');
+			var fechaentrega = $('#fechaentrega').datepicker('getDate');
+			
+			// Verifica si la fecha de salida es anterior a la de ingreso
+			if (fechaentrega < fecharecepcion) {
+				alert("La fecha de salida no puede ser menor que la fecha de ingreso.");
+				$('#fechaentrega').val(''); // Limpia el campo si la validación falla
+			}
+		}
 	});
 	
 	$('#btnAgregarServicio').click(function(){
@@ -400,11 +416,11 @@
 		$('#modalAgregarServicio').modal();
 	});
 //   SECCION ====== btn Editar ======
-	function btnEditarServicio(Val0, Val1, Val2, Val3, Val4, Val5, Val6, Val7, Val8){
+	function btnEditarServicio(Val0, Val1, Val2, Val3, Val4, Val5, Val6, Val7){
 		$.ajax({
 			type: 'POST',
 			url: base_url + '/servicio/edit',
-			data: {idservicio: Val0, idcliente: Val1, idbanda: Val2, idusuario: Val3, idtiposervicio: Val4, idneumatico: Val5, idubicacion: Val6, idrencauchadora: Val7, idcondicion: Val8},
+			data: {idservicio: Val0, idcliente: Val1, idbanda: Val2, idtiposervicio: Val3, idneumatico: Val4, idubicacion: Val5, idrencauchadora: Val6, idcondicion: Val7},
 			success: function(msg){
 				debugger
 				var temp = JSON.parse(msg);
@@ -415,7 +431,6 @@
 				$('#fecharecepcion').val(temp.fecharecepcion);
 				$('#idbanda').select2().val(temp.idbanda).select2('destroy').select2();
 				$('#placa').val(temp.placa);
-				$('#idusuario').select2().val(temp.idusuario).select2('destroy').select2();
 				$('#observacioningreso').val(temp.observacioningreso);
 				$('#idtiposervicio').select2().val(temp.idtiposervicio).select2('destroy').select2();
 				$('#numero').val(temp.numero);
@@ -427,6 +442,7 @@
 				$('#idcondicion').select2().val(temp.idcondicion).select2('destroy').select2();
 				$('#fechaentrega').val(temp.fechaentrega);
 				$('#observacionsalida').val(temp.observacionsalida);
+				$('#usuario').val(temp.usuario);
 				$('#estado').val(temp.estado);
 				$('#btnModalAgregarServicio').toggle(false);
 				$('#btnModalEditarServicio').toggle(true);
@@ -482,7 +498,6 @@
 			fecharecepcion: $('#fecharecepcion').val().toUpperCase(),
 			idbanda: $('#idbanda').val().toUpperCase(),
 			placa: $('#placa').val().toUpperCase(),
-			idusuario: $('#idusuario').val().toUpperCase(),
 			observacioningreso: $('#observacioningreso').val().toUpperCase(),
 			idtiposervicio: $('#idtiposervicio').val().toUpperCase(),
 			numero: $('#numero').val().toUpperCase(),
@@ -494,6 +509,7 @@
 			idcondicion: $('#idcondicion').val().toUpperCase(),
 			fechaentrega: $('#fechaentrega').val().toUpperCase(),
 			observacionsalida: $('#observacionsalida').val().toUpperCase(),
+			usuario: $('#usuario').val().toUpperCase(),
 			estado: $('#estado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
@@ -546,7 +562,6 @@
 		$('#fecharecepcion').val('');
 		$('#idbanda').select2().val(0).select2('destroy').select2();
 		$('#placa').val('');
-		$('#idusuario').select2().val(0).select2('destroy').select2();
 		$('#observacioningreso').val('');
 		$('#idtiposervicio').select2().val(0).select2('destroy').select2();
 		$('#numero').val('');
@@ -558,6 +573,7 @@
 		$('#idcondicion').select2().val(0).select2('destroy').select2();
 		$('#fechaentrega').val('');
 		$('#observacionsalida').val('');
+		$('#usuario').val('');
 	}
 	function ValidarCamposVaciosServicio(){
 		var error = 0;
@@ -592,12 +608,6 @@
 			error++;
 		}else{
 			NoResaltado('placa');
-		}
-		if ($('#idusuario').val() == ''){
-			Resaltado('idusuario');
-			error++;
-		}else{
-			NoResaltado('idusuario');
 		}
 		if ($('#observacioningreso').val() == ''){
 			Resaltado('observacioningreso');
@@ -645,12 +655,12 @@
 		}else{
 			NoResaltado('idrencauchadora');
 		}
-		if ($('#fechatienda').val() == ''){
-			Resaltado('fechatienda');
-			error++;
-		}else{
-			NoResaltado('fechatienda');
-		}
+		//if ($('#fechatienda').val() == ''){
+		//	Resaltado('fechatienda');
+		//	error++;
+		//}else{
+		//	NoResaltado('fechatienda');
+		//}
 		var value = $('#idcondicion').val();
 		if (!/^\d*$/.test(value)){
 			Resaltado('idcondicion');
@@ -658,17 +668,23 @@
 		}else{
 			NoResaltado('idcondicion');
 		}
-		if ($('#fechaentrega').val() == ''){
-			Resaltado('fechaentrega');
-			error++;
-		}else{
-			NoResaltado('fechaentrega');
-		}
+		//if ($('#fechaentrega').val() == ''){
+		//	Resaltado('fechaentrega');
+		//	error++;
+		//}else{
+		//	NoResaltado('fechaentrega');
+		//}
 		if ($('#observacionsalida').val() == ''){
 			Resaltado('observacionsalida');
 			error++;
 		}else{
 			NoResaltado('observacionsalida');
+		}
+		if ($('#usuario').val() == ''){
+			Resaltado('usuario');
+			error++;
+		}else{
+			NoResaltado('usuario');
 		}
 		if ($('#estado').val() == ''){
 			Resaltado('estado');
@@ -699,6 +715,7 @@
 				<td>${value.fechatienda !== null ? value.fechatienda : ''}</td>
 				<td>${value.fechaentrega !== null ? value.fechaentrega : ''}</td>
 				<td>${value.observacionsalida !== null ? value.observacionsalida : ''}</td>
+				<td>${value.usuario !== null ? value.usuario : ''}</td>
 				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
 				<td>${value.idcliente !== null ? value.idcliente : ''}</td>
 				<td>${value.nombrecliente !== null ? value.nombrecliente : ''}</td>
@@ -714,19 +731,17 @@
 				<td>${value.nombrereencauchadora !== null ? value.nombrereencauchadora : ''}</td>
 				<td hidden>${value.idtiposervicio !== null ? value.idtiposervicio : ''}</td>
 				<td>${value.nombretiposervicio !== null ? value.nombretiposervicio : ''}</td>
-				<td>${value.idusuario !== null ? value.idusuario : ''}</td>
-				<td>${value.nombreusuario !== null ? value.nombreusuario : ''}</td>
 				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
 				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
 				<td>
 				<div class='row'>
 					<div style='margin: auto;'>
-						<button type='button' onclick="btnEditarServicio('${value.idservicio}', '${value.idcliente}', '${value.idbanda}', '${value.idusuario}', '${value.idtiposervicio}', '${value.idneumatico}', '${value.idubicacion}', '${value.idrencauchadora}', '${value.idcondicion}')" class='btn btn-info btn-xs'>
+						<button type='button' onclick="btnEditarServicio('${value.idservicio}', '${value.idcliente}', '${value.idbanda}', '${value.idtiposervicio}', '${value.idneumatico}', '${value.idubicacion}', '${value.idrencauchadora}', '${value.idcondicion}')" class='btn btn-info btn-xs'>
 							<span class='fa fa-search fa-xs'></span>
 						</button>
 					</div>
 						<div style='margin: auto;'>
-							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idusuario'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion']'><i class='fa fa-pencil'></i></a>
+							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion']'><i class='fa fa-pencil'></i></a>
 					</div>
 				</div>
 				</td>
