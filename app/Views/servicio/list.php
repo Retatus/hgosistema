@@ -349,6 +349,11 @@
 		</div>
 	</div>
 </div>
+<style>
+	div.scroll { 
+      	overflow: auto;
+  	} 
+</style>
 <!--  SECCION ====== SCRIPT ====== -->
 <script>
 	var NuevoServicio;
