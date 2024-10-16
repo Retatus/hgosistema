@@ -1,16 +1,16 @@
 <?php namespace App\Controllers;
-use App\Controllers\BaseController;
-use App\Models\UsuarioModel;
 
-class Login extends BaseController
+use App\Models\UsuarioModel;
+use CodeIgniter\Controller;
+
+class Login extends Controller
 {
     public function login()
     {
         helper(['form', 'url']);
         
         $data = [];
-        
-        if ($this->request->getMethod() === 'post') {
+        if ($this->request->getMethod() === 'POST') {
             $rules = [
                 'username' => 'required',
                 'password' => 'required'
@@ -25,10 +25,13 @@ class Login extends BaseController
                 $model = new UsuarioModel();
                 $user = $model->where('susuarionrodoc', $u)->first();  
                 if ($user && password_verify($p, $user['susuariopassword'])) {
-                    session()->set('logged_in', true);
-                    session()->set('user_id', $user['susuarionrodoc']);
-                    session()->set('username', $user['susuarionombre']);
-                    return redirect()->to(base_url('reserva'));
+                    session()->set([
+                        'logged_in' => true,
+                        'user_id' => $user['nusuarioid'],
+                        'usernrodoc' => $user['susuarionrodoc'],
+                        'username' => $user['susuarionombre']
+                    ]);
+                    return redirect()->to(base_url('servicio'));
                 } else {
                     $data['error'] = 'Usuario o contraseña incorrectos.';
                 }

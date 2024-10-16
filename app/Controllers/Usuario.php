@@ -61,7 +61,7 @@ class Usuario extends BaseController
 			$susuariotipodoc = strtoupper(trim($this->request->getPost('usuariotipodoc')));
 			$susuarionombre = strtoupper(trim($this->request->getPost('usuarionombre')));
 			$susuariotelefono = strtoupper(trim($this->request->getPost('usuariotelefono')));
-			$susuariopassword = password_hash(strtoupper(trim($this->request->getPost('usuariopassword'))));
+			$susuariopassword = password_hash(strtoupper(trim($this->request->getPost('usuariopassword'))), PASSWORD_DEFAULT);
 			$busuarioestado = strtoupper(trim($this->request->getPost('usuarioestado')));
 		}
 
@@ -116,6 +116,39 @@ class Usuario extends BaseController
 		$respt = ['id' => $id, 'mensaje' => $mensaje, 'pag' => $this->paginado->pagina($pag, $total, $adjacents), 'datos' => $this->usuario->getUsuarios(20, $pag, $todos, $texto)];
 		echo json_encode($respt);
 	}
+
+	public function changePassword()
+    {
+        // Obtén el ID del usuario actual (esto puede variar según cómo manejes la autenticación)
+        $userId = session()->get('user_id'); // Ajusta esto según tu implementación
+
+        if ($this->request->getMethod() === 'POST') {
+            $currentPassword = $this->request->getPost('current_password');
+            $newPassword = $this->request->getPost('new_password');
+            $confirmPassword = $this->request->getPost('confirm_password');
+
+            // Validar contraseñas
+            if ($newPassword !== $confirmPassword) {
+                return redirect()->back()->with('error', 'Las contraseñas no coinciden.');
+            }
+
+            // Verificar si la contraseña actual es correcta
+            $user = $this->usuario->find($userId);
+			//var_dump($user); 
+            if (!password_verify($currentPassword, $user['susuariopassword'])) {
+                return redirect()->back()->with('error', 'La contraseña actual es incorrecta.');
+            }
+
+            //Actualizar la contraseña
+            $this->usuario->updatePassword($userId, $newPassword);
+
+            //return redirect()->back()->with('success', 'Contraseña actualizada correctamente.');
+			return view('login/login');
+        }
+
+        // Carga la vista con el formulario
+        return view('login/login');
+    }
 
 //   SECCION ====== EDIT ======
 	public function edit(){

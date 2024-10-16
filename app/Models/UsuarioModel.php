@@ -129,6 +129,14 @@ class UsuarioModel extends Model
 		$builder->update();
 	}
 
+	public function UpdatePassword($userId, $newPassword)
+    {
+        // Hashea la nueva contraseña antes de actualizar
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        return $this->update($userId, ['susuariopassword' => $hashedPassword]);
+    }
+
 //   SECCION ====== MAXIMO ID ======
 	public function getMaxid(){
 		$builder = $this->conexion('tusuario');
