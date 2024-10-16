@@ -111,12 +111,14 @@
 													<div class='row'>
 														<div style='margin: auto;'>
 															<button type='button' onclick="btnEditarServicio('<?php echo $servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion'];?>')" class='btn btn-info btn-xs'>
-																<span class='fa fa-search fa-xs'></span>
+																<span class='fa fa-pencil fa-xs'></span>
 															</button>
 														</div>
-														<div style='margin: auto;'>
-															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion'];?>"><i class='fa fa-pencil'></i></a>
-														</div>
+														<?php if(intval(session()->get('user_rol')) === 1):?>
+															<div style='margin: auto;'>
+																<a class='btn btn-success btn-xs' href="<?php echo base_url();?>auditoria/getAuditoria/<?php echo $servicio['idservicio'];?>"><i class='fa fa-search'></i></a>
+															</div>
+														<?php endif;?>
 													</div>
 												</td>
 											</tr>
@@ -340,11 +342,6 @@
 		</div>
 	</div>
 </div>
-<style>
-	div.scroll { 
-      	overflow: auto;
-  	} 
-</style>
 <!--  SECCION ====== SCRIPT ====== -->
 <script>
 	var NuevoServicio;
@@ -359,13 +356,7 @@
 		clearBtn: true,
 		format: 'mm/dd/yyyy',
 		multidate: false,
-		todayHighlight: true,
-		onSelect: function(selectedDate) {
-			// Cuando se selecciona una fecha de ingreso, actualizar la fecha mínima de salida
-			var fecharecepcion = $('#fecharecepcion').datepicker('getDate');
-			$('#fechatienda').datepicker('option', 'minDate', fecharecepcion);	
-			$('#fechaentrega').datepicker('option', 'minDate', fecharecepcion);				
-		}
+		todayHighlight: true
 	});
 	
 	$('#fechatienda').datepicker({
@@ -374,17 +365,7 @@
 		clearBtn: true,
 		format: 'mm/dd/yyyy',
 		multidate: false,
-		todayHighlight: true,
-		onSelect: function(selectedDate) {
-			var fecharecepcion = $('#fecharecepcion').datepicker('getDate');
-			var fechatienda = $('#fechatienda').datepicker('getDate');
-			$('#fechaentrega').datepicker('option', 'minDate', fechatienda);
-			// Verifica si la fecha de salida es anterior a la de ingreso
-			if (fechatienda < fecharecepcion) {
-				alert("La fecha de salida no puede ser menor que la fecha de ingreso.");
-				$('#fechatienda').val(''); // Limpia el campo si la validación falla
-			}
-		}
+		todayHighlight: true
 	});
 	
 	$('#fechaentrega').datepicker({
@@ -393,17 +374,7 @@
 		clearBtn: true,
 		format: 'mm/dd/yyyy',
 		multidate: false,
-		todayHighlight: true,
-		onSelect: function(selectedDate) {
-			var fecharecepcion = $('#fecharecepcion').datepicker('getDate');
-			var fechaentrega = $('#fechaentrega').datepicker('getDate');
-			
-			// Verifica si la fecha de salida es anterior a la de ingreso
-			if (fechaentrega < fecharecepcion) {
-				alert("La fecha de salida no puede ser menor que la fecha de ingreso.");
-				$('#fechaentrega').val(''); // Limpia el campo si la validación falla
-			}
-		}
+		todayHighlight: true
 	});
 	
 	$('#btnAgregarServicio').click(function(){
@@ -656,12 +627,12 @@
 		}else{
 			NoResaltado('idrencauchadora');
 		}
-		//if ($('#fechatienda').val() == ''){
-		//	Resaltado('fechatienda');
-		//	error++;
-		//}else{
-		//	NoResaltado('fechatienda');
-		//}
+		if ($('#fechatienda').val() == ''){
+			Resaltado('fechatienda');
+			error++;
+		}else{
+			NoResaltado('fechatienda');
+		}
 		var value = $('#idcondicion').val();
 		if (!/^\d*$/.test(value)){
 			Resaltado('idcondicion');
@@ -669,12 +640,12 @@
 		}else{
 			NoResaltado('idcondicion');
 		}
-		//if ($('#fechaentrega').val() == ''){
-		//	Resaltado('fechaentrega');
-		//	error++;
-		//}else{
-		//	NoResaltado('fechaentrega');
-		//}
+		if ($('#fechaentrega').val() == ''){
+			Resaltado('fechaentrega');
+			error++;
+		}else{
+			NoResaltado('fechaentrega');
+		}
 		if ($('#observacionsalida').val() == ''){
 			Resaltado('observacionsalida');
 			error++;
@@ -738,12 +709,14 @@
 				<div class='row'>
 					<div style='margin: auto;'>
 						<button type='button' onclick="btnEditarServicio('${value.idservicio}', '${value.idcliente}', '${value.idbanda}', '${value.idtiposervicio}', '${value.idneumatico}', '${value.idubicacion}', '${value.idrencauchadora}', '${value.idcondicion}')" class='btn btn-info btn-xs'>
-							<span class='fa fa-search fa-xs'></span>
+							<span class='fa fa-pencil fa-xs'></span>
 						</button>
 					</div>
+						<?php if(intval(session()->get('user_rol')) === 1):?>
 						<div style='margin: auto;'>
-							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion']'><i class='fa fa-pencil'></i></a>
-					</div>
+							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/auditoria/getAuditoria/<?php echo $servicio['idservicio'];?>'><i class='fa fa-search'></i></a>
+						</div>
+					<?php endif;?>
 				</div>
 				</td>
 				</tr>`

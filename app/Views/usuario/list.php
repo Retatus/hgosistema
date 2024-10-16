@@ -52,6 +52,7 @@
 										<th>Usuarionombre</th>
 										<th>Usuariotelefono</th>
 										<th>Usuariopassword</th>
+										<th>Usuariotiporol</th>
 										<th>Usuarioestado</th>
 										<th hidden>Concatenado</th>
 										<th hidden>Concatenadodetalle</th>
@@ -68,6 +69,7 @@
 												<td><?php echo $usuario['usuarionombre'];?></td>
 												<td><?php echo $usuario['usuariotelefono'];?></td>
 												<td><?php echo $usuario['usuariopassword'];?></td>
+												<td><?php echo $usuario['usuariotiporol'];?></td>
 												<td class = 'hidden-xs'><?php echo $est = ($usuario['usuarioestado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
 												<td hidden><?php echo $usuario['concatenado'];?></td>
 												<td hidden><?php echo $usuario['concatenadodetalle'];?></td>
@@ -75,12 +77,14 @@
 													<div class='row'>
 														<div style='margin: auto;'>
 															<button type='button' onclick="btnEditarUsuario('<?php echo $usuario['usuarioid'];?>')" class='btn btn-info btn-xs'>
-																<span class='fa fa-search fa-xs'></span>
+																<span class='fa fa-pencil fa-xs'></span>
 															</button>
 														</div>
-														<div style='margin: auto;'>
-															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $usuario['usuarioid'];?>"><i class='fa fa-pencil'></i></a>
-														</div>
+														<?php if(intval(session()->get('user_rol')) === 1):?>
+															<div style='margin: auto;'>
+																<a class='btn btn-success btn-xs' href="<?php echo base_url();?>auditoria/getAuditoria/<?php echo $usuario['usuarioid'];?>"><i class='fa fa-search'></i></a>
+															</div>
+														<?php endif;?>
 													</div>
 												</td>
 											</tr>
@@ -149,6 +153,12 @@
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
+					<label for = usuariotiporol class='col-sm-4' for='id'>Usuariotiporol:</label>
+					<div class = 'col-sm-8'>
+						<input type='number' class='form-control form-control-sm' id='usuariotiporol' name='usuariotiporol' placeholder='0.00' autocomplete = 'off'>
+					</div>
+				</div>
+				<div class='col-6 form-group row'>
 					<label for = usuarioestado class='col-sm-4' for='rol'>Usuarioestado:</label>
 					<div class='col-sm-8'>
 						<select class='form-control form-control-sm' id='usuarioestado' name='usuarioestado'>
@@ -203,6 +213,7 @@
 				$('#usuarionombre').val(temp.usuarionombre);
 				$('#usuariotelefono').val(temp.usuariotelefono);
 				$('#usuariopassword').val(temp.usuariopassword);
+				$('#usuariotiporol').val(temp.usuariotiporol);
 				$('#usuarioestado').val(temp.usuarioestado);
 				$('#btnModalAgregarUsuario').toggle(false);
 				$('#btnModalEditarUsuario').toggle(true);
@@ -259,6 +270,7 @@
 			usuarionombre: $('#usuarionombre').val().toUpperCase(),
 			usuariotelefono: $('#usuariotelefono').val().toUpperCase(),
 			usuariopassword: $('#usuariopassword').val().toUpperCase(),
+			usuariotiporol: $('#usuariotiporol').val().toUpperCase(),
 			usuarioestado: $('#usuarioestado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
@@ -312,6 +324,7 @@
 		$('#usuarionombre').val('');
 		$('#usuariotelefono').val('');
 		$('#usuariopassword').val('');
+		$('#usuariotiporol').val('0');
 	}
 	function ValidarCamposVaciosUsuario(){
 		var error = 0;
@@ -352,6 +365,13 @@
 		}else{
 			NoResaltado('usuariopassword');
 		}
+		var value = $('#usuariotiporol').val();
+		if (!/^\d*$/.test(value)){
+			Resaltado('usuariotiporol');
+			error++;
+		}else{
+			NoResaltado('usuariotiporol');
+		}
 		if ($('#usuarioestado').val() == ''){
 			Resaltado('usuarioestado');
 			error++;
@@ -378,6 +398,7 @@
 				<td>${value.usuarionombre !== null ? value.usuarionombre : ''}</td>
 				<td>${value.usuariotelefono !== null ? value.usuariotelefono : ''}</td>
 				<td>${value.usuariopassword !== null ? value.usuariopassword : ''}</td>
+				<td>${value.usuariotiporol !== null ? value.usuariotiporol : ''}</td>
 				<td class = 'hidden-xs'>${value.usuarioestado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
 				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
 				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
@@ -385,12 +406,14 @@
 				<div class='row'>
 					<div style='margin: auto;'>
 						<button type='button' onclick="btnEditarUsuario('${value.usuarioid}')" class='btn btn-info btn-xs'>
-							<span class='fa fa-search fa-xs'></span>
+							<span class='fa fa-pencil fa-xs'></span>
 						</button>
 					</div>
+						<?php if(intval(session()->get('user_rol')) === 1):?>
 						<div style='margin: auto;'>
-							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$usuario['usuarioid']'><i class='fa fa-pencil'></i></a>
-					</div>
+							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/auditoria/getAuditoria/<?php echo $usuario['usuarioid'];?>'><i class='fa fa-search'></i></a>
+						</div>
+					<?php endif;?>
 				</div>
 				</td>
 				</tr>`

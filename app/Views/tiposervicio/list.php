@@ -67,12 +67,14 @@
 													<div class='row'>
 														<div style='margin: auto;'>
 															<button type='button' onclick="btnEditarTiposervicio('<?php echo $tiposervicio['idtiposervicio'];?>')" class='btn btn-info btn-xs'>
-																<span class='fa fa-search fa-xs'></span>
+																<span class='fa fa-pencil fa-xs'></span>
 															</button>
 														</div>
-														<div style='margin: auto;'>
-															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $tiposervicio['idtiposervicio'];?>"><i class='fa fa-pencil'></i></a>
-														</div>
+														<?php if(intval(session()->get('user_rol')) === 1):?>
+															<div style='margin: auto;'>
+																<a class='btn btn-success btn-xs' href="<?php echo base_url();?>auditoria/getAuditoria/<?php echo $tiposervicio['idtiposervicio'];?>"><i class='fa fa-search'></i></a>
+															</div>
+														<?php endif;?>
 													</div>
 												</td>
 											</tr>
@@ -313,12 +315,14 @@
 				<div class='row'>
 					<div style='margin: auto;'>
 						<button type='button' onclick="btnEditarTiposervicio('${value.idtiposervicio}')" class='btn btn-info btn-xs'>
-							<span class='fa fa-search fa-xs'></span>
+							<span class='fa fa-pencil fa-xs'></span>
 						</button>
 					</div>
+						<?php if(intval(session()->get('user_rol')) === 1):?>
 						<div style='margin: auto;'>
-							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$tiposervicio['idtiposervicio']'><i class='fa fa-pencil'></i></a>
-					</div>
+							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/auditoria/getAuditoria/<?php echo $tiposervicio['idtiposervicio'];?>'><i class='fa fa-search'></i></a>
+						</div>
+					<?php endif;?>
 				</div>
 				</td>
 				</tr>`
