@@ -27,11 +27,7 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
-      <?php if (isset($error)): ?>
-          <p style="color: red;"><?= $error; ?></p>
-      <?php endif; ?>
-      
+      <p class="login-box-msg">Sign in to start your session</p>      
       <?= \Config\Services::validation()->listErrors(); ?>
       <form action="<?= base_url('login/login') ?>" method="post">
           <?= csrf_field(); ?>
