@@ -317,7 +317,7 @@
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="<?php echo base_url(); ?>sistema/logout" class="nav-link">
+                      <a href="<?php echo base_url(); ?>login/logout" class="nav-link">
                       <p><i class="nav-icon fa fa-chevron-left"></i> Cerrar Sesíon</p>
                       </a>
                     </li>
@@ -327,47 +327,65 @@
     </div>
   </nav>
   <!-- /.navbar -->
-<div class="modal fade" id="modal-password">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    <form id="formcontrasenia" name="formcontrasenia" action="<?php echo base_url();?>sistema/usuarios/updatePassword"class="form-horizontal" method="POST">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modaldeltallepersona">CAMBIAR CONTRASEÑA</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group row">
-            <label for="oldpassword" class="col-sm-4 control-label">Contraseña Actual:</label>
-            <div class="col-sm-6">
-                <!-- <input type="hidden" class="form-control" id="userid" name="userid" value="<php echo $this->session->userdata("id")?>">
-                <input type="hidden" class="form-control" id="username" name="username" value="<php echo $this->session->userdata("nombre")?>"> -->
-                <input type="password" class="form-control" id="oldpassword" name="oldpassword" autocomplete = "off">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="newpassword" class="col-sm-4 control-label">Nueva Contraseña:</label>
-            <div class="col-sm-6">
-                <input type="password" class="form-control" id="newpassword" name="newpassword">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="repassword" class="col-sm-4 control-label">Repetir Contraseña:</label>
-            <div class="col-sm-6">
-                <input type="password" class="form-control" id="repassword" name="repassword">
-            </div>
-            <label for="newpassword" class="col-sm-4 control-label"></label>
-            <div class="col-sm-6">
-                <label id="mensajevalidacion" style="color:#dc3545; font-weight: bold;"></label>
-            </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-            <a href="javascript: submitform()" class="btn btn-success pull-left">Aceptar</a>
-            <button type="reset" class="btn btn-danger pull-left" data-dismiss="modal">Cancelar</button>
-      </div>
-      </form>
+  <div class="modal fade" id="modal-password">
+    <div class="modal-dialog modal-md">
+      <div class='modal-content'>
+          <?php if (session()->getFlashdata('error')): ?>
+              <p style="color:red;"><?= session()->getFlashdata('error') ?></p>
+              <script>
+                  $(document).ready(function() {
+                      $('#modal-password').modal('show');
+                  });
+              </script>
+          <?php endif; ?>
+
+          <?php if (session()->getFlashdata('success')): ?>
+              <p style="color:green;"><?= session()->getFlashdata('success') ?></p>
+              <script>
+                  $(document).ready(function() {
+                      $('#modal-password').modal('show');
+                  });
+              </script>
+          <?php endif; ?>
+          <form action="<?= base_url('usuario/changePassword') ?>" method="post">
+            <div class='modal-header'>
+              <h4 class='modal-title' id='modaldeltalletour'>Detalle Usuario</h4>
+              <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                <span aria-hidden='true'>×</span>
+              </button>
+            </div>        
+            <div class='modal-body'>
+              <div class='form-group row'>
+                <div class='col-12 form-group row'>
+                  <label for = current_password class='col-sm-4'>Contraseña actual:</label>
+                  <div class = 'col-sm-8'>
+                    <input type='password' class='form-control form-control-sm' id='current_password' name='current_password' required>
+                  </div>
+                </div>
+              </div>
+              <div class='form-group row'>
+                <div class='col-12 form-group row'>
+                  <label for = new_password class='col-sm-4'>Nueva contraseña:</label>
+                  <div class = 'col-sm-8'>
+                    <input type='password' class='form-control form-control-sm' id='new_password' name='new_password' required>
+                  </div>
+                </div>
+              </div>
+              <div class='form-group row'>
+                <div class='col-12 form-group row'>
+                  <label for = confirm_password class='col-sm-4'>Nueva contraseña:</label>
+                  <div class = 'col-sm-8'>
+                    <input type='password' class='form-control form-control-sm' id='confirm_password' name='confirm_password' required>
+                  </div>
+                </div>
+              </div>
+            </div> 
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success pull-left">Cambiar Contraseña</button>
+              <button type="reset" class="btn btn-danger pull-left" data-dismiss="modal">Cancelar</button>
+            </div> 
+          </form> 
+      </div> 
     </div>
     <!-- /.modal-content -->
   </div>
