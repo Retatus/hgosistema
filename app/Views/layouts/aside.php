@@ -78,14 +78,26 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url();?>ubicacion">
-                            <i class="fa fa-bus nav-icon"></i>
+                            <i class="fa fa-map-marker nav-icon"></i>
                             <p>Ubicacion</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url();?>usuario">
+                            <i class="fa fa-users nav-icon"></i>
+                            <p>Usuarios</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo base_url();?>auditoria">
+                            <i class="fa fa-search nav-icon"></i>
+                            <p>Auditoria</p>
                         </a>
                     </li>
                 </ul>
             </li> 
           <?php 
-            // echo "<li class='nav-item has-treeview menu-open'>".
+            // echo "<li class='nav-item has-treeview menu-open'>". fa fa-search fa-xs
             //  "<a href='#' class='nav-link active'>".
             //  "<i class='nav-icon fas fa-tachometer-alt'></i>".
             //  "<p>PORTAL WEB<i class='right fas fa-angle-left'></i></p>".
