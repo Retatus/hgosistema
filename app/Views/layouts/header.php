@@ -326,6 +326,43 @@
         </ul>
     </div>
   </nav>
+
+  <div class="modal fade" id="modal-auditoria">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class='modal-title' id='modaldeltalletour'>Detalle Auditoria</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="menu_arbol_usuario">
+              <div class='demo-content scroll'>
+                <table id='HeaderTablaAuditoria' class='table table-sm table-bordered table-striped'>
+                  <thead>
+                    <tr>
+                      <th hidden>Idauditoria</th>
+                      <th hidden>Idservicio</th>
+                      <th>Campo_Modificado</th>
+                      <th>Valor_Anterior</th>
+                      <th>Valor_Nuevo</th>
+                      <th>Fecha_Modificacion</th>
+                      <th>Usuario_Modificacion</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-info pull-right" data-dismiss="modal">Aceptar</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
   <!-- /.navbar -->
   <div class="modal fade" id="modal-password">
     <div class="modal-dialog modal-md">
