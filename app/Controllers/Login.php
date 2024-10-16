@@ -28,6 +28,7 @@ class Login extends Controller
                     session()->set([
                         'logged_in' => true,
                         'user_id' => $user['nusuarioid'],
+                        'user_rol' => $user['nusuariotiporol'],
                         'usernrodoc' => $user['susuarionrodoc'],
                         'username' => $user['susuarionombre']
                     ]);

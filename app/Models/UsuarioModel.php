@@ -10,7 +10,7 @@ class UsuarioModel extends Model
 	protected $returnType     = 'array';
 	protected $useSoftDeletes = false;
 
-	protected $allowedFields = ['nusuarioid', 'susuarionrodoc', 'susuariotipodoc', 'susuarionombre', 'susuariotelefono', 'susuariopassword', 'busuarioestado'];
+	protected $allowedFields = ['nusuarioid', 'susuarionrodoc', 'susuariotipodoc', 'susuarionombre', 'susuariotelefono', 'susuariopassword', 'nusuariotiporol', 'busuarioestado'];
 	protected $useTimestamps = false;
 	protected $createdField  = 'tfecha_alt';
 	protected $updatedField  = 'tfecha_edi';
@@ -41,7 +41,7 @@ class UsuarioModel extends Model
 
 		$builder = $this->conexion('tusuario t0');
 
-		$builder->select("t0.nusuarioid usuarioid, t0.susuarionrodoc usuarionrodoc, t0.susuariotipodoc usuariotipodoc, t0.susuarionombre usuarionombre, t0.susuariotelefono usuariotelefono, t0.susuariopassword usuariopassword, t0.busuarioestado usuarioestado, CONCAT(t0.susuarionombre) concatenado, CONCAT(t0.susuarionombre) concatenadodetalle");
+		$builder->select("t0.nusuarioid usuarioid, t0.susuarionrodoc usuarionrodoc, t0.susuariotipodoc usuariotipodoc, t0.susuarionombre usuarionombre, t0.susuariotelefono usuariotelefono, t0.susuariopassword usuariopassword, t0.nusuariotiporol usuariotiporol, t0.busuarioestado usuarioestado, CONCAT(t0.susuarionombre) concatenado, CONCAT(t0.susuarionombre) concatenadodetalle");
 
 
 		if ($todos !== '') {
@@ -66,7 +66,7 @@ class UsuarioModel extends Model
 	public function getAutocompleteUsuarios($todos = 1, $text = ''){
 		$builder = $this->conexion('tusuario t0');
 
-		$builder->select("t0.nusuarioid usuarioid, t0.susuarionrodoc usuarionrodoc, t0.susuariotipodoc usuariotipodoc, t0.susuarionombre usuarionombre, t0.susuariotelefono usuariotelefono, t0.susuariopassword usuariopassword, t0.busuarioestado usuarioestado, CONCAT(t0.susuarionombre) concatenado, CONCAT(t0.susuarionombre) concatenadodetalle");
+		$builder->select("t0.nusuarioid usuarioid, t0.susuarionrodoc usuarionrodoc, t0.susuariotipodoc usuariotipodoc, t0.susuarionombre usuarionombre, t0.susuariotelefono usuariotelefono, t0.susuariopassword usuariopassword, t0.nusuariotiporol usuariotiporol, t0.busuarioestado usuarioestado, CONCAT(t0.susuarionombre) concatenado, CONCAT(t0.susuarionombre) concatenadodetalle");
 
 		if ($todos !== '') {
 			$builder->where('t0.busuarioestado', intval($todos));
@@ -88,7 +88,7 @@ class UsuarioModel extends Model
 //   SECCION ====== GET ======
 	public function getusuario($nusuarioid){
 		$builder = $this->conexion('tusuario t0');
-		$builder->select("t0.nusuarioid usuarioid, t0.susuarionrodoc usuarionrodoc, t0.susuariotipodoc usuariotipodoc, t0.susuarionombre usuarionombre, t0.susuariotelefono usuariotelefono, t0.susuariopassword usuariopassword, t0.busuarioestado usuarioestado");
+		$builder->select("t0.nusuarioid usuarioid, t0.susuarionrodoc usuarionrodoc, t0.susuariotipodoc usuariotipodoc, t0.susuarionombre usuarionombre, t0.susuariotelefono usuariotelefono, t0.susuariopassword usuariopassword, t0.nusuariotiporol usuariotiporol, t0.busuarioestado usuarioestado");
 		$builder->where(['nusuarioid' => $nusuarioid]);
 		$query = $builder->get();
 		return $query->getRowArray();
@@ -97,7 +97,7 @@ class UsuarioModel extends Model
 //   SECCION ====== GET 2 ======
 	public function getUsuario2($id){
 		$builder = $this->conexion('tusuario t0');
-		$builder->select("t0.nusuarioid usuarioid, t0.susuarionrodoc usuarionrodoc, t0.susuariotipodoc usuariotipodoc, t0.susuarionombre usuarionombre, t0.susuariotelefono usuariotelefono, t0.susuariopassword usuariopassword, t0.busuarioestado usuarioestado");
+		$builder->select("t0.nusuarioid usuarioid, t0.susuarionrodoc usuarionrodoc, t0.susuariotipodoc usuariotipodoc, t0.susuarionombre usuarionombre, t0.susuariotelefono usuariotelefono, t0.susuariopassword usuariopassword, t0.nusuariotiporol usuariotiporol, t0.busuarioestado usuarioestado");
 		$builder->where('t0.nusuarioid', $id);
 		$query = $builder->get();
 		return $query->getResultArray();

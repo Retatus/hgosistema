@@ -62,6 +62,7 @@ class Usuario extends BaseController
 			$susuarionombre = strtoupper(trim($this->request->getPost('usuarionombre')));
 			$susuariotelefono = strtoupper(trim($this->request->getPost('usuariotelefono')));
 			$susuariopassword = password_hash(strtoupper(trim($this->request->getPost('usuariopassword'))), PASSWORD_DEFAULT);
+			$nusuariotiporol = strtoupper(trim($this->request->getPost('usuariotiporol')));
 			$busuarioestado = strtoupper(trim($this->request->getPost('usuarioestado')));
 		}
 
@@ -77,6 +78,7 @@ class Usuario extends BaseController
 					'susuarionombre' => $susuarionombre,
 					'susuariotelefono' => $susuariotelefono,
 					'susuariopassword' => $susuariopassword,
+					'nusuariotiporol' => $nusuariotiporol,
 					'busuarioestado' => intval($busuarioestado),
 
 				);
@@ -94,6 +96,7 @@ class Usuario extends BaseController
 					'susuarionombre' => $susuarionombre,
 					'susuariotelefono' => $susuariotelefono,
 					'susuariopassword' => $susuariopassword,
+					'nusuariotiporol' => $nusuariotiporol,
 					'busuarioestado' => intval($busuarioestado),
 
 				);
@@ -203,7 +206,8 @@ class Usuario extends BaseController
 		$sheet->getColumnDimension('G')->setAutoSize(true);
 		$sheet->getColumnDimension('H')->setAutoSize(true);
 		$sheet->getColumnDimension('I')->setAutoSize(true);
-		$sheet->getStyle('A1:I1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
+		$sheet->getColumnDimension('J')->setAutoSize(true);
+		$sheet->getStyle('A1:J1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
 		$border = ['borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['argb' => 'FF000000'], ], ], ];
 		$sheet->setCellValue('A1', 'USUARIOID');
 		$sheet->setCellValue('B1', 'USUARIONRODOC');
@@ -211,9 +215,10 @@ class Usuario extends BaseController
 		$sheet->setCellValue('D1', 'USUARIONOMBRE');
 		$sheet->setCellValue('E1', 'USUARIOTELEFONO');
 		$sheet->setCellValue('F1', 'USUARIOPASSWORD');
-		$sheet->setCellValue('G1', 'USUARIOESTADO');
-		$sheet->setCellValue('H1', 'CONCATENADO');
-		$sheet->setCellValue('I1', 'CONCATENADODETALLE');
+		$sheet->setCellValue('G1', 'USUARIOTIPOROL');
+		$sheet->setCellValue('H1', 'USUARIOESTADO');
+		$sheet->setCellValue('I1', 'CONCATENADO');
+		$sheet->setCellValue('J1', 'CONCATENADODETALLE');
 		$i=2;
 		foreach ($usuario as $row){
 			$sheet->setCellValue('A'.$i, $row['usuarioid']);
@@ -222,14 +227,15 @@ class Usuario extends BaseController
 			$sheet->setCellValue('D'.$i, $row['usuarionombre']);
 			$sheet->setCellValue('E'.$i, $row['usuariotelefono']);
 			$sheet->setCellValue('F'.$i, $row['usuariopassword']);
-			$sheet->setCellValue('G'.$i, $row['usuarioestado']);
-			$sheet->setCellValue('H'.$i, $row['concatenado']);
-			$sheet->setCellValue('I'.$i, $row['concatenadodetalle']);
+			$sheet->setCellValue('G'.$i, $row['usuariotiporol']);
+			$sheet->setCellValue('H'.$i, $row['usuarioestado']);
+			$sheet->setCellValue('I'.$i, $row['concatenado']);
+			$sheet->setCellValue('J'.$i, $row['concatenadodetalle']);
 			$i++;
 		}
-		$sheet->getStyle('A1:I1')->applyFromArray($border);
+		$sheet->getStyle('A1:J1')->applyFromArray($border);
 		for ($j = 1; $j < $i ; $j++){
-			$sheet->getStyle('A'.$j.':I'.$j)->applyFromArray($border);
+			$sheet->getStyle('A'.$j.':J'.$j)->applyFromArray($border);
 		}
 
 		$writer = new Xls($spreadsheet);
