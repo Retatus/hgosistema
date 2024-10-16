@@ -116,8 +116,9 @@
 														</div>
 														<?php if(intval(session()->get('user_rol')) === 1):?>
 															<div style='margin: auto;'>
-																<a class='btn btn-success btn-xs' href="<?php echo base_url();?>auditoria/getAuditoria/<?php echo $servicio['idservicio'];?>"><i class='fa fa-search'></i></a>
-															</div>
+																<button type='button' onclick="btnVerAuditoria('<?php echo $servicio['idservicio'];?>')" class='btn btn-success btn-xs'>
+																	<span class='fa fa-search fa-xs'></span>
+																</button>
 														<?php endif;?>
 													</div>
 												</td>
@@ -463,9 +464,6 @@
 		RecolectarDatosServicio();
 		EnviarInformacionServicio('leer', NuevoServicio, false, pag);
 	}
-
-	var user_session = '<?php echo session()->get('username')?>';
-	
 	function RecolectarDatosServicio(){
 		NuevoServicio = {
 			idservicio: $('#idservicio').val().toUpperCase(),
@@ -484,7 +482,7 @@
 			idcondicion: $('#idcondicion').val().toUpperCase(),
 			fechaentrega: $('#fechaentrega').val().toUpperCase(),
 			observacionsalida: $('#observacionsalida').val().toUpperCase(),
-			usuario: user_session.toUpperCase(),
+			usuario: $('#usuario').val().toUpperCase(),
 			estado: $('#estado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
@@ -716,9 +714,11 @@
 						</button>
 					</div>
 						<?php if(intval(session()->get('user_rol')) === 1):?>
-						<div style='margin: auto;'>
-							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>auditoria/getAuditoria/${value.idservicio}'><i class='fa fa-search'></i></a>
-						</div>
+							<div style='margin: auto;'>
+								<button type='button' onclick="btnVerAuditoria('${value.idservicio}')" class='btn btn-success btn-xs'>
+									<span class='fa fa-search fa-xs'></span>
+								</button>
+							</div>
 					<?php endif;?>
 				</div>
 				</td>

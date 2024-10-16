@@ -72,8 +72,9 @@
 														</div>
 														<?php if(intval(session()->get('user_rol')) === 1):?>
 															<div style='margin: auto;'>
-																<a class='btn btn-success btn-xs' href="<?php echo base_url();?>auditoria/getAuditoria/<?php echo $neumatico['idneumatico'];?>"><i class='fa fa-search'></i></a>
-															</div>
+																<button type='button' onclick="btnVerAuditoria('<?php echo $neumatico['idneumatico'];?>')" class='btn btn-success btn-xs'>
+																	<span class='fa fa-search fa-xs'></span>
+																</button>
 														<?php endif;?>
 													</div>
 												</td>
@@ -319,9 +320,11 @@
 						</button>
 					</div>
 						<?php if(intval(session()->get('user_rol')) === 1):?>
-						<div style='margin: auto;'>
-							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/auditoria/getAuditoria/<?php echo $neumatico['idneumatico'];?>'><i class='fa fa-search'></i></a>
-						</div>
+							<div style='margin: auto;'>
+								<button type='button' onclick="btnVerAuditoria('${value.idservicio}')" class='btn btn-success btn-xs'>
+									<span class='fa fa-search fa-xs'></span>
+								</button>
+							</div>
 					<?php endif;?>
 				</div>
 				</td>
