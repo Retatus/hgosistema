@@ -1,6 +1,7 @@
 <?php namespace App\Controllers;
 use App\Controllers\BaseController;
 use DateTime;
+use App\Models\AuditoriaModel;
 use App\Models\PaginadoModel;
 use App\Models\ServicioModel;
 use App\Models\ClienteModel;
@@ -19,6 +20,7 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 
 class Servicio extends BaseController
 {
+	protected $auditoria;
 	protected $paginado;
 	protected $servicio;
 	protected $cliente;
@@ -32,6 +34,7 @@ class Servicio extends BaseController
 
 //   SECCION ====== CONSTRUCT ======
 	public function __construct(){
+		$this->auditoria = new AuditoriaModel();
 		$this->paginado = new PaginadoModel();
 		$this->servicio = new ServicioModel();
 		$this->cliente = new ClienteModel();
@@ -161,6 +164,9 @@ class Servicio extends BaseController
 					'bestado' => intval($bestado),
 
 				);
+
+				$this->Auditoria($nidservicio, $data, $susuario);
+
 				$this->servicio->UpdateServicio($nidservicio, $data);
 				$id = 1; $mensaje = 'ATUALIZADO CORRECTAMENTE';
 				break;
@@ -179,6 +185,27 @@ class Servicio extends BaseController
 		$total = $this->servicio->getCount($todos, $texto);
 		$respt = ['id' => $id, 'mensaje' => $mensaje, 'pag' => $this->paginado->pagina($pag, $total, $adjacents), 'datos' => $this->servicio->getServicios(20, $pag, $todos, $texto)];
 		echo json_encode($respt);
+	}
+
+	public function Auditoria($nidservicio, $datosActualizados, $usuario) {
+		$datosAnteriores = $this->servicio->find($nidservicio);
+		foreach ($datosActualizados as $campo => $nuevoValor) {
+			$valorAnterior = $datosAnteriores[$campo] ?? null;
+			if ($valorAnterior != $nuevoValor) {
+				$campo_modificado = $campo;
+				$fecha_modificacion = date('Y-m-d H:i:s');
+				$data = [
+					'nidservicio' => intval($nidservicio),
+					'scampo_modificado' => $campo_modificado,
+					'svalor_anterior' => $valorAnterior,
+					'svalor_nuevo' => $nuevoValor,
+					'tfecha_modificacion' => $fecha_modificacion,
+					'susuario_modificacion' => $usuario,
+					'bestado' => 1
+				];
+				$this->auditoria->insert($data);
+			}
+		}
 	}
 
 //   SECCION ====== EDIT ======

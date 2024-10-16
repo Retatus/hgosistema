@@ -463,6 +463,9 @@
 		RecolectarDatosServicio();
 		EnviarInformacionServicio('leer', NuevoServicio, false, pag);
 	}
+
+	var user_session = '<?php echo session()->get('username')?>';
+	
 	function RecolectarDatosServicio(){
 		NuevoServicio = {
 			idservicio: $('#idservicio').val().toUpperCase(),
@@ -481,7 +484,7 @@
 			idcondicion: $('#idcondicion').val().toUpperCase(),
 			fechaentrega: $('#fechaentrega').val().toUpperCase(),
 			observacionsalida: $('#observacionsalida').val().toUpperCase(),
-			usuario: $('#usuario').val().toUpperCase(),
+			usuario: user_session.toUpperCase(),
 			estado: $('#estado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
@@ -714,7 +717,7 @@
 					</div>
 						<?php if(intval(session()->get('user_rol')) === 1):?>
 						<div style='margin: auto;'>
-							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/auditoria/getAuditoria/<?php echo $servicio['idservicio'];?>'><i class='fa fa-search'></i></a>
+							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>auditoria/getAuditoria/${value.idservicio}'><i class='fa fa-search'></i></a>
 						</div>
 					<?php endif;?>
 				</div>
