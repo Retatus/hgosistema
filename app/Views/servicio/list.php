@@ -363,7 +363,8 @@
 		onSelect: function(selectedDate) {
 			// Cuando se selecciona una fecha de ingreso, actualizar la fecha mínima de salida
 			var fecharecepcion = $('#fecharecepcion').datepicker('getDate');
-			$('#fechatienda').datepicker('option', 'minDate', fecharecepcion);			
+			$('#fechatienda').datepicker('option', 'minDate', fecharecepcion);	
+			$('#fechaentrega').datepicker('option', 'minDate', fecharecepcion);				
 		}
 	});
 	
