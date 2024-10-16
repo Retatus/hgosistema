@@ -6,11 +6,11 @@ use CodeIgniter\Model;
 class UsuarioModel extends Model
 {
 	protected $table      = 'tusuario';
-	protected $primaryKey = 'sidusuario';
+	protected $primaryKey = 'nusuarioid';
 	protected $returnType     = 'array';
 	protected $useSoftDeletes = false;
 
-	protected $allowedFields = ['sidusuario', 'snombreusuario', 'bestado'];
+	protected $allowedFields = ['nusuarioid', 'susuarionrodoc', 'susuariotipodoc', 'susuarionombre', 'susuariotelefono', 'susuariopassword', 'busuarioestado'];
 	protected $useTimestamps = false;
 	protected $createdField  = 'tfecha_alt';
 	protected $updatedField  = 'tfecha_edi';
@@ -28,8 +28,8 @@ class UsuarioModel extends Model
 	}
 
 //   SECCION ====== EXISTE ======
-	public function existe($sidusuario){
-		return $this->where(['sidusuario' => $sidusuario])->countAllResults();
+	public function existe($nusuarioid){
+		return $this->where(['nusuarioid' => $nusuarioid])->countAllResults();
 	}
 
 //   SECCION ====== TODOS ======
@@ -41,21 +41,21 @@ class UsuarioModel extends Model
 
 		$builder = $this->conexion('tusuario t0');
 
-		$builder->select("t0.sidusuario idusuario, t0.snombreusuario nombreusuario, t0.bestado estado, CONCAT(t0.snombreusuario) concatenado, CONCAT(t0.snombreusuario) concatenadodetalle");
+		$builder->select("t0.nusuarioid usuarioid, t0.susuarionrodoc usuarionrodoc, t0.susuariotipodoc usuariotipodoc, t0.susuarionombre usuarionombre, t0.susuariotelefono usuariotelefono, t0.susuariopassword usuariopassword, t0.busuarioestado usuarioestado, CONCAT(t0.susuarionombre) concatenado, CONCAT(t0.susuarionombre) concatenadodetalle");
 
 
 		if ($todos !== '') {
-			$builder->where('t0.bestado', intval($todos));
+			$builder->where('t0.busuarioestado', intval($todos));
 		}
 
 		if ($text !== '') {
 			$builder->groupStart()
-				->like('t0.sidusuario', $text)
-				->orLike('t0.snombreusuario', $text)
+				->like('t0.nusuarioid', $text)
+				->orLike('t0.susuarionombre', $text)
 				->groupEnd();
 		}
 
-		$builder->orderBy('t0.sidusuario', 'DESC');
+		$builder->orderBy('t0.nusuarioid', 'DESC');
 		$builder->limit($CantidadMostrar, $desde);
 		$query = $builder->get();
 
@@ -66,30 +66,30 @@ class UsuarioModel extends Model
 	public function getAutocompleteUsuarios($todos = 1, $text = ''){
 		$builder = $this->conexion('tusuario t0');
 
-		$builder->select("t0.sidusuario idusuario, t0.snombreusuario nombreusuario, t0.bestado estado, CONCAT(t0.snombreusuario) concatenado, CONCAT(t0.snombreusuario) concatenadodetalle");
+		$builder->select("t0.nusuarioid usuarioid, t0.susuarionrodoc usuarionrodoc, t0.susuariotipodoc usuariotipodoc, t0.susuarionombre usuarionombre, t0.susuariotelefono usuariotelefono, t0.susuariopassword usuariopassword, t0.busuarioestado usuarioestado, CONCAT(t0.susuarionombre) concatenado, CONCAT(t0.susuarionombre) concatenadodetalle");
 
 		if ($todos !== '') {
-			$builder->where('t0.bestado', intval($todos));
+			$builder->where('t0.busuarioestado', intval($todos));
 		}
 
 		if ($text !== '') {
 			$builder->groupStart()
-				->like('t0.sidusuario', $text)
-				->orLike('t0.snombreusuario', $text)
+				->like('t0.nusuarioid', $text)
+				->orLike('t0.susuarionombre', $text)
 				->groupEnd();
 		}
 
-		$builder->orderBy('t0.sidusuario', 'DESC');
+		$builder->orderBy('t0.nusuarioid', 'DESC');
 		$query = $builder->get();
 
 		return $query->getResultArray();
 	}
 
 //   SECCION ====== GET ======
-	public function getusuario($sidusuario){
+	public function getusuario($nusuarioid){
 		$builder = $this->conexion('tusuario t0');
-		$builder->select("t0.sidusuario idusuario, t0.snombreusuario nombreusuario, t0.bestado estado");
-		$builder->where(['sidusuario' => $sidusuario]);
+		$builder->select("t0.nusuarioid usuarioid, t0.susuarionrodoc usuarionrodoc, t0.susuariotipodoc usuariotipodoc, t0.susuarionombre usuarionombre, t0.susuariotelefono usuariotelefono, t0.susuariopassword usuariopassword, t0.busuarioestado usuarioestado");
+		$builder->where(['nusuarioid' => $nusuarioid]);
 		$query = $builder->get();
 		return $query->getRowArray();
 	}
@@ -97,24 +97,24 @@ class UsuarioModel extends Model
 //   SECCION ====== GET 2 ======
 	public function getUsuario2($id){
 		$builder = $this->conexion('tusuario t0');
-		$builder->select("t0.sidusuario idusuario, t0.snombreusuario nombreusuario, t0.bestado estado");
-		$builder->where('t0.sidusuario', $id);
+		$builder->select("t0.nusuarioid usuarioid, t0.susuarionrodoc usuarionrodoc, t0.susuariotipodoc usuariotipodoc, t0.susuarionombre usuarionombre, t0.susuariotelefono usuariotelefono, t0.susuariopassword usuariopassword, t0.busuarioestado usuarioestado");
+		$builder->where('t0.nusuarioid', $id);
 		$query = $builder->get();
 		return $query->getResultArray();
 	}
 //   SECCION ====== COUNT ======
 	public function getCount($todos = 1, $text = ''){
 		$builder = $this->conexion('tusuario t0');
-		$builder->select('sidusuario');
+		$builder->select('nusuarioid');
 
 		if ($todos !== '') {
-			$builder->where('t0.bestado', intval($todos));
+			$builder->where('t0.busuarioestado', intval($todos));
 		}
 
 		if ($text !== '') {
 			$builder->groupStart()
-				->like('t0.sidusuario', $text)
-				->orLike('t0.snombreusuario', $text)
+				->like('t0.nusuarioid', $text)
+				->orLike('t0.susuarionombre', $text)
 				->groupEnd();
 		}
 
@@ -122,9 +122,9 @@ class UsuarioModel extends Model
 	}
 
 //   SECCION ====== UPDATE ======
-	public function UpdateUsuario($sidusuario, $datos){
+	public function UpdateUsuario($nusuarioid, $datos){
 		$builder = $this->conexion('tusuario');
-		$builder->where(['sidusuario' => $sidusuario]);
+		$builder->where(['nusuarioid' => $nusuarioid]);
 		$builder->set($datos);
 		$builder->update();
 	}
@@ -132,9 +132,9 @@ class UsuarioModel extends Model
 //   SECCION ====== MAXIMO ID ======
 	public function getMaxid(){
 		$builder = $this->conexion('tusuario');
-		$builder->selectMax('sidusuario');
+		$builder->selectMax('nusuarioid');
 		$query = $builder->get();
-		return  $query->getResult()[0]->sidusuario;
+		return  $query->getResult()[0]->nusuarioid;
 	}
 }
 ?>

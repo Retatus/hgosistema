@@ -46,9 +46,13 @@
 							<table id='TablaUsuario' class='table table-sm table-bordered table-striped'>
 								<thead>
 									<tr>
-										<th>Idusuario</th>
-										<th>Nombreusuario</th>
-										<th>Estado</th>
+										<th hidden>Usuarioid</th>
+										<th>Usuarionrodoc</th>
+										<th>Usuariotipodoc</th>
+										<th>Usuarionombre</th>
+										<th>Usuariotelefono</th>
+										<th>Usuariopassword</th>
+										<th>Usuarioestado</th>
 										<th hidden>Concatenado</th>
 										<th hidden>Concatenadodetalle</th>
 										<th>Acciones</th>
@@ -58,20 +62,24 @@
 									<?php if(!empty($datos)):?>
 										<?php foreach($datos as $usuario):?>
 											<tr>
-												<td><?php echo $usuario['idusuario'];?></td>
-												<td><?php echo $usuario['nombreusuario'];?></td>
-												<td class = 'hidden-xs'><?php echo $est = ($usuario['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
+												<td hidden><?php echo $usuario['usuarioid'];?></td>
+												<td><?php echo $usuario['usuarionrodoc'];?></td>
+												<td><?php echo $usuario['usuariotipodoc'];?></td>
+												<td><?php echo $usuario['usuarionombre'];?></td>
+												<td><?php echo $usuario['usuariotelefono'];?></td>
+												<td><?php echo $usuario['usuariopassword'];?></td>
+												<td class = 'hidden-xs'><?php echo $est = ($usuario['usuarioestado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
 												<td hidden><?php echo $usuario['concatenado'];?></td>
 												<td hidden><?php echo $usuario['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
-															<button type='button' onclick="btnEditarUsuario('<?php echo $usuario['idusuario'];?>')" class='btn btn-info btn-xs'>
+															<button type='button' onclick="btnEditarUsuario('<?php echo $usuario['usuarioid'];?>')" class='btn btn-info btn-xs'>
 																<span class='fa fa-search fa-xs'></span>
 															</button>
 														</div>
 														<div style='margin: auto;'>
-															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $usuario['idusuario'];?>"><i class='fa fa-pencil'></i></a>
+															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $usuario['usuarioid'];?>"><i class='fa fa-pencil'></i></a>
 														</div>
 													</div>
 												</td>
@@ -104,22 +112,46 @@
 		</div>
 		<div class='modal-body'>
 			<div class='form-group row'>
-				<div class='col-6 form-group row'>
-					<label for = idusuario class='col-sm-4'>Idusuario:</label>
+				<div class='col-6 form-group row' hidden>
+					<label for = usuarioid class='col-sm-4'>Usuarioid:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase' id='idusuario' name='idusuario' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='usuarioid' name='usuarioid' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label for = nombreusuario class='col-sm-4' for='id'>Nombreusuario:</label>
+					<label for = usuarionrodoc class='col-sm-4' for='id'>Usuarionrodoc:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase' id='nombreusuario' name='nombreusuario' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='usuarionrodoc' name='usuarionrodoc' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label for = estado class='col-sm-4' for='rol'>Estado:</label>
+					<label for = usuariotipodoc class='col-sm-4' for='id'>Usuariotipodoc:</label>
+					<div class = 'col-sm-8'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='usuariotipodoc' name='usuariotipodoc' placeholder='T001' autocomplete = 'off'>
+					</div>
+				</div>
+				<div class='col-6 form-group row'>
+					<label for = usuarionombre class='col-sm-4' for='id'>Usuarionombre:</label>
+					<div class = 'col-sm-8'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='usuarionombre' name='usuarionombre' placeholder='T001' autocomplete = 'off'>
+					</div>
+				</div>
+				<div class='col-6 form-group row'>
+					<label for = usuariotelefono class='col-sm-4' for='id'>Usuariotelefono:</label>
+					<div class = 'col-sm-8'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='usuariotelefono' name='usuariotelefono' placeholder='T001' autocomplete = 'off'>
+					</div>
+				</div>
+				<div class='col-6 form-group row'>
+					<label for = usuariopassword class='col-sm-4' for='id'>Usuariopassword:</label>
+					<div class = 'col-sm-8'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='usuariopassword' name='usuariopassword' placeholder='T001' autocomplete = 'off'>
+					</div>
+				</div>
+				<div class='col-6 form-group row'>
+					<label for = usuarioestado class='col-sm-4' for='rol'>Usuarioestado:</label>
 					<div class='col-sm-8'>
-						<select class='form-control form-control-sm' id='estado' name='estado'>
+						<select class='form-control form-control-sm' id='usuarioestado' name='usuarioestado'>
 							<option value = '1' selected >ACTIVO</option>
 							<option value = '0' >DESACTIVO</option>
 						</select>
@@ -159,15 +191,19 @@
 		$.ajax({
 			type: 'POST',
 			url: base_url + '/usuario/edit',
-			data: {idusuario: Val0},
+			data: {usuarioid: Val0},
 			success: function(msg){
 				debugger
 				var temp = JSON.parse(msg);
 				console.log(temp);
 				LimpiarModalDatosUsuario();
-				$('#idusuario').val(temp.idusuario);
-				$('#nombreusuario').val(temp.nombreusuario);
-				$('#estado').val(temp.estado);
+				$('#usuarioid').val(temp.usuarioid);
+				$('#usuarionrodoc').val(temp.usuarionrodoc);
+				$('#usuariotipodoc').val(temp.usuariotipodoc);
+				$('#usuarionombre').val(temp.usuarionombre);
+				$('#usuariotelefono').val(temp.usuariotelefono);
+				$('#usuariopassword').val(temp.usuariopassword);
+				$('#usuarioestado').val(temp.usuarioestado);
 				$('#btnModalAgregarUsuario').toggle(false);
 				$('#btnModalEditarUsuario').toggle(true);
 				$('#btnModalEliminarUsuario').toggle(true);
@@ -217,9 +253,13 @@
 	}
 	function RecolectarDatosUsuario(){
 		NuevoUsuario = {
-			idusuario: $('#idusuario').val().toUpperCase(),
-			nombreusuario: $('#nombreusuario').val().toUpperCase(),
-			estado: $('#estado').val().toUpperCase(),
+			usuarioid: $('#usuarioid').val().toUpperCase(),
+			usuarionrodoc: $('#usuarionrodoc').val().toUpperCase(),
+			usuariotipodoc: $('#usuariotipodoc').val().toUpperCase(),
+			usuarionombre: $('#usuarionombre').val().toUpperCase(),
+			usuariotelefono: $('#usuariotelefono').val().toUpperCase(),
+			usuariopassword: $('#usuariopassword').val().toUpperCase(),
+			usuarioestado: $('#usuarioestado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
 		};
@@ -266,28 +306,57 @@
 		});
 	}
 	function LimpiarModalDatosUsuario(){
-		$('#idusuario').val('');
-		$('#nombreusuario').val('');
+		$('#usuarioid').val('0');
+		$('#usuarionrodoc').val('');
+		$('#usuariotipodoc').val('');
+		$('#usuarionombre').val('');
+		$('#usuariotelefono').val('');
+		$('#usuariopassword').val('');
 	}
 	function ValidarCamposVaciosUsuario(){
 		var error = 0;
-		if ($('#idusuario').val() == ''){
-			Resaltado('idusuario');
+		var value = $('#usuarioid').val();
+		if (!/^\d*$/.test(value)){
+			Resaltado('usuarioid');
 			error++;
 		}else{
-			NoResaltado('idusuario');
+			NoResaltado('usuarioid');
 		}
-		if ($('#nombreusuario').val() == ''){
-			Resaltado('nombreusuario');
+		if ($('#usuarionrodoc').val() == ''){
+			Resaltado('usuarionrodoc');
 			error++;
 		}else{
-			NoResaltado('nombreusuario');
+			NoResaltado('usuarionrodoc');
 		}
-		if ($('#estado').val() == ''){
-			Resaltado('estado');
+		if ($('#usuariotipodoc').val() == ''){
+			Resaltado('usuariotipodoc');
 			error++;
 		}else{
-			NoResaltado('estado');
+			NoResaltado('usuariotipodoc');
+		}
+		if ($('#usuarionombre').val() == ''){
+			Resaltado('usuarionombre');
+			error++;
+		}else{
+			NoResaltado('usuarionombre');
+		}
+		if ($('#usuariotelefono').val() == ''){
+			Resaltado('usuariotelefono');
+			error++;
+		}else{
+			NoResaltado('usuariotelefono');
+		}
+		if ($('#usuariopassword').val() == ''){
+			Resaltado('usuariopassword');
+			error++;
+		}else{
+			NoResaltado('usuariopassword');
+		}
+		if ($('#usuarioestado').val() == ''){
+			Resaltado('usuarioestado');
+			error++;
+		}else{
+			NoResaltado('usuarioestado');
 		}
 		return error;
 	}
@@ -303,20 +372,24 @@
 		$('#TablaUsuario tr').not($('#TablaUsuario tr:first')).remove();
 		$.each(objeto, function(i, value) {
 				var fila = `<tr>
-				<td>${value.idusuario !== null ? value.idusuario : ''}</td>
-				<td>${value.nombreusuario !== null ? value.nombreusuario : ''}</td>
-				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
+				<td hidden>${value.usuarioid !== null ? value.usuarioid : ''}</td>
+				<td>${value.usuarionrodoc !== null ? value.usuarionrodoc : ''}</td>
+				<td>${value.usuariotipodoc !== null ? value.usuariotipodoc : ''}</td>
+				<td>${value.usuarionombre !== null ? value.usuarionombre : ''}</td>
+				<td>${value.usuariotelefono !== null ? value.usuariotelefono : ''}</td>
+				<td>${value.usuariopassword !== null ? value.usuariopassword : ''}</td>
+				<td class = 'hidden-xs'>${value.usuarioestado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
 				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
 				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
 				<td>
 				<div class='row'>
 					<div style='margin: auto;'>
-						<button type='button' onclick="btnEditarUsuario('${value.idusuario}')" class='btn btn-info btn-xs'>
+						<button type='button' onclick="btnEditarUsuario('${value.usuarioid}')" class='btn btn-info btn-xs'>
 							<span class='fa fa-search fa-xs'></span>
 						</button>
 					</div>
 						<div style='margin: auto;'>
-							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$usuario['idusuario']'><i class='fa fa-pencil'></i></a>
+							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$usuario['usuarioid']'><i class='fa fa-pencil'></i></a>
 					</div>
 				</div>
 				</td>
