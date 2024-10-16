@@ -385,7 +385,6 @@
               <button type="reset" class="btn btn-danger pull-left" data-dismiss="modal">Cancelar</button>
             </div> 
           </form> 
-      </div> 
     </div>
     <!-- /.modal-content -->
   </div>
