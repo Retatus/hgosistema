@@ -10,7 +10,7 @@ class AuditoriaModel extends Model
 	protected $returnType     = 'array';
 	protected $useSoftDeletes = false;
 
-	protected $allowedFields = ['nidauditoria', 'nidservicio', 'campo_modificado', 'valor_anterior', 'valor_nuevo', 'fecha_modificacion', 'usuario_modificacion'];
+	protected $allowedFields = ['nidauditoria', 'nidservicio', 'scampo_modificado', 'svalor_anterior', 'svalor_nuevo', 'tfecha_modificacion', 'susuario_modificacion', 'bestado'];
 	protected $useTimestamps = false;
 	protected $createdField  = 'tfecha_alt';
 	protected $updatedField  = 'tfecha_edi';
@@ -41,16 +41,31 @@ class AuditoriaModel extends Model
 
 		$builder = $this->conexion('tauditoria t0');
 
-		$builder->select("t0.nidauditoria idauditoria, t0.campo_modificado ampo_modificado, t0.valor_anterior alor_anterior, t0.valor_nuevo alor_nuevo, DATE_FORMAT(t0.fecha_modificacion,'%d/%m/%Y') echa_modificacion, t0.usuario_modificacion suario_modificacion");
+		$builder->select("t0.nidauditoria idauditoria, t0.scampo_modificado campo_modificado, t0.svalor_anterior valor_anterior, t0.svalor_nuevo valor_nuevo, DATE_FORMAT(t0.tfecha_modificacion,'%d/%m/%Y') fecha_modificacion, t0.susuario_modificacion usuario_modificacion, t0.bestado estado, t1.nidservicio idservicio, t2.sidcliente idcliente, t2.snombrecliente nombrecliente, t3.nidubicacion idubicacion, t3.snombretipoubicacion nombretipoubicacion, t4.nidbanda idbanda, t4.snombrebanda nombrebanda, t5.nidcondicion idcondicion, t5.snombrecondicion nombrecondicion, t6.nidneumatico idneumatico, t6.snombreneumatico nombreneumatico, t7.nidrencauchadora idrencauchadora, t7.snombrereencauchadora nombrereencauchadora, t8.nidtiposervicio idtiposervicio, t8.snombretiposervicio nombretiposervicio, CONCAT(t2.snombrecliente,' - ',t3.snombretipoubicacion,' - ',t4.snombrebanda,' - ',t5.snombrecondicion,' - ',t6.snombreneumatico,' - ',t7.snombrereencauchadora,' - ',t8.snombretiposervicio) concatenado, CONCAT(t2.snombrecliente,' - ',t3.snombretipoubicacion,' - ',t4.snombrebanda,' - ',t5.snombrecondicion,' - ',t6.snombreneumatico,' - ',t7.snombrereencauchadora,' - ',t8.snombretiposervicio) concatenadodetalle");
 
+		$builder->join('tservicio t1', 't1.nidservicio = t0.nidservicio');
+		$builder->join('tcliente t2', 't2.sidcliente = t1.sidcliente');
+		$builder->join('tubicacion t3', 't3.nidubicacion = t1.nidubicacion');
+		$builder->join('tbanda t4', 't4.nidbanda = t1.nidbanda');
+		$builder->join('tcondicion t5', 't5.nidcondicion = t1.nidcondicion');
+		$builder->join('tneumatico t6', 't6.nidneumatico = t1.nidneumatico');
+		$builder->join('treencauchadora t7', 't7.nidrencauchadora = t1.nidrencauchadora');
+		$builder->join('ttiposervicio t8', 't8.nidtiposervicio = t1.nidtiposervicio');
 
 		if ($todos !== '') {
-			$builder->where('t0.', intval($todos));
+			$builder->where('t0.bestado', intval($todos));
 		}
 
 		if ($text !== '') {
 			$builder->groupStart()
 				->like('t0.nidauditoria', $text)
+				->orLike('t2.snombrecliente', $text)
+				->orLike('t3.snombretipoubicacion', $text)
+				->orLike('t4.snombrebanda', $text)
+				->orLike('t5.snombrecondicion', $text)
+				->orLike('t6.snombreneumatico', $text)
+				->orLike('t7.snombrereencauchadora', $text)
+				->orLike('t8.snombretiposervicio', $text)
 				->groupEnd();
 		}
 
@@ -65,15 +80,30 @@ class AuditoriaModel extends Model
 	public function getAutocompleteAuditorias($todos = 1, $text = ''){
 		$builder = $this->conexion('tauditoria t0');
 
-		$builder->select("t0.nidauditoria idauditoria, t0.campo_modificado ampo_modificado, t0.valor_anterior alor_anterior, t0.valor_nuevo alor_nuevo, DATE_FORMAT(t0.fecha_modificacion,'%d/%m/%Y') echa_modificacion, t0.usuario_modificacion suario_modificacion");
+		$builder->select("t0.nidauditoria idauditoria, t0.scampo_modificado campo_modificado, t0.svalor_anterior valor_anterior, t0.svalor_nuevo valor_nuevo, DATE_FORMAT(t0.tfecha_modificacion,'%d/%m/%Y') fecha_modificacion, t0.susuario_modificacion usuario_modificacion, t0.bestado estado, t1.nidservicio idservicio, t2.sidcliente idcliente, t2.snombrecliente nombrecliente, t3.nidubicacion idubicacion, t3.snombretipoubicacion nombretipoubicacion, t4.nidbanda idbanda, t4.snombrebanda nombrebanda, t5.nidcondicion idcondicion, t5.snombrecondicion nombrecondicion, t6.nidneumatico idneumatico, t6.snombreneumatico nombreneumatico, t7.nidrencauchadora idrencauchadora, t7.snombrereencauchadora nombrereencauchadora, t8.nidtiposervicio idtiposervicio, t8.snombretiposervicio nombretiposervicio, CONCAT(t2.snombrecliente,' - ',t3.snombretipoubicacion,' - ',t4.snombrebanda,' - ',t5.snombrecondicion,' - ',t6.snombreneumatico,' - ',t7.snombrereencauchadora,' - ',t8.snombretiposervicio) concatenado, CONCAT(t2.snombrecliente,' - ',t3.snombretipoubicacion,' - ',t4.snombrebanda,' - ',t5.snombrecondicion,' - ',t6.snombreneumatico,' - ',t7.snombrereencauchadora,' - ',t8.snombretiposervicio) concatenadodetalle");
+		$builder->join('tservicio t1', 't1.nidservicio = t0.nidservicio');
+		$builder->join('tcliente t2', 't2.sidcliente = t1.sidcliente');
+		$builder->join('tubicacion t3', 't3.nidubicacion = t1.nidubicacion');
+		$builder->join('tbanda t4', 't4.nidbanda = t1.nidbanda');
+		$builder->join('tcondicion t5', 't5.nidcondicion = t1.nidcondicion');
+		$builder->join('tneumatico t6', 't6.nidneumatico = t1.nidneumatico');
+		$builder->join('treencauchadora t7', 't7.nidrencauchadora = t1.nidrencauchadora');
+		$builder->join('ttiposervicio t8', 't8.nidtiposervicio = t1.nidtiposervicio');
 
 		if ($todos !== '') {
-			$builder->where('t0.', intval($todos));
+			$builder->where('t0.bestado', intval($todos));
 		}
 
 		if ($text !== '') {
 			$builder->groupStart()
 				->like('t0.nidauditoria', $text)
+				->orLike('t2.snombrecliente', $text)
+				->orLike('t3.snombretipoubicacion', $text)
+				->orLike('t4.snombrebanda', $text)
+				->orLike('t5.snombrecondicion', $text)
+				->orLike('t6.snombreneumatico', $text)
+				->orLike('t7.snombrereencauchadora', $text)
+				->orLike('t8.snombretiposervicio', $text)
 				->groupEnd();
 		}
 
@@ -86,7 +116,7 @@ class AuditoriaModel extends Model
 //   SECCION ====== GET ======
 	public function getauditoria($nidauditoria, $nidservicio){
 		$builder = $this->conexion('tauditoria t0');
-		$builder->select("t0.nidauditoria idauditoria, t0.nidservicio idservicio, t0.campo_modificado ampo_modificado, t0.valor_anterior alor_anterior, t0.valor_nuevo alor_nuevo, DATE_FORMAT(t0.fecha_modificacion,'%d/%m/%Y') echa_modificacion, t0.usuario_modificacion suario_modificacion");
+		$builder->select("t0.nidauditoria idauditoria, t0.nidservicio idservicio, t0.scampo_modificado campo_modificado, t0.svalor_anterior valor_anterior, t0.svalor_nuevo valor_nuevo, DATE_FORMAT(t0.tfecha_modificacion,'%d/%m/%Y') fecha_modificacion, t0.susuario_modificacion usuario_modificacion, t0.bestado estado");
 		$builder->where(['nidauditoria' => $nidauditoria, 'nidservicio' => $nidservicio]);
 		$query = $builder->get();
 		return $query->getRowArray();
@@ -95,7 +125,15 @@ class AuditoriaModel extends Model
 //   SECCION ====== GET 2 ======
 	public function getAuditoria2($id){
 		$builder = $this->conexion('tauditoria t0');
-		$builder->select("t0.nidauditoria idauditoria, t0.nidservicio idservicio, t0.campo_modificado ampo_modificado, t0.valor_anterior alor_anterior, t0.valor_nuevo alor_nuevo, DATE_FORMAT(t0.fecha_modificacion,'%d/%m/%Y') echa_modificacion, t0.usuario_modificacion suario_modificacion");
+		$builder->select("t0.nidauditoria idauditoria, t0.nidservicio idservicio, t0.scampo_modificado campo_modificado, t0.svalor_anterior valor_anterior, t0.svalor_nuevo valor_nuevo, DATE_FORMAT(t0.tfecha_modificacion,'%d/%m/%Y') fecha_modificacion, t0.susuario_modificacion usuario_modificacion, t0.bestado estado");
+		$builder->join('tservicio t1', 't1.nidservicio = t0.nidservicio');
+		$builder->join('tcliente t2', 't2.sidcliente = t1.sidcliente');
+		$builder->join('tubicacion t3', 't3.nidubicacion = t1.nidubicacion');
+		$builder->join('tbanda t4', 't4.nidbanda = t1.nidbanda');
+		$builder->join('tcondicion t5', 't5.nidcondicion = t1.nidcondicion');
+		$builder->join('tneumatico t6', 't6.nidneumatico = t1.nidneumatico');
+		$builder->join('treencauchadora t7', 't7.nidrencauchadora = t1.nidrencauchadora');
+		$builder->join('ttiposervicio t8', 't8.nidtiposervicio = t1.nidtiposervicio');
 		$builder->where('t0.nidauditoria', $id);
 		$query = $builder->get();
 		return $query->getResultArray();
@@ -104,14 +142,29 @@ class AuditoriaModel extends Model
 	public function getCount($todos = 1, $text = ''){
 		$builder = $this->conexion('tauditoria t0');
 		$builder->select('nidauditoria');
+		$builder->join('tservicio t1', 't1.nidservicio = t0.nidservicio');
+		$builder->join('tcliente t2', 't2.sidcliente = t1.sidcliente');
+		$builder->join('tubicacion t3', 't3.nidubicacion = t1.nidubicacion');
+		$builder->join('tbanda t4', 't4.nidbanda = t1.nidbanda');
+		$builder->join('tcondicion t5', 't5.nidcondicion = t1.nidcondicion');
+		$builder->join('tneumatico t6', 't6.nidneumatico = t1.nidneumatico');
+		$builder->join('treencauchadora t7', 't7.nidrencauchadora = t1.nidrencauchadora');
+		$builder->join('ttiposervicio t8', 't8.nidtiposervicio = t1.nidtiposervicio');
 
 		if ($todos !== '') {
-			$builder->where('t0.', intval($todos));
+			$builder->where('t0.bestado', intval($todos));
 		}
 
 		if ($text !== '') {
 			$builder->groupStart()
 				->like('t0.nidauditoria', $text)
+				->orLike('t2.snombrecliente', $text)
+				->orLike('t3.snombretipoubicacion', $text)
+				->orLike('t4.snombrebanda', $text)
+				->orLike('t5.snombrecondicion', $text)
+				->orLike('t6.snombreneumatico', $text)
+				->orLike('t7.snombrereencauchadora', $text)
+				->orLike('t8.snombretiposervicio', $text)
 				->groupEnd();
 		}
 

@@ -47,11 +47,15 @@
 								<thead>
 									<tr>
 										<th hidden>Idauditoria</th>
-										<th>Ampo_Modificado</th>
-										<th>Alor_Anterior</th>
-										<th>Alor_Nuevo</th>
-										<th>Echa_Modificacion</th>
-										<th>Suario_Modificacion</th>
+										<th>Campo_Modificado</th>
+										<th>Valor_Anterior</th>
+										<th>Valor_Nuevo</th>
+										<th>Fecha_Modificacion</th>
+										<th>Usuario_Modificacion</th>
+										<th>Estado</th>
+										<th hidden>Idservicio</th>
+										<th hidden>Concatenado</th>
+										<th hidden>Concatenadodetalle</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
@@ -60,11 +64,15 @@
 										<?php foreach($datos as $auditoria):?>
 											<tr>
 												<td hidden><?php echo $auditoria['idauditoria'];?></td>
-												<td><?php echo $auditoria['ampo_modificado'];?></td>
-												<td><?php echo $auditoria['alor_anterior'];?></td>
-												<td><?php echo $auditoria['alor_nuevo'];?></td>
-												<td><?php echo $auditoria['echa_modificacion'];?></td>
-												<td><?php echo $auditoria['suario_modificacion'];?></td>
+												<td><?php echo $auditoria['campo_modificado'];?></td>
+												<td><?php echo $auditoria['valor_anterior'];?></td>
+												<td><?php echo $auditoria['valor_nuevo'];?></td>
+												<td><?php echo $auditoria['fecha_modificacion'];?></td>
+												<td><?php echo $auditoria['usuario_modificacion'];?></td>
+												<td class = 'hidden-xs'><?php echo $est = ($auditoria['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
+												<td hidden><?php echo $auditoria['idservicio'];?></td>												
+												<td hidden><?php echo $auditoria['concatenado'];?></td>
+												<td hidden><?php echo $auditoria['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
@@ -113,38 +121,38 @@
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label for = idservicio class='col-sm-4'>Auditoria:</label>
+					<label for = idservicio class='col-sm-4'>Servicio:</label>
 					<div class = 'col-sm-8'>
 						<select class='form-control form-control-sm select2' id='idservicio'>
 							<option value='0'>-- SELECCIONAR1 --</option>
-							<?php if (!empty($auditorias)):?>
-								<?php foreach($auditorias as $auditoria):?>
-									<option value= '<?php echo $auditoria['idservicio'];?>'><?php echo $auditoria['concatenado'];?></option>
+							<?php if (!empty($servicios)):?>
+								<?php foreach($servicios as $servicio):?>
+									<option value= '<?php echo $servicio['idservicio'];?>'><?php echo $servicio['concatenado'];?></option>
 								<?php endforeach;?>
 							<?php endif;?>
 						</select>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label for = ampo_modificado class='col-sm-4' for='id'>Ampo_Modificado:</label>
+					<label for = campo_modificado class='col-sm-4' for='id'>Campo_Modificado:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase' id='ampo_modificado' name='ampo_modificado' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='campo_modificado' name='campo_modificado' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label for = alor_anterior class='col-sm-4' for='id'>Alor_Anterior:</label>
+					<label for = valor_anterior class='col-sm-4' for='id'>Valor_Anterior:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase' id='alor_anterior' name='alor_anterior' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='valor_anterior' name='valor_anterior' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label for = alor_nuevo class='col-sm-4' for='id'>Alor_Nuevo:</label>
+					<label for = valor_nuevo class='col-sm-4' for='id'>Valor_Nuevo:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase' id='alor_nuevo' name='alor_nuevo' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='valor_nuevo' name='valor_nuevo' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label for = echa_modificacion class='col-sm-4'>Echa_Modificacion:</label>
+					<label for = fecha_modificacion class='col-sm-4'>Fecha_Modificacion:</label>
 					<div class='col-sm-8'>
 						<div class='input-group'>
 							<div class='input-group-prepend'>
@@ -152,14 +160,23 @@
 									<i class='far fa-calendar-alt'></i>
 								</span>
 							</div>
-							<input type='text' class='form-control form-control-sm' id='echa_modificacion' name='echa_modificacion' placeholder='dd/mm/yyyy' readonly>
+							<input type='text' class='form-control form-control-sm' id='fecha_modificacion' name='fecha_modificacion' placeholder='dd/mm/yyyy' readonly>
 						</div>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label for = suario_modificacion class='col-sm-4' for='id'>Suario_Modificacion:</label>
+					<label for = usuario_modificacion class='col-sm-4' for='id'>Usuario_Modificacion:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase' id='suario_modificacion' name='suario_modificacion' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='usuario_modificacion' name='usuario_modificacion' placeholder='T001' autocomplete = 'off'>
+					</div>
+				</div>
+				<div class='col-6 form-group row'>
+					<label for = estado class='col-sm-4' for='rol'>Estado:</label>
+					<div class='col-sm-8'>
+						<select class='form-control form-control-sm' id='estado' name='estado'>
+							<option value = '1' selected >ACTIVO</option>
+							<option value = '0' >DESACTIVO</option>
+						</select>
 					</div>
 				</div>
 			</div>
@@ -181,7 +198,7 @@
 		RecolectarDatosAuditoria();
 		EnviarInformacionAuditoria('leer', NuevoAuditoria, false, pag);
 	}
-	$('#echa_modificacion').datepicker({
+	$('#fecha_modificacion').datepicker({
 		language: 'es',
 		todayBtn: 'linked',
 		clearBtn: true,
@@ -213,11 +230,12 @@
 				LimpiarModalDatosAuditoria();
 				$('#idauditoria').val(temp.idauditoria);
 				$('#idservicio').select2().val(temp.idservicio).select2('destroy').select2();
-				$('#ampo_modificado').val(temp.ampo_modificado);
-				$('#alor_anterior').val(temp.alor_anterior);
-				$('#alor_nuevo').val(temp.alor_nuevo);
-				$('#echa_modificacion').val(temp.echa_modificacion);
-				$('#suario_modificacion').val(temp.suario_modificacion);
+				$('#campo_modificado').val(temp.campo_modificado);
+				$('#valor_anterior').val(temp.valor_anterior);
+				$('#valor_nuevo').val(temp.valor_nuevo);
+				$('#fecha_modificacion').val(temp.fecha_modificacion);
+				$('#usuario_modificacion').val(temp.usuario_modificacion);
+				$('#estado').val(temp.estado);
 				$('#btnModalAgregarAuditoria').toggle(false);
 				$('#btnModalEditarAuditoria').toggle(true);
 				$('#btnModalEliminarAuditoria').toggle(true);
@@ -269,11 +287,12 @@
 		NuevoAuditoria = {
 			idauditoria: $('#idauditoria').val().toUpperCase(),
 			idservicio: $('#idservicio').val().toUpperCase(),
-			ampo_modificado: $('#ampo_modificado').val().toUpperCase(),
-			alor_anterior: $('#alor_anterior').val().toUpperCase(),
-			alor_nuevo: $('#alor_nuevo').val().toUpperCase(),
-			echa_modificacion: $('#echa_modificacion').val().toUpperCase(),
-			suario_modificacion: $('#suario_modificacion').val().toUpperCase(),
+			campo_modificado: $('#campo_modificado').val().toUpperCase(),
+			valor_anterior: $('#valor_anterior').val().toUpperCase(),
+			valor_nuevo: $('#valor_nuevo').val().toUpperCase(),
+			fecha_modificacion: $('#fecha_modificacion').val().toUpperCase(),
+			usuario_modificacion: $('#usuario_modificacion').val().toUpperCase(),
+			estado: $('#estado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
 		};
@@ -322,11 +341,11 @@
 	function LimpiarModalDatosAuditoria(){
 		$('#idauditoria').val('0');
 		$('#idservicio').select2().val(0).select2('destroy').select2();
-		$('#ampo_modificado').val('');
-		$('#alor_anterior').val('');
-		$('#alor_nuevo').val('');
-		$('#echa_modificacion').val('');
-		$('#suario_modificacion').val('');
+		$('#campo_modificado').val('');
+		$('#valor_anterior').val('');
+		$('#valor_nuevo').val('');
+		$('#fecha_modificacion').val('');
+		$('#usuario_modificacion').val('');
 	}
 	function ValidarCamposVaciosAuditoria(){
 		var error = 0;
@@ -344,35 +363,41 @@
 		}else{
 			NoResaltado('idservicio');
 		}
-		if ($('#ampo_modificado').val() == ''){
-			Resaltado('ampo_modificado');
+		if ($('#campo_modificado').val() == ''){
+			Resaltado('campo_modificado');
 			error++;
 		}else{
-			NoResaltado('ampo_modificado');
+			NoResaltado('campo_modificado');
 		}
-		if ($('#alor_anterior').val() == ''){
-			Resaltado('alor_anterior');
+		if ($('#valor_anterior').val() == ''){
+			Resaltado('valor_anterior');
 			error++;
 		}else{
-			NoResaltado('alor_anterior');
+			NoResaltado('valor_anterior');
 		}
-		if ($('#alor_nuevo').val() == ''){
-			Resaltado('alor_nuevo');
+		if ($('#valor_nuevo').val() == ''){
+			Resaltado('valor_nuevo');
 			error++;
 		}else{
-			NoResaltado('alor_nuevo');
+			NoResaltado('valor_nuevo');
 		}
-		if ($('#echa_modificacion').val() == ''){
-			Resaltado('echa_modificacion');
+		if ($('#fecha_modificacion').val() == ''){
+			Resaltado('fecha_modificacion');
 			error++;
 		}else{
-			NoResaltado('echa_modificacion');
+			NoResaltado('fecha_modificacion');
 		}
-		if ($('#suario_modificacion').val() == ''){
-			Resaltado('suario_modificacion');
+		if ($('#usuario_modificacion').val() == ''){
+			Resaltado('usuario_modificacion');
 			error++;
 		}else{
-			NoResaltado('suario_modificacion');
+			NoResaltado('usuario_modificacion');
+		}
+		if ($('#estado').val() == ''){
+			Resaltado('estado');
+			error++;
+		}else{
+			NoResaltado('estado');
 		}
 		return error;
 	}
@@ -389,11 +414,15 @@
 		$.each(objeto, function(i, value) {
 				var fila = `<tr>
 				<td hidden>${value.idauditoria !== null ? value.idauditoria : ''}</td>
-				<td>${value.ampo_modificado !== null ? value.ampo_modificado : ''}</td>
-				<td>${value.alor_anterior !== null ? value.alor_anterior : ''}</td>
-				<td>${value.alor_nuevo !== null ? value.alor_nuevo : ''}</td>
-				<td>${value.echa_modificacion !== null ? value.echa_modificacion : ''}</td>
-				<td>${value.suario_modificacion !== null ? value.suario_modificacion : ''}</td>
+				<td>${value.campo_modificado !== null ? value.campo_modificado : ''}</td>
+				<td>${value.valor_anterior !== null ? value.valor_anterior : ''}</td>
+				<td>${value.valor_nuevo !== null ? value.valor_nuevo : ''}</td>
+				<td>${value.fecha_modificacion !== null ? value.fecha_modificacion : ''}</td>
+				<td>${value.usuario_modificacion !== null ? value.usuario_modificacion : ''}</td>
+				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
+				<td hidden>${value.idservicio !== null ? value.idservicio : ''}</td>				
+				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
+				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
 				<td>
 				<div class='row'>
 					<div style='margin: auto;'>

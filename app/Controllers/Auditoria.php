@@ -3,6 +3,7 @@ use App\Controllers\BaseController;
 use DateTime;
 use App\Models\PaginadoModel;
 use App\Models\AuditoriaModel;
+use App\Models\ServicioModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
@@ -14,13 +15,13 @@ class Auditoria extends BaseController
 {
 	protected $paginado;
 	protected $auditoria;
-
+	protected $servicio;
 
 //   SECCION ====== CONSTRUCT ======
 	public function __construct(){
 		$this->paginado = new PaginadoModel();
 		$this->auditoria = new AuditoriaModel();
-
+		$this->servicio = new ServicioModel();
 	}
 
 //   SECCION ====== INDEX ======
@@ -32,7 +33,6 @@ class Auditoria extends BaseController
 		$pag = $this->paginado->pagina(1, $total, $adjacents);
 		$data = ['titulo' => 'auditoria', 'pag' => $pag, 'datos' => $auditoria];
 		$auditoria = $this->auditoria->getAuditorias(10, 1, 1, '');
-
 		echo view('layouts/header', []);
 		echo view('layouts/aside');
 		echo view('auditoria/list', $data);
@@ -58,11 +58,12 @@ class Auditoria extends BaseController
 		if($accion !== 'leer'){
 			$nidauditoria = strtoupper(trim($this->request->getPost('idauditoria')));
 			$nidservicio = strtoupper(trim($this->request->getPost('idservicio')));
-			$campo_modificado = strtoupper(trim($this->request->getPost('ampo_modificado')));
-			$valor_anterior = strtoupper(trim($this->request->getPost('alor_anterior')));
-			$valor_nuevo = strtoupper(trim($this->request->getPost('alor_nuevo')));
-			$fecha_modificacion = strtoupper(trim($this->request->getPost('echa_modificacion')));
-			$usuario_modificacion = strtoupper(trim($this->request->getPost('suario_modificacion')));
+			$scampo_modificado = strtoupper(trim($this->request->getPost('campo_modificado')));
+			$svalor_anterior = strtoupper(trim($this->request->getPost('valor_anterior')));
+			$svalor_nuevo = strtoupper(trim($this->request->getPost('valor_nuevo')));
+			$tfecha_modificacion = strtoupper(trim($this->request->getPost('fecha_modificacion')));
+			$susuario_modificacion = strtoupper(trim($this->request->getPost('usuario_modificacion')));
+			$bestado = strtoupper(trim($this->request->getPost('estado')));
 		}
 
 
@@ -73,11 +74,12 @@ class Auditoria extends BaseController
 				$data  = array(
 					'nidauditoria' => intval($nidauditoria),
 					'nidservicio' => intval($nidservicio),
-					'campo_modificado' => $campo_modificado,
-					'valor_anterior' => $valor_anterior,
-					'valor_nuevo' => $valor_nuevo,
-					'fecha_modificacion' => $fecha_modificacion,
-					'usuario_modificacion' => $usuario_modificacion,
+					'scampo_modificado' => $scampo_modificado,
+					'svalor_anterior' => $svalor_anterior,
+					'svalor_nuevo' => $svalor_nuevo,
+					'tfecha_modificacion' => $tfecha_modificacion,
+					'susuario_modificacion' => $susuario_modificacion,
+					'bestado' => intval($bestado),
 
 				);
 				if ($this->auditoria->existe($nidauditoria, $nidservicio) == 1){
@@ -90,11 +92,12 @@ class Auditoria extends BaseController
 			case 'modificar':
 				$data  = array(
 					'nidservicio' => intval($nidservicio),
-					'campo_modificado' => $campo_modificado,
-					'valor_anterior' => $valor_anterior,
-					'valor_nuevo' => $valor_nuevo,
-					'fecha_modificacion' => $fecha_modificacion,
-					'usuario_modificacion' => $usuario_modificacion,
+					'scampo_modificado' => $scampo_modificado,
+					'svalor_anterior' => $svalor_anterior,
+					'svalor_nuevo' => $svalor_nuevo,
+					'tfecha_modificacion' => $tfecha_modificacion,
+					'susuario_modificacion' => $susuario_modificacion,
+					'bestado' => intval($bestado),
 
 				);
 				$this->auditoria->UpdateAuditoria($nidauditoria, $data);
@@ -133,7 +136,7 @@ class Auditoria extends BaseController
 		$keyword = $this->request->getPost('keyword');
 		$data = $this->auditoria->getAutocompleteauditorias($todos,$keyword);
 		echo json_encode($data);
-	}
+	}	
 //   SECCION ====== Auditoria SELECT NOMBRE ======
 	public function getAuditoriasSelectNombre(){
 		$searchTerm = trim($this->request->getPost('term'));
@@ -168,27 +171,33 @@ class Auditoria extends BaseController
 		$sheet->getColumnDimension('D')->setAutoSize(true);
 		$sheet->getColumnDimension('E')->setAutoSize(true);
 		$sheet->getColumnDimension('F')->setAutoSize(true);
-		$sheet->getStyle('A1:F1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
+		$sheet->getColumnDimension('G')->setAutoSize(true);
+		$sheet->getColumnDimension('H')->setAutoSize(true);		
+		$sheet->getStyle('A1:H1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
 		$border = ['borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['argb' => 'FF000000'], ], ], ];
 		$sheet->setCellValue('A1', 'IDAUDITORIA');
-		$sheet->setCellValue('B1', 'AMPO_MODIFICADO');
-		$sheet->setCellValue('C1', 'ALOR_ANTERIOR');
-		$sheet->setCellValue('D1', 'ALOR_NUEVO');
-		$sheet->setCellValue('E1', 'ECHA_MODIFICACION');
-		$sheet->setCellValue('F1', 'SUARIO_MODIFICACION');
+		$sheet->setCellValue('B1', 'CAMPO_MODIFICADO');
+		$sheet->setCellValue('C1', 'VALOR_ANTERIOR');
+		$sheet->setCellValue('D1', 'VALOR_NUEVO');
+		$sheet->setCellValue('E1', 'FECHA_MODIFICACION');
+		$sheet->setCellValue('F1', 'USUARIO_MODIFICACION');
+		$sheet->setCellValue('G1', 'ESTADO');
+		$sheet->setCellValue('H1', 'IDSERVICIO');		
 		$i=2;
 		foreach ($auditoria as $row){
 			$sheet->setCellValue('A'.$i, $row['idauditoria']);
-			$sheet->setCellValue('B'.$i, $row['ampo_modificado']);
-			$sheet->setCellValue('C'.$i, $row['alor_anterior']);
-			$sheet->setCellValue('D'.$i, $row['alor_nuevo']);
-			$sheet->setCellValue('E'.$i, $row['echa_modificacion']);
-			$sheet->setCellValue('F'.$i, $row['suario_modificacion']);
+			$sheet->setCellValue('B'.$i, $row['campo_modificado']);
+			$sheet->setCellValue('C'.$i, $row['valor_anterior']);
+			$sheet->setCellValue('D'.$i, $row['valor_nuevo']);
+			$sheet->setCellValue('E'.$i, $row['fecha_modificacion']);
+			$sheet->setCellValue('F'.$i, $row['usuario_modificacion']);
+			$sheet->setCellValue('G'.$i, $row['estado']);
+			$sheet->setCellValue('H'.$i, $row['idservicio']);
 			$i++;
 		}
-		$sheet->getStyle('A1:F1')->applyFromArray($border);
+		$sheet->getStyle('A1:H1')->applyFromArray($border);
 		for ($j = 1; $j < $i ; $j++){
-			$sheet->getStyle('A'.$j.':F'.$j)->applyFromArray($border);
+			$sheet->getStyle('A'.$j.':H'.$j)->applyFromArray($border);
 		}
 
 		$writer = new Xls($spreadsheet);
