@@ -126,6 +126,7 @@ class AuditoriaModel extends Model
 		$builder = $this->conexion('tauditoria t0');
 		$builder->select("t0.nidauditoria idauditoria, t0.nidservicio idservicio, t0.scampo_modificado campo_modificado, t0.svalor_anterior valor_anterior, t0.svalor_nuevo valor_nuevo, t0.tfecha_modificacion fecha_modificacion, t0.susuario_modificacion usuario_modificacion, t0.bestado estado");
 		$builder->where(['nidservicio' => $nidservicio]);
+		$builder->orderBy('t0.nidauditoria', 'DESC');
 		$query = $builder->get();
 		return $query->getResultArray();
 	}
