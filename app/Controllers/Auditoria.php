@@ -129,6 +129,13 @@ class Auditoria extends BaseController
 		echo json_encode($data);
 	}
 
+	public function getAuditoria($nidservicio){
+		//$nidservicio = strtoupper(trim($this->request->getPost('idservicio')));
+
+		$data = $this->auditoria->getauditoriaServicio($nidservicio);
+		echo json_encode($data);
+	}
+	
 
 	public function autocompleteauditorias()
 	{

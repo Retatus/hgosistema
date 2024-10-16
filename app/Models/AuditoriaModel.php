@@ -122,6 +122,14 @@ class AuditoriaModel extends Model
 		return $query->getRowArray();
 	}
 
+	public function getauditoriaServicio($nidservicio){
+		$builder = $this->conexion('tauditoria t0');
+		$builder->select("t0.nidauditoria idauditoria, t0.nidservicio idservicio, t0.scampo_modificado campo_modificado, t0.svalor_anterior valor_anterior, t0.svalor_nuevo valor_nuevo, DATE_FORMAT(t0.tfecha_modificacion,'%d/%m/%Y') fecha_modificacion, t0.susuario_modificacion usuario_modificacion, t0.bestado estado");
+		$builder->where(['nidservicio' => $nidservicio]);
+		$query = $builder->get();
+		return $query->getRowArray();
+	}
+
 //   SECCION ====== GET 2 ======
 	public function getAuditoria2($id){
 		$builder = $this->conexion('tauditoria t0');
