@@ -613,12 +613,12 @@
 		}else{
 			NoResaltado('placa');
 		}
-		if ($('#observacioningreso').val() == ''){
-			Resaltado('observacioningreso');
-			error++;
-		}else{
-			NoResaltado('observacioningreso');
-		}
+		// if ($('#observacioningreso').val() == ''){
+		// 	Resaltado('observacioningreso');
+		// 	error++;
+		// }else{
+		// 	NoResaltado('observacioningreso');
+		// }
 		var value = $('#idtiposervicio').val();
 		if (!/^\d*$/.test(value)){
 			Resaltado('idtiposervicio');
@@ -678,18 +678,18 @@
 		// }else{
 		// 	NoResaltado('fechaentrega');
 		// }
-		if ($('#observacionsalida').val() == ''){
-			Resaltado('observacionsalida');
-			error++;
-		}else{
-			NoResaltado('observacionsalida');
-		}
-		if ($('#usuario').val() == ''){
-			Resaltado('usuario');
-			error++;
-		}else{
-			NoResaltado('usuario');
-		}
+		// if ($('#observacionsalida').val() == ''){
+		// 	Resaltado('observacionsalida');
+		// 	error++;
+		// }else{
+		// 	NoResaltado('observacionsalida');
+		// }
+		// if ($('#usuario').val() == ''){
+		// 	Resaltado('usuario');
+		// 	error++;
+		// }else{
+		// 	NoResaltado('usuario');
+		// }
 		if ($('#estado').val() == ''){
 			Resaltado('estado');
 			error++;
