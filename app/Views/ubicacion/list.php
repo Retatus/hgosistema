@@ -9,7 +9,7 @@
 						<div class='row'>
 							<div class='col-sm-8'>
 								<button type='button' class='btn btn-info btn-sm' id='btnAgregarUbicacion'>
-									<span class='fa fa-plus'></span> Agregar Ubicacion
+									<span class='fa fa-plus'></span> Agregar
 								</button>
 								<a href='<?php echo base_url();?>ubicacion/excel' class='btn btn-success btn-sm'>
 									<span class='fa fa-file-excel'></span> Exportar
