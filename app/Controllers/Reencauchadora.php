@@ -56,7 +56,7 @@ class Reencauchadora extends BaseController
 		$texto = strtoupper(trim($this->request->getPost('texto')));
 
 		if($accion !== 'leer'){
-			$nidrencauchadora = strtoupper(trim($this->request->getPost('idrencauchadora')));
+			$nidreencauchadora = strtoupper(trim($this->request->getPost('idreencauchadora')));
 			$snombrereencauchadora = strtoupper(trim($this->request->getPost('nombrereencauchadora')));
 			$sdireccion = strtoupper(trim($this->request->getPost('direccion')));
 			$bestado = strtoupper(trim($this->request->getPost('estado')));
@@ -68,13 +68,13 @@ class Reencauchadora extends BaseController
 		switch ($accion){
 			case 'agregar':
 				$data  = array(
-					'nidrencauchadora' => intval($nidrencauchadora),
+					'nidreencauchadora' => intval($nidreencauchadora),
 					'snombrereencauchadora' => $snombrereencauchadora,
 					'sdireccion' => $sdireccion,
 					'bestado' => intval($bestado),
 
 				);
-				if ($this->reencauchadora->existe($nidrencauchadora) == 1){
+				if ($this->reencauchadora->existe($nidreencauchadora) == 1){
 					$id = 0; $mensaje = 'CODIGO YA EXISTE'; 
 				} else {
 					$this->reencauchadora->insert($data);
@@ -88,14 +88,14 @@ class Reencauchadora extends BaseController
 					'bestado' => intval($bestado),
 
 				);
-				$this->reencauchadora->UpdateReencauchadora($nidrencauchadora, $data);
+				$this->reencauchadora->UpdateReencauchadora($nidreencauchadora, $data);
 				$id = 1; $mensaje = 'ATUALIZADO CORRECTAMENTE';
 				break;
 			case 'eliminar':
 				$data  = array(
 					'bestado' => 0
 				);
-				$this->reencauchadora->UpdateReencauchadora($nidrencauchadora, $data);
+				$this->reencauchadora->UpdateReencauchadora($nidreencauchadora, $data);
 				$id = 1; $mensaje = 'ANULADO CORRECTAMENTE';
 				break;
 			default:
@@ -110,9 +110,9 @@ class Reencauchadora extends BaseController
 
 //   SECCION ====== EDIT ======
 	public function edit(){
-		$nidrencauchadora = strtoupper(trim($this->request->getPost('idrencauchadora')));
+		$nidreencauchadora = strtoupper(trim($this->request->getPost('idreencauchadora')));
 
-		$data = $this->reencauchadora->getReencauchadora($nidrencauchadora);
+		$data = $this->reencauchadora->getReencauchadora($nidreencauchadora);
 		echo json_encode($data);
 	}
 
@@ -160,7 +160,7 @@ class Reencauchadora extends BaseController
 		$sheet->getColumnDimension('F')->setAutoSize(true);
 		$sheet->getStyle('A1:F1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
 		$border = ['borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['argb' => 'FF000000'], ], ], ];
-		$sheet->setCellValue('A1', 'IDRENCAUCHADORA');
+		$sheet->setCellValue('A1', 'IDREENCAUCHADORA');
 		$sheet->setCellValue('B1', 'NOMBREREENCAUCHADORA');
 		$sheet->setCellValue('C1', 'DIRECCION');
 		$sheet->setCellValue('D1', 'ESTADO');
@@ -168,7 +168,7 @@ class Reencauchadora extends BaseController
 		$sheet->setCellValue('F1', 'CONCATENADODETALLE');
 		$i=2;
 		foreach ($reencauchadora as $row){
-			$sheet->setCellValue('A'.$i, $row['idrencauchadora']);
+			$sheet->setCellValue('A'.$i, $row['idreencauchadora']);
 			$sheet->setCellValue('B'.$i, $row['nombrereencauchadora']);
 			$sheet->setCellValue('C'.$i, $row['direccion']);
 			$sheet->setCellValue('D'.$i, $row['estado']);

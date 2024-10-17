@@ -6,11 +6,11 @@ use CodeIgniter\Model;
 class ReencauchadoraModel extends Model
 {
 	protected $table      = 'treencauchadora';
-	protected $primaryKey = 'nidrencauchadora';
+	protected $primaryKey = 'nidreencauchadora';
 	protected $returnType     = 'array';
 	protected $useSoftDeletes = false;
 
-	protected $allowedFields = ['nidrencauchadora', 'snombrereencauchadora', 'sdireccion', 'bestado'];
+	protected $allowedFields = ['nidreencauchadora', 'snombrereencauchadora', 'sdireccion', 'bestado'];
 	protected $useTimestamps = false;
 	protected $createdField  = 'tfecha_alt';
 	protected $updatedField  = 'tfecha_edi';
@@ -28,8 +28,8 @@ class ReencauchadoraModel extends Model
 	}
 
 //   SECCION ====== EXISTE ======
-	public function existe($nidrencauchadora){
-		return $this->where(['nidrencauchadora' => $nidrencauchadora])->countAllResults();
+	public function existe($nidreencauchadora){
+		return $this->where(['nidreencauchadora' => $nidreencauchadora])->countAllResults();
 	}
 
 //   SECCION ====== TODOS ======
@@ -41,7 +41,7 @@ class ReencauchadoraModel extends Model
 
 		$builder = $this->conexion('treencauchadora t0');
 
-		$builder->select("t0.nidrencauchadora idrencauchadora, t0.snombrereencauchadora nombrereencauchadora, t0.sdireccion direccion, t0.bestado estado, CONCAT(t0.snombrereencauchadora) concatenado, CONCAT(t0.snombrereencauchadora) concatenadodetalle");
+		$builder->select("t0.nidreencauchadora idreencauchadora, t0.snombrereencauchadora nombrereencauchadora, t0.sdireccion direccion, t0.bestado estado, CONCAT(t0.snombrereencauchadora) concatenado, CONCAT(t0.snombrereencauchadora) concatenadodetalle");
 
 
 		if ($todos !== '') {
@@ -50,12 +50,12 @@ class ReencauchadoraModel extends Model
 
 		if ($text !== '') {
 			$builder->groupStart()
-				->like('t0.nidrencauchadora', $text)
+				->like('t0.nidreencauchadora', $text)
 				->orLike('t0.snombrereencauchadora', $text)
 				->groupEnd();
 		}
 
-		$builder->orderBy('t0.nidrencauchadora', 'DESC');
+		$builder->orderBy('t0.nidreencauchadora', 'DESC');
 		$builder->limit($CantidadMostrar, $desde);
 		$query = $builder->get();
 
@@ -66,7 +66,7 @@ class ReencauchadoraModel extends Model
 	public function getAutocompleteReencauchadoras($todos = 1, $text = ''){
 		$builder = $this->conexion('treencauchadora t0');
 
-		$builder->select("t0.nidrencauchadora idrencauchadora, t0.snombrereencauchadora nombrereencauchadora, t0.sdireccion direccion, t0.bestado estado, CONCAT(t0.snombrereencauchadora) concatenado, CONCAT(t0.snombrereencauchadora) concatenadodetalle");
+		$builder->select("t0.nidreencauchadora idreencauchadora, t0.snombrereencauchadora nombrereencauchadora, t0.sdireccion direccion, t0.bestado estado, CONCAT(t0.snombrereencauchadora) concatenado, CONCAT(t0.snombrereencauchadora) concatenadodetalle");
 
 		if ($todos !== '') {
 			$builder->where('t0.bestado', intval($todos));
@@ -74,22 +74,22 @@ class ReencauchadoraModel extends Model
 
 		if ($text !== '') {
 			$builder->groupStart()
-				->like('t0.nidrencauchadora', $text)
+				->like('t0.nidreencauchadora', $text)
 				->orLike('t0.snombrereencauchadora', $text)
 				->groupEnd();
 		}
 
-		$builder->orderBy('t0.nidrencauchadora', 'DESC');
+		$builder->orderBy('t0.nidreencauchadora', 'DESC');
 		$query = $builder->get();
 
 		return $query->getResultArray();
 	}
 
 //   SECCION ====== GET ======
-	public function getreencauchadora($nidrencauchadora){
+	public function getreencauchadora($nidreencauchadora){
 		$builder = $this->conexion('treencauchadora t0');
-		$builder->select("t0.nidrencauchadora idrencauchadora, t0.snombrereencauchadora nombrereencauchadora, t0.sdireccion direccion, t0.bestado estado");
-		$builder->where(['nidrencauchadora' => $nidrencauchadora]);
+		$builder->select("t0.nidreencauchadora idreencauchadora, t0.snombrereencauchadora nombrereencauchadora, t0.sdireccion direccion, t0.bestado estado");
+		$builder->where(['nidreencauchadora' => $nidreencauchadora]);
 		$query = $builder->get();
 		return $query->getRowArray();
 	}
@@ -97,15 +97,15 @@ class ReencauchadoraModel extends Model
 //   SECCION ====== GET 2 ======
 	public function getReencauchadora2($id){
 		$builder = $this->conexion('treencauchadora t0');
-		$builder->select("t0.nidrencauchadora idrencauchadora, t0.snombrereencauchadora nombrereencauchadora, t0.sdireccion direccion, t0.bestado estado");
-		$builder->where('t0.nidrencauchadora', $id);
+		$builder->select("t0.nidreencauchadora idreencauchadora, t0.snombrereencauchadora nombrereencauchadora, t0.sdireccion direccion, t0.bestado estado");
+		$builder->where('t0.nidreencauchadora', $id);
 		$query = $builder->get();
 		return $query->getResultArray();
 	}
 //   SECCION ====== COUNT ======
 	public function getCount($todos = 1, $text = ''){
 		$builder = $this->conexion('treencauchadora t0');
-		$builder->select('nidrencauchadora');
+		$builder->select('nidreencauchadora');
 
 		if ($todos !== '') {
 			$builder->where('t0.bestado', intval($todos));
@@ -113,7 +113,7 @@ class ReencauchadoraModel extends Model
 
 		if ($text !== '') {
 			$builder->groupStart()
-				->like('t0.nidrencauchadora', $text)
+				->like('t0.nidreencauchadora', $text)
 				->orLike('t0.snombrereencauchadora', $text)
 				->groupEnd();
 		}
@@ -122,9 +122,9 @@ class ReencauchadoraModel extends Model
 	}
 
 //   SECCION ====== UPDATE ======
-	public function UpdateReencauchadora($nidrencauchadora, $datos){
+	public function UpdateReencauchadora($nidreencauchadora, $datos){
 		$builder = $this->conexion('treencauchadora');
-		$builder->where(['nidrencauchadora' => $nidrencauchadora]);
+		$builder->where(['nidreencauchadora' => $nidreencauchadora]);
 		$builder->set($datos);
 		$builder->update();
 	}
@@ -132,9 +132,9 @@ class ReencauchadoraModel extends Model
 //   SECCION ====== MAXIMO ID ======
 	public function getMaxid(){
 		$builder = $this->conexion('treencauchadora');
-		$builder->selectMax('nidrencauchadora');
+		$builder->selectMax('nidreencauchadora');
 		$query = $builder->get();
-		return  $query->getResult()[0]->nidrencauchadora;
+		return  $query->getResult()[0]->nidreencauchadora;
 	}
 }
 ?>

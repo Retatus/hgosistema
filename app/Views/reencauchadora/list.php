@@ -9,7 +9,7 @@
 						<div class='row'>
 							<div class='col-sm-8'>
 								<button type='button' class='btn btn-info btn-sm' id='btnAgregarReencauchadora'>
-									<span class='fa fa-plus'></span> Agregar Reencauchadora
+									<span class='fa fa-plus'></span> Agregar
 								</button>
 								<a href='<?php echo base_url();?>reencauchadora/excel' class='btn btn-success btn-sm'>
 									<span class='fa fa-file-excel'></span> Exportar
@@ -46,7 +46,7 @@
 							<table id='TablaReencauchadora' class='table table-sm table-bordered table-striped'>
 								<thead>
 									<tr>
-										<th hidden>Idrencauchadora</th>
+										<th hidden>Idreencauchadora</th>
 										<th>Nombrereencauchadora</th>
 										<th>Direccion</th>
 										<th>Estado</th>
@@ -59,7 +59,7 @@
 									<?php if(!empty($datos)):?>
 										<?php foreach($datos as $reencauchadora):?>
 											<tr>
-												<td hidden><?php echo $reencauchadora['idrencauchadora'];?></td>
+												<td hidden><?php echo $reencauchadora['idreencauchadora'];?></td>
 												<td><?php echo $reencauchadora['nombrereencauchadora'];?></td>
 												<td><?php echo $reencauchadora['direccion'];?></td>
 												<td class = 'hidden-xs'><?php echo $est = ($reencauchadora['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
@@ -68,7 +68,7 @@
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
-															<button type='button' onclick="btnEditarReencauchadora('<?php echo $reencauchadora['idrencauchadora'];?>')" class='btn btn-info btn-xs'>
+															<button type='button' onclick="btnEditarReencauchadora('<?php echo $reencauchadora['idreencauchadora'];?>')" class='btn btn-info btn-xs'>
 																<span class='fa fa-pencil fa-xs'></span>
 															</button>
 														</div>
@@ -104,9 +104,9 @@
 		<div class='modal-body'>
 			<div class='form-group row'>
 				<div class='col-6 form-group row' hidden>
-					<label for = idrencauchadora class='col-sm-4'>Idrencauchadora:</label>
+					<label for = idreencauchadora class='col-sm-4'>Idreencauchadora:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase' id='idrencauchadora' name='idrencauchadora' placeholder='T001' autocomplete = 'off'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='idreencauchadora' name='idreencauchadora' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -164,13 +164,13 @@
 		$.ajax({
 			type: 'POST',
 			url: base_url + '/reencauchadora/edit',
-			data: {idrencauchadora: Val0},
+			data: {idreencauchadora: Val0},
 			success: function(msg){
 				debugger
 				var temp = JSON.parse(msg);
 				console.log(temp);
 				LimpiarModalDatosReencauchadora();
-				$('#idrencauchadora').val(temp.idrencauchadora);
+				$('#idreencauchadora').val(temp.idreencauchadora);
 				$('#nombrereencauchadora').val(temp.nombrereencauchadora);
 				$('#direccion').val(temp.direccion);
 				$('#estado').val(temp.estado);
@@ -223,7 +223,7 @@
 	}
 	function RecolectarDatosReencauchadora(){
 		NuevoReencauchadora = {
-			idrencauchadora: $('#idrencauchadora').val().toUpperCase(),
+			idreencauchadora: $('#idreencauchadora').val().toUpperCase(),
 			nombrereencauchadora: $('#nombrereencauchadora').val().toUpperCase(),
 			direccion: $('#direccion').val().toUpperCase(),
 			estado: $('#estado').val().toUpperCase(),
@@ -273,18 +273,18 @@
 		});
 	}
 	function LimpiarModalDatosReencauchadora(){
-		$('#idrencauchadora').val('0');
+		$('#idreencauchadora').val('0');
 		$('#nombrereencauchadora').val('');
 		$('#direccion').val('');
 	}
 	function ValidarCamposVaciosReencauchadora(){
 		var error = 0;
-		var value = $('#idrencauchadora').val();
+		var value = $('#idreencauchadora').val();
 		if (!/^\d*$/.test(value)){
-			Resaltado('idrencauchadora');
+			Resaltado('idreencauchadora');
 			error++;
 		}else{
-			NoResaltado('idrencauchadora');
+			NoResaltado('idreencauchadora');
 		}
 		if ($('#nombrereencauchadora').val() == ''){
 			Resaltado('nombrereencauchadora');
@@ -318,7 +318,7 @@
 		$('#TablaReencauchadora tr').not($('#TablaReencauchadora tr:first')).remove();
 		$.each(objeto, function(i, value) {
 				var fila = `<tr>
-				<td hidden>${value.idrencauchadora !== null ? value.idrencauchadora : ''}</td>
+				<td hidden>${value.idreencauchadora !== null ? value.idreencauchadora : ''}</td>
 				<td>${value.nombrereencauchadora !== null ? value.nombrereencauchadora : ''}</td>
 				<td>${value.direccion !== null ? value.direccion : ''}</td>
 				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
@@ -327,7 +327,7 @@
 				<td>
 				<div class='row'>
 					<div style='margin: auto;'>
-						<button type='button' onclick="btnEditarReencauchadora('${value.idrencauchadora}')" class='btn btn-info btn-xs'>
+						<button type='button' onclick="btnEditarReencauchadora('${value.idreencauchadora}')" class='btn btn-info btn-xs'>
 							<span class='fa fa-pencil fa-xs'></span>
 						</button>
 					</div>
