@@ -7,82 +7,82 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?php echo base_url();?>/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/plugins/font-awesome/css/font-awesome.min.css">
     <!-- DataTables -->
-    <link rel="stylesheet" href="<?php echo base_url();?>/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
      <!-- bootstrap datepicker -->
-    <link rel="stylesheet" href="<?php echo base_url();?>/plugins/datepicker/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/plugins/datepicker/css/bootstrap-datepicker.css">
     <!-- daterange picker -->
-    <link rel="stylesheet" href="<?php echo base_url();?>/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/plugins/daterangepicker/daterangepicker.css">
     <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="<?php echo base_url();?>/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Bootstrap Color Picker -->
-    <link rel="stylesheet" href="<?php echo base_url();?>/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <!-- Tempusdominus Bbootstrap 4 -->
-    <link rel="stylesheet" href="<?php echo base_url();?>/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- Select2 -->
-    <link rel="stylesheet" href="<?php echo base_url();?>/plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- Bootstrap4 Duallistbox -->
-    <link rel="stylesheet" href="<?php echo base_url();?>/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?php echo base_url();?>/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- DataTables -->
-    <link rel="stylesheet" href="<?php echo base_url();?>/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
     <!-- Autocomplete -->
-    <link rel="stylesheet" href="<?php echo base_url();?>/asset/css/jquery-ui.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/asset/css/jquery-ui.css">
 
     <!-- jQuery -->
-<script src="<?php echo base_url();?>/plugins/jquery/jquery.min.js"></script>
+<script src="<?php echo base_url();?>public/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="<?php echo base_url();?>/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?php echo base_url();?>public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- fullCalendar 2.2.5 -->
 <!-- ClockPicker -->
-<script src="<?php echo base_url();?>/asset/js/moment.min.js"></script>
+<script src="<?php echo base_url();?>public/asset/js/moment.min.js"></script>
 <!-- DataTables -->
-<script src="<?php echo base_url();?>/plugins/datatables/jquery.dataTables.js"></script>
-<script src="<?php echo base_url();?>/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<script src="<?php echo base_url();?>public/plugins/datatables/jquery.dataTables.js"></script>
+<script src="<?php echo base_url();?>public/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 <!-- Select2 -->
-<script src="<?php echo base_url();?>/plugins/select2/js/select2.full.min.js"></script>
+<script src="<?php echo base_url();?>public/plugins/select2/js/select2.full.min.js"></script>
 <!-- Bootstrap4 Duallistbox -->
-<script src="<?php echo base_url();?>/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<script src="<?php echo base_url();?>public/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
 <!-- InputMask -->
-<script src="<?php echo base_url();?>/plugins/moment/moment.min.js"></script>
-<script src="<?php echo base_url();?>/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+<script src="<?php echo base_url();?>public/plugins/moment/moment.min.js"></script>
+<script src="<?php echo base_url();?>public/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
 <!-- bootstrap datepicker -->
-<script src="<?php echo base_url();?>/plugins/datepicker/js/bootstrap-datepicker.js"></script>
+<script src="<?php echo base_url();?>public/plugins/datepicker/js/bootstrap-datepicker.js"></script>
 <!-- date-range-picker -->
-<script src="<?php echo base_url();?>/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="<?php echo base_url();?>public/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- bootstrap color picker -->
-<script src="<?php echo base_url();?>/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<script src="<?php echo base_url();?>public/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="<?php echo base_url();?>/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="<?php echo base_url();?>public/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- AdminLTE App -->
-<script src="<?php echo base_url();?>/dist/js/adminlte.min.js"></script>
+<script src="<?php echo base_url();?>public/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url();?>/dist/js/demo.js"></script>
+<script src="<?php echo base_url();?>public/dist/js/demo.js"></script>
 <!-- Autocomplete-->
-<script src="<?php echo base_url();?>/asset/js/jquery-ui.js"></script> 
+<script src="<?php echo base_url();?>public/asset/js/jquery-ui.js"></script> 
 
 <!-- Full Calendar -->
-<link rel="stylesheet" href="<?php echo base_url();?>/asset/css/fullcalendar.min.css">
-<link rel="stylesheet" href="<?php echo base_url();?>/asset/css/bootstrap-clockpicker.css">
-<!-- <link rel="stylesheet" href="<?php echo base_url();?>/asset/css/mystyle.css"> -->
-<script src="<?php echo base_url();?>/asset/js/fullcalendar.min.js"></script>
-<script src="<?php echo base_url();?>/asset/js/es.js"></script>
-<script src="<?php echo base_url();?>/asset/js/bootstrap-clockpicker.js"></script>
-<script src="<?php echo base_url();?>/asset/js/moment.min.js"></script>
+<link rel="stylesheet" href="<?php echo base_url();?>public/asset/css/fullcalendar.min.css">
+<link rel="stylesheet" href="<?php echo base_url();?>public/asset/css/bootstrap-clockpicker.css">
+<!-- <link rel="stylesheet" href="<?php echo base_url();?>public/asset/css/mystyle.css"> -->
+<script src="<?php echo base_url();?>public/asset/js/fullcalendar.min.js"></script>
+<script src="<?php echo base_url();?>public/asset/js/es.js"></script>
+<script src="<?php echo base_url();?>public/asset/js/bootstrap-clockpicker.js"></script>
+<script src="<?php echo base_url();?>public/asset/js/moment.min.js"></script>
 <!-- LIBRERIAS NUEVAS -->
-<script src="<?php echo base_url();?>/dist/js/libreriatato.js"></script>
+<script src="<?php echo base_url();?>public/dist/js/libreriatato.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 <!-- Bootstrap Switch -->
-<!-- <script src="<?php echo base_url();?>/plugins/bootstrap4-toggle/js/bootstrap4-toggle.js"></script>
-<script src="<?php echo base_url();?>/plugins/bootstrap4-toggle/css/bootstrap4-toggle.css"></script> -->
+<!-- <script src="<?php echo base_url();?>public/plugins/bootstrap4-toggle/js/bootstrap4-toggle.js"></script>
+<script src="<?php echo base_url();?>public/plugins/bootstrap4-toggle/css/bootstrap4-toggle.css"></script> -->
 <style type="text/css">
 
 .numeroDerecha{
@@ -192,7 +192,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo base_url();?>index3.html" class="nav-link">Home</a>
+        <a href="<?php echo base_url();?>publicindex3.html" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -221,7 +221,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="<?php echo base_url();?>/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <img src="<?php echo base_url();?>public/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Brad Diesel
@@ -237,7 +237,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="<?php echo base_url();?>/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="<?php echo base_url();?>public/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   John Pierce
@@ -253,7 +253,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="<?php echo base_url();?>/dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="<?php echo base_url();?>public/dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Nora Silvester
@@ -446,7 +446,7 @@
 </div>
 <div id="modal-overlay" class="modal fade" data-backdrop="false" data-keyboard="false" tabindex="-1" role="dialog" style="z-index: 20000;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
-        <img style="margin: 0 auto" src="<?php echo base_url();?>/wait30trans.gif" />
+        <img style="margin: 0 auto" src="<?php echo base_url();?>public/wait30trans.gif" />
     </div>
 </div>
 <div class="modal fade" id="modal-default-alerta">
