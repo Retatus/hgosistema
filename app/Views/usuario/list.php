@@ -80,12 +80,6 @@
 																<span class='fa fa-pencil fa-xs'></span>
 															</button>
 														</div>
-														<?php if(intval(session()->get('user_rol')) === 1):?>
-															<div style='margin: auto;'>
-																<button type='button' onclick="btnVerAuditoria('<?php echo $usuario['usuarioid'];?>')" class='btn btn-success btn-xs'>
-																	<span class='fa fa-search fa-xs'></span>
-																</button>
-														<?php endif;?>
 													</div>
 												</td>
 											</tr>
@@ -410,13 +404,6 @@
 							<span class='fa fa-pencil fa-xs'></span>
 						</button>
 					</div>
-						<?php if(intval(session()->get('user_rol')) === 1):?>
-							<div style='margin: auto;'>
-								<button type='button' onclick="btnVerAuditoria('${value.idservicio}')" class='btn btn-success btn-xs'>
-									<span class='fa fa-search fa-xs'></span>
-								</button>
-							</div>
-					<?php endif;?>
 				</div>
 				</td>
 				</tr>`
