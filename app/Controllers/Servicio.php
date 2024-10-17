@@ -89,20 +89,27 @@ class Servicio extends BaseController
 		if($accion !== 'leer'){
 			$nidservicio = strtoupper(trim($this->request->getPost('idservicio')));
 			$sidcliente = strtoupper(trim($this->request->getPost('idcliente')));
+			$sidclientetext = strtoupper(trim($this->request->getPost('idclientetext')));
 			$tfecharecepcion = trim($this->request->getPost('fecharecepcion'));
 			$tfecharecepcion = $this->formatDateOrDefault($tfecharecepcion, null);
 			$nidbanda = strtoupper(trim($this->request->getPost('idbanda')));
+			$nidbandatext = strtoupper(trim($this->request->getPost('idbandatext')));
 			$splaca = strtoupper(trim($this->request->getPost('placa')));
 			$sobservacioningreso = strtoupper(trim($this->request->getPost('observacioningreso')));
 			$nidtiposervicio = strtoupper(trim($this->request->getPost('idtiposervicio')));
+			$nidtiposerviciotext = strtoupper(trim($this->request->getPost('idtiposerviciotext')));
 			$snumero = strtoupper(trim($this->request->getPost('numero')));
 			$nidneumatico = strtoupper(trim($this->request->getPost('idneumatico')));
+			$nidneumaticotext = strtoupper(trim($this->request->getPost('idneumaticotext')));
 			$scodigo = strtoupper(trim($this->request->getPost('codigo')));
 			$nidubicacion = strtoupper(trim($this->request->getPost('idubicacion')));
+			$nidubicaciontext = strtoupper(trim($this->request->getPost('idubicaciontext')));
 			$nidreencauchadora = strtoupper(trim($this->request->getPost('idreencauchadora')));
+			$nidreencauchadoratext = strtoupper(trim($this->request->getPost('idreencauchadoratext')));
 			$tfechatienda = trim($this->request->getPost('fechatienda'));
 			$tfechatienda = $this->formatDateOrDefault($tfechatienda, null);
 			$nidcondicion = strtoupper(trim($this->request->getPost('idcondicion')));
+			$nidcondiciontext = strtoupper(trim($this->request->getPost('idcondiciontext')));
 			$tfechaentrega = trim($this->request->getPost('fechaentrega'));
 			$tfechaentrega = $this->formatDateOrDefault($tfechaentrega, null);
 			$sobservacionsalida = strtoupper(trim($this->request->getPost('observacionsalida')));
@@ -162,10 +169,21 @@ class Servicio extends BaseController
 					'sobservacionsalida' => $sobservacionsalida,
 					'susuario' => $susuario,
 					'bestado' => intval($bestado),
+					'dataaux' => array(
+						'sidclientetext' => $sidclientetext,
+						'nidbandatext' =>  $nidbandatext,
+						'nidtiposerviciotext' =>  $nidtiposerviciotext,
+						'nidneumaticotext' =>  $nidneumaticotext,
+						'nidubicaciontext' =>  $nidubicaciontext,
+						'nidreencauchadoratext' =>  $nidreencauchadoratext,
+						'nidcondiciontext' =>  $nidcondiciontext,
+					)
 
 				);
 
 				$this->Auditoria($nidservicio, $data, $susuario);
+				unset($data['dataaux']);
+
 
 				$this->servicio->UpdateServicio($nidservicio, $data);
 				$id = 1; $mensaje = 'ATUALIZADO CORRECTAMENTE';
@@ -189,16 +207,27 @@ class Servicio extends BaseController
 
 	public function Auditoria($nidservicio, $datosActualizados, $usuario) {
 		$datosAnteriores = $this->servicio->find($nidservicio);
+		// Extraer $dataaux desde $datosActualizados.
+		$dataaux = $datosActualizados['dataaux'] ?? [];
+	
 		foreach ($datosActualizados as $campo => $nuevoValor) {
+			if ($campo === 'dataaux') {
+				continue;
+			}
+			
 			$valorAnterior = $datosAnteriores[$campo] ?? null;
 			if ($valorAnterior != $nuevoValor) {
+	
+				$campoModificadoConTexto = $campo . 'text';
+				$valorTexto = $dataaux[$campoModificadoConTexto] ?? 'ninguna';
+	
 				$campo_modificado = $campo;
 				$fecha_modificacion = date('Y-m-d H:i:s');
 				$data = [
 					'nidservicio' => intval($nidservicio),
 					'scampo_modificado' => $campo_modificado,
 					'svalor_anterior' => $valorAnterior,
-					'svalor_nuevo' => $nuevoValor,
+					'svalor_nuevo' => $nuevoValor."-".$valorTexto,
 					'tfecha_modificacion' => $fecha_modificacion,
 					'susuario_modificacion' => $usuario,
 					'bestado' => 1

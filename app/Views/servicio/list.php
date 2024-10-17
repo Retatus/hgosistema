@@ -402,7 +402,7 @@
 				$('#fechaentrega').val(''); // Limpia el campo si la validación falla
 			}
 		}
-	});
+	});	
 	
 	$('#btnAgregarServicio').click(function(){
 		LimpiarModalDatosServicio();
@@ -494,18 +494,25 @@
 		NuevoServicio = {
 			idservicio: $('#idservicio').val().toUpperCase(),
 			idcliente: $('#idcliente').val().toUpperCase(),
+			idclientetext: $('#idcliente option:selected').text().toUpperCase(),
 			fecharecepcion: $('#fecharecepcion').val().toUpperCase(),
 			idbanda: $('#idbanda').val().toUpperCase(),
+			idbandatext: $('#idbanda option:selected').text().toUpperCase(),
 			placa: $('#placa').val().toUpperCase(),
 			observacioningreso: $('#observacioningreso').val().toUpperCase(),
 			idtiposervicio: $('#idtiposervicio').val().toUpperCase(),
+			idtiposerviciotext: $('#idtiposervicio option:selected').text().toUpperCase(),
 			numero: $('#numero').val().toUpperCase(),
 			idneumatico: $('#idneumatico').val().toUpperCase(),
+			idneumaticotext: $('#idneumatico option:selected').text().toUpperCase(),
 			codigo: $('#codigo').val().toUpperCase(),
 			idubicacion: $('#idubicacion').val().toUpperCase(),
+			idubicaciontext: $('#idubicacion option:selected').text().toUpperCase(),
 			idreencauchadora: $('#idreencauchadora').val().toUpperCase(),
+			idreencauchadoratext: $('#idreencauchadora option:selected').text().toUpperCase(),
 			fechatienda: $('#fechatienda').val().toUpperCase(),
 			idcondicion: $('#idcondicion').val().toUpperCase(),
+			idcondiciontext: $('#idcondicion option:selected').text().toUpperCase(),
 			fechaentrega: $('#fechaentrega').val().toUpperCase(),
 			observacionsalida: $('#observacionsalida').val().toUpperCase(),
 			usuario: $('#usuario').val().toUpperCase(),
