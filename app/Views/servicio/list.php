@@ -407,7 +407,8 @@
 	$('#btnAgregarServicio').click(function(){
 		LimpiarModalDatosServicio();
 		$('#categoria').val(1);
-		$('#id').prop('readonly', false);  
+		$('#id').prop('readonly', false); 
+		$('#usuario').prop('disabled', false); 
 		$('#IdModalGrupoCodigoHotel').prop('hidden', false);
 		$('#btnModalAgregarServicio').toggle(true);
 		$('#btnModalEditarServicio').toggle(false);
@@ -442,6 +443,7 @@
 				$('#fechaentrega').val(temp.fechaentrega);
 				$('#observacionsalida').val(temp.observacionsalida);
 				$('#usuario').val(temp.usuario);
+				$('#usuario').prop('disabled', true);
 				$('#estado').val(temp.estado);
 				$('#btnModalAgregarServicio').toggle(false);
 				$('#btnModalEditarServicio').toggle(true);
@@ -515,7 +517,7 @@
 			idcondiciontext: $('#idcondicion option:selected').text().toUpperCase(),
 			fechaentrega: $('#fechaentrega').val().toUpperCase(),
 			observacionsalida: $('#observacionsalida').val().toUpperCase(),
-			usuario: $('#usuario').val().toUpperCase(),
+			usuario: $('a.d-block').text(), //$('#usuario').val().toUpperCase(),
 			estado: $('#estado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()

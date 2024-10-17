@@ -47,14 +47,14 @@
 								<thead>
 									<tr>
 										<th hidden>Idauditoria</th>
+										<th>Idservicio</th>
 										<th>Campo_Modificado</th>
 										<th>Valor_Anterior</th>
 										<th>Valor_Nuevo</th>
 										<th>Fecha_Modificacion</th>
 										<th>Usuario_Modificacion</th>
-										<th>Estado</th>
-										<th hidden>Idservicio</th>
-										<th hidden>Concatenado</th>
+										<th>Estado</th>										
+										<th>Concatenado</th>
 										<th hidden>Concatenadodetalle</th>
 										<th>Acciones</th>
 									</tr>
@@ -64,14 +64,14 @@
 										<?php foreach($datos as $auditoria):?>
 											<tr>
 												<td hidden><?php echo $auditoria['idauditoria'];?></td>
+												<td><?php echo $auditoria['idservicio'];?></td>
 												<td><?php echo $auditoria['campo_modificado'];?></td>
 												<td><?php echo $auditoria['valor_anterior'];?></td>
 												<td><?php echo $auditoria['valor_nuevo'];?></td>
 												<td><?php echo $auditoria['fecha_modificacion'];?></td>
 												<td><?php echo $auditoria['usuario_modificacion'];?></td>
-												<td class = 'hidden-xs'><?php echo $est = ($auditoria['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
-												<td hidden><?php echo $auditoria['idservicio'];?></td>												
-												<td hidden><?php echo $auditoria['concatenado'];?></td>
+												<td class = 'hidden-xs'><?php echo $est = ($auditoria['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>																								
+												<td ><?php echo $auditoria['concatenado'];?></td>
 												<td hidden><?php echo $auditoria['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>

@@ -60,6 +60,25 @@
                         <p>Banda</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo base_url();?>condicion">
+                        <i class="fa fa-file-pdf-o nav-icon"></i>
+                        <p>Condicion</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo base_url();?>ubicacion">
+                        <i class="fa fa-map-marker nav-icon"></i>
+                        <p>Ubicacion</p>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo base_url();?>auditoria">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Auditoria</p>
+                    </a>
+                </li>
             </li>              
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
@@ -69,31 +88,13 @@
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_url();?>condicion">
-                            <i class="fa fa-file-pdf-o nav-icon"></i>
-                            <p>Condicion</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_url();?>ubicacion">
-                            <i class="fa fa-map-marker nav-icon"></i>
-                            <p>Ubicacion</p>
-                        </a>
-                    </li>
+                <ul class="nav nav-treeview">  
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url();?>usuario">
                             <i class="fa fa-users nav-icon"></i>
                             <p>Usuarios</p>
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_url();?>auditoria">
-                            <i class="fa fa-search nav-icon"></i>
-                            <p>Auditoria</p>
-                        </a>
-                    </li>
+                    </li>   
                 </ul>
             </li> 
           <?php 
