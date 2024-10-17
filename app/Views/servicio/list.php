@@ -9,7 +9,7 @@
 						<div class='row'>
 							<div class='col-sm-8'>
 								<button type='button' class='btn btn-info btn-sm' id='btnAgregarServicio'>
-									<span class='fa fa-plus'></span> Agregar Servicio
+									<span class='fa fa-plus'></span> Agregar
 								</button>
 								<a href='<?php echo base_url();?>servicio/excel' class='btn btn-success btn-sm'>
 									<span class='fa fa-file-excel'></span> Exportar
@@ -57,20 +57,20 @@
 										<th>Observacionsalida</th>
 										<th>Usuario</th>
 										<th>Estado</th>
-										<th>Idcliente</th>
-										<th>Nombrecliente</th>
-										<th hidden>Idubicacion</th>
-										<th>Nombretipoubicacion</th>
 										<th hidden>Idbanda</th>
 										<th>Nombrebanda</th>
 										<th hidden>Idcondicion</th>
 										<th>Nombrecondicion</th>
 										<th hidden>Idneumatico</th>
 										<th>Nombreneumatico</th>
-										<th hidden>Idrencauchadora</th>
+										<th hidden>Idreencauchadora</th>
 										<th>Nombrereencauchadora</th>
 										<th hidden>Idtiposervicio</th>
 										<th>Nombretiposervicio</th>
+										<th hidden>Idubicacion</th>
+										<th>Nombretipoubicacion</th>
+										<th>Idcliente</th>
+										<th>Nombrecliente</th>
 										<th hidden>Concatenado</th>
 										<th hidden>Concatenadodetalle</th>
 										<th>Acciones</th>
@@ -91,26 +91,26 @@
 												<td><?php echo $servicio['observacionsalida'];?></td>
 												<td><?php echo $servicio['usuario'];?></td>
 												<td class = 'hidden-xs'><?php echo $est = ($servicio['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
-												<td><?php echo $servicio['idcliente'];?></td>
-												<td><?php echo $servicio['nombrecliente'];?></td>
-												<td hidden><?php echo $servicio['idubicacion'];?></td>
-												<td><?php echo $servicio['nombretipoubicacion'];?></td>
 												<td hidden><?php echo $servicio['idbanda'];?></td>
 												<td><?php echo $servicio['nombrebanda'];?></td>
 												<td hidden><?php echo $servicio['idcondicion'];?></td>
 												<td><?php echo $servicio['nombrecondicion'];?></td>
 												<td hidden><?php echo $servicio['idneumatico'];?></td>
 												<td><?php echo $servicio['nombreneumatico'];?></td>
-												<td hidden><?php echo $servicio['idrencauchadora'];?></td>
+												<td hidden><?php echo $servicio['idreencauchadora'];?></td>
 												<td><?php echo $servicio['nombrereencauchadora'];?></td>
 												<td hidden><?php echo $servicio['idtiposervicio'];?></td>
 												<td><?php echo $servicio['nombretiposervicio'];?></td>
+												<td hidden><?php echo $servicio['idubicacion'];?></td>
+												<td><?php echo $servicio['nombretipoubicacion'];?></td>
+												<td><?php echo $servicio['idcliente'];?></td>
+												<td><?php echo $servicio['nombrecliente'];?></td>
 												<td hidden><?php echo $servicio['concatenado'];?></td>
 												<td hidden><?php echo $servicio['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
-															<button type='button' onclick="btnEditarServicio('<?php echo $servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idrencauchadora'].'\',\''.$servicio['idcondicion'];?>')" class='btn btn-info btn-xs'>
+															<button type='button' onclick="btnEditarServicio('<?php echo $servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idreencauchadora'].'\',\''.$servicio['idcondicion'];?>')" class='btn btn-info btn-xs'>
 																<span class='fa fa-pencil fa-xs'></span>
 															</button>
 														</div>
@@ -254,13 +254,13 @@
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label for = idrencauchadora class='col-sm-4'>Reencauchadora:</label>
+					<label for = idreencauchadora class='col-sm-4'>Reencauchadora:</label>
 					<div class = 'col-sm-8'>
-						<select class='form-control form-control-sm select2' id='idrencauchadora'>
+						<select class='form-control form-control-sm select2' id='idreencauchadora'>
 							<option value='0'>-- SELECCIONAR1 --</option>
 							<?php if (!empty($reencauchadoras)):?>
 								<?php foreach($reencauchadoras as $reencauchadora):?>
-									<option value= '<?php echo $reencauchadora['idrencauchadora'];?>'><?php echo $reencauchadora['concatenado'];?></option>
+									<option value= '<?php echo $reencauchadora['idreencauchadora'];?>'><?php echo $reencauchadora['concatenado'];?></option>
 								<?php endforeach;?>
 							<?php endif;?>
 						</select>
@@ -343,11 +343,6 @@
 		</div>
 	</div>
 </div>
-<style>
-	div.scroll { 
-      	overflow: auto;
-  	} 
-</style>
 <!--  SECCION ====== SCRIPT ====== -->
 <script>
 	var NuevoServicio;
@@ -424,7 +419,7 @@
 		$.ajax({
 			type: 'POST',
 			url: base_url + '/servicio/edit',
-			data: {idservicio: Val0, idcliente: Val1, idbanda: Val2, idtiposervicio: Val3, idneumatico: Val4, idubicacion: Val5, idrencauchadora: Val6, idcondicion: Val7},
+			data: {idservicio: Val0, idcliente: Val1, idbanda: Val2, idtiposervicio: Val3, idneumatico: Val4, idubicacion: Val5, idreencauchadora: Val6, idcondicion: Val7},
 			success: function(msg){
 				debugger
 				var temp = JSON.parse(msg);
@@ -441,7 +436,7 @@
 				$('#idneumatico').select2().val(temp.idneumatico).select2('destroy').select2();
 				$('#codigo').val(temp.codigo);
 				$('#idubicacion').select2().val(temp.idubicacion).select2('destroy').select2();
-				$('#idrencauchadora').select2().val(temp.idrencauchadora).select2('destroy').select2();
+				$('#idreencauchadora').select2().val(temp.idreencauchadora).select2('destroy').select2();
 				$('#fechatienda').val(temp.fechatienda);
 				$('#idcondicion').select2().val(temp.idcondicion).select2('destroy').select2();
 				$('#fechaentrega').val(temp.fechaentrega);
@@ -508,7 +503,7 @@
 			idneumatico: $('#idneumatico').val().toUpperCase(),
 			codigo: $('#codigo').val().toUpperCase(),
 			idubicacion: $('#idubicacion').val().toUpperCase(),
-			idrencauchadora: $('#idrencauchadora').val().toUpperCase(),
+			idreencauchadora: $('#idreencauchadora').val().toUpperCase(),
 			fechatienda: $('#fechatienda').val().toUpperCase(),
 			idcondicion: $('#idcondicion').val().toUpperCase(),
 			fechaentrega: $('#fechaentrega').val().toUpperCase(),
@@ -572,7 +567,7 @@
 		$('#idneumatico').select2().val(0).select2('destroy').select2();
 		$('#codigo').val('');
 		$('#idubicacion').select2().val(0).select2('destroy').select2();
-		$('#idrencauchadora').select2().val(0).select2('destroy').select2();
+		$('#idreencauchadora').select2().val(0).select2('destroy').select2();
 		$('#fechatienda').val('');
 		$('#idcondicion').select2().val(0).select2('destroy').select2();
 		$('#fechaentrega').val('');
@@ -652,12 +647,12 @@
 		}else{
 			NoResaltado('idubicacion');
 		}
-		var value = $('#idrencauchadora').val();
+		var value = $('#idreencauchadora').val();
 		if (!/^\d*$/.test(value)){
-			Resaltado('idrencauchadora');
+			Resaltado('idreencauchadora');
 			error++;
 		}else{
-			NoResaltado('idrencauchadora');
+			NoResaltado('idreencauchadora');
 		}
 		// if ($('#fechatienda').val() == ''){
 		// 	Resaltado('fechatienda');
@@ -721,26 +716,26 @@
 				<td>${value.observacionsalida !== null ? value.observacionsalida : ''}</td>
 				<td>${value.usuario !== null ? value.usuario : ''}</td>
 				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
-				<td>${value.idcliente !== null ? value.idcliente : ''}</td>
-				<td>${value.nombrecliente !== null ? value.nombrecliente : ''}</td>
-				<td hidden>${value.idubicacion !== null ? value.idubicacion : ''}</td>
-				<td>${value.nombretipoubicacion !== null ? value.nombretipoubicacion : ''}</td>
 				<td hidden>${value.idbanda !== null ? value.idbanda : ''}</td>
 				<td>${value.nombrebanda !== null ? value.nombrebanda : ''}</td>
 				<td hidden>${value.idcondicion !== null ? value.idcondicion : ''}</td>
 				<td>${value.nombrecondicion !== null ? value.nombrecondicion : ''}</td>
 				<td hidden>${value.idneumatico !== null ? value.idneumatico : ''}</td>
 				<td>${value.nombreneumatico !== null ? value.nombreneumatico : ''}</td>
-				<td hidden>${value.idrencauchadora !== null ? value.idrencauchadora : ''}</td>
+				<td hidden>${value.idreencauchadora !== null ? value.idreencauchadora : ''}</td>
 				<td>${value.nombrereencauchadora !== null ? value.nombrereencauchadora : ''}</td>
 				<td hidden>${value.idtiposervicio !== null ? value.idtiposervicio : ''}</td>
 				<td>${value.nombretiposervicio !== null ? value.nombretiposervicio : ''}</td>
+				<td hidden>${value.idubicacion !== null ? value.idubicacion : ''}</td>
+				<td>${value.nombretipoubicacion !== null ? value.nombretipoubicacion : ''}</td>
+				<td>${value.idcliente !== null ? value.idcliente : ''}</td>
+				<td>${value.nombrecliente !== null ? value.nombrecliente : ''}</td>
 				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
 				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
 				<td>
 				<div class='row'>
 					<div style='margin: auto;'>
-						<button type='button' onclick="btnEditarServicio('${value.idservicio}', '${value.idcliente}', '${value.idbanda}', '${value.idtiposervicio}', '${value.idneumatico}', '${value.idubicacion}', '${value.idrencauchadora}', '${value.idcondicion}')" class='btn btn-info btn-xs'>
+						<button type='button' onclick="btnEditarServicio('${value.idservicio}', '${value.idcliente}', '${value.idbanda}', '${value.idtiposervicio}', '${value.idneumatico}', '${value.idubicacion}', '${value.idreencauchadora}', '${value.idcondicion}')" class='btn btn-info btn-xs'>
 							<span class='fa fa-pencil fa-xs'></span>
 						</button>
 					</div>

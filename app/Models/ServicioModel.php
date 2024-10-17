@@ -10,7 +10,7 @@ class ServicioModel extends Model
 	protected $returnType     = 'array';
 	protected $useSoftDeletes = false;
 
-	protected $allowedFields = ['nidservicio', 'sidcliente', 'tfecharecepcion', 'nidbanda', 'splaca', 'sobservacioningreso', 'nidtiposervicio', 'snumero', 'nidneumatico', 'scodigo', 'nidubicacion', 'nidrencauchadora', 'tfechatienda', 'nidcondicion', 'tfechaentrega', 'sobservacionsalida', 'susuario', 'bestado'];
+	protected $allowedFields = ['nidservicio', 'sidcliente', 'tfecharecepcion', 'nidbanda', 'splaca', 'sobservacioningreso', 'nidtiposervicio', 'snumero', 'nidneumatico', 'scodigo', 'nidubicacion', 'nidreencauchadora', 'tfechatienda', 'nidcondicion', 'tfechaentrega', 'sobservacionsalida', 'susuario', 'bestado'];
 	protected $useTimestamps = false;
 	protected $createdField  = 'tfecha_alt';
 	protected $updatedField  = 'tfecha_edi';
@@ -28,8 +28,8 @@ class ServicioModel extends Model
 	}
 
 //   SECCION ====== EXISTE ======
-	public function existe($nidservicio, $sidcliente, $nidbanda, $nidtiposervicio, $nidneumatico, $nidubicacion, $nidrencauchadora, $nidcondicion){
-		return $this->where(['nidservicio' => $nidservicio, 'sidcliente' => $sidcliente, 'nidbanda' => $nidbanda, 'nidtiposervicio' => $nidtiposervicio, 'nidneumatico' => $nidneumatico, 'nidubicacion' => $nidubicacion, 'nidrencauchadora' => $nidrencauchadora, 'nidcondicion' => $nidcondicion])->countAllResults();
+	public function existe($nidservicio, $sidcliente, $nidbanda, $nidtiposervicio, $nidneumatico, $nidubicacion, $nidreencauchadora, $nidcondicion){
+		return $this->where(['nidservicio' => $nidservicio, 'sidcliente' => $sidcliente, 'nidbanda' => $nidbanda, 'nidtiposervicio' => $nidtiposervicio, 'nidneumatico' => $nidneumatico, 'nidubicacion' => $nidubicacion, 'nidreencauchadora' => $nidreencauchadora, 'nidcondicion' => $nidcondicion])->countAllResults();
 	}
 
 //   SECCION ====== TODOS ======
@@ -41,15 +41,15 @@ class ServicioModel extends Model
 
 		$builder = $this->conexion('tservicio t0');
 
-		$builder->select("t0.nidservicio idservicio, DATE_FORMAT(t0.tfecharecepcion,'%d/%m/%Y') fecharecepcion, t0.splaca placa, t0.sobservacioningreso observacioningreso, t0.snumero numero, t0.scodigo codigo, DATE_FORMAT(t0.tfechatienda,'%d/%m/%Y') fechatienda, DATE_FORMAT(t0.tfechaentrega,'%d/%m/%Y') fechaentrega, t0.sobservacionsalida observacionsalida, t0.susuario usuario, t0.bestado estado, t1.sidcliente idcliente, t1.snombrecliente nombrecliente, t2.nidubicacion idubicacion, t2.snombretipoubicacion nombretipoubicacion, t3.nidbanda idbanda, t3.snombrebanda nombrebanda, t4.nidcondicion idcondicion, t4.snombrecondicion nombrecondicion, t5.nidneumatico idneumatico, t5.snombreneumatico nombreneumatico, t6.nidrencauchadora idrencauchadora, t6.snombrereencauchadora nombrereencauchadora, t7.nidtiposervicio idtiposervicio, t7.snombretiposervicio nombretiposervicio, CONCAT(t1.snombrecliente,' - ',t2.snombretipoubicacion,' - ',t3.snombrebanda,' - ',t4.snombrecondicion,' - ',t5.snombreneumatico,' - ',t6.snombrereencauchadora,' - ',t7.snombretiposervicio) concatenado, CONCAT(t1.snombrecliente,' - ',t2.snombretipoubicacion,' - ',t3.snombrebanda,' - ',t4.snombrecondicion,' - ',t5.snombreneumatico,' - ',t6.snombrereencauchadora,' - ',t7.snombretiposervicio) concatenadodetalle");
+		$builder->select("t0.nidservicio idservicio, DATE_FORMAT(t0.tfecharecepcion,'%d/%m/%Y') fecharecepcion, t0.splaca placa, t0.sobservacioningreso observacioningreso, t0.snumero numero, t0.scodigo codigo, DATE_FORMAT(t0.tfechatienda,'%d/%m/%Y') fechatienda, DATE_FORMAT(t0.tfechaentrega,'%d/%m/%Y') fechaentrega, t0.sobservacionsalida observacionsalida, t0.susuario usuario, t0.bestado estado, t1.nidbanda idbanda, t1.snombrebanda nombrebanda, t2.nidcondicion idcondicion, t2.snombrecondicion nombrecondicion, t3.nidneumatico idneumatico, t3.snombreneumatico nombreneumatico, t4.nidreencauchadora idreencauchadora, t4.snombrereencauchadora nombrereencauchadora, t5.nidtiposervicio idtiposervicio, t5.snombretiposervicio nombretiposervicio, t6.nidubicacion idubicacion, t6.snombretipoubicacion nombretipoubicacion, t7.sidcliente idcliente, t7.snombrecliente nombrecliente, CONCAT(t1.snombrebanda,' - ',t2.snombrecondicion,' - ',t3.snombreneumatico,' - ',t4.snombrereencauchadora,' - ',t5.snombretiposervicio,' - ',t6.snombretipoubicacion,' - ',t7.snombrecliente) concatenado, CONCAT(t1.snombrebanda,' - ',t2.snombrecondicion,' - ',t3.snombreneumatico,' - ',t4.snombrereencauchadora,' - ',t5.snombretiposervicio,' - ',t6.snombretipoubicacion,' - ',t7.snombrecliente) concatenadodetalle");
 
-		$builder->join('tcliente t1', 't1.sidcliente = t0.sidcliente');
-		$builder->join('tubicacion t2', 't2.nidubicacion = t0.nidubicacion');
-		$builder->join('tbanda t3', 't3.nidbanda = t0.nidbanda');
-		$builder->join('tcondicion t4', 't4.nidcondicion = t0.nidcondicion');
-		$builder->join('tneumatico t5', 't5.nidneumatico = t0.nidneumatico');
-		$builder->join('treencauchadora t6', 't6.nidrencauchadora = t0.nidrencauchadora');
-		$builder->join('ttiposervicio t7', 't7.nidtiposervicio = t0.nidtiposervicio');
+		$builder->join('tbanda t1', 't1.nidbanda = t0.nidbanda');
+		$builder->join('tcondicion t2', 't2.nidcondicion = t0.nidcondicion');
+		$builder->join('tneumatico t3', 't3.nidneumatico = t0.nidneumatico');
+		$builder->join('treencauchadora t4', 't4.nidreencauchadora = t0.nidreencauchadora');
+		$builder->join('ttiposervicio t5', 't5.nidtiposervicio = t0.nidtiposervicio');
+		$builder->join('tubicacion t6', 't6.nidubicacion = t0.nidubicacion');
+		$builder->join('tcliente t7', 't7.sidcliente = t0.sidcliente');
 
 		if ($todos !== '') {
 			$builder->where('t0.bestado', intval($todos));
@@ -58,13 +58,13 @@ class ServicioModel extends Model
 		if ($text !== '') {
 			$builder->groupStart()
 				->like('t0.nidservicio', $text)
-				->orLike('t1.snombrecliente', $text)
-				->orLike('t2.snombretipoubicacion', $text)
-				->orLike('t3.snombrebanda', $text)
-				->orLike('t4.snombrecondicion', $text)
-				->orLike('t5.snombreneumatico', $text)
-				->orLike('t6.snombrereencauchadora', $text)
-				->orLike('t7.snombretiposervicio', $text)
+				->orLike('t1.snombrebanda', $text)
+				->orLike('t2.snombrecondicion', $text)
+				->orLike('t3.snombreneumatico', $text)
+				->orLike('t4.snombrereencauchadora', $text)
+				->orLike('t5.snombretiposervicio', $text)
+				->orLike('t6.snombretipoubicacion', $text)
+				->orLike('t7.snombrecliente', $text)
 				->groupEnd();
 		}
 
@@ -79,14 +79,14 @@ class ServicioModel extends Model
 	public function getAutocompleteServicios($todos = 1, $text = ''){
 		$builder = $this->conexion('tservicio t0');
 
-		$builder->select("t0.nidservicio idservicio, DATE_FORMAT(t0.tfecharecepcion,'%d/%m/%Y') fecharecepcion, t0.splaca placa, t0.sobservacioningreso observacioningreso, t0.snumero numero, t0.scodigo codigo, DATE_FORMAT(t0.tfechatienda,'%d/%m/%Y') fechatienda, DATE_FORMAT(t0.tfechaentrega,'%d/%m/%Y') fechaentrega, t0.sobservacionsalida observacionsalida, t0.susuario usuario, t0.bestado estado, t1.sidcliente idcliente, t1.snombrecliente nombrecliente, t2.nidubicacion idubicacion, t2.snombretipoubicacion nombretipoubicacion, t3.nidbanda idbanda, t3.snombrebanda nombrebanda, t4.nidcondicion idcondicion, t4.snombrecondicion nombrecondicion, t5.nidneumatico idneumatico, t5.snombreneumatico nombreneumatico, t6.nidrencauchadora idrencauchadora, t6.snombrereencauchadora nombrereencauchadora, t7.nidtiposervicio idtiposervicio, t7.snombretiposervicio nombretiposervicio, CONCAT(t1.snombrecliente,' - ',t2.snombretipoubicacion,' - ',t3.snombrebanda,' - ',t4.snombrecondicion,' - ',t5.snombreneumatico,' - ',t6.snombrereencauchadora,' - ',t7.snombretiposervicio) concatenado, CONCAT(t1.snombrecliente,' - ',t2.snombretipoubicacion,' - ',t3.snombrebanda,' - ',t4.snombrecondicion,' - ',t5.snombreneumatico,' - ',t6.snombrereencauchadora,' - ',t7.snombretiposervicio) concatenadodetalle");
-		$builder->join('tcliente t1', 't1.sidcliente = t0.sidcliente');
-		$builder->join('tubicacion t2', 't2.nidubicacion = t0.nidubicacion');
-		$builder->join('tbanda t3', 't3.nidbanda = t0.nidbanda');
-		$builder->join('tcondicion t4', 't4.nidcondicion = t0.nidcondicion');
-		$builder->join('tneumatico t5', 't5.nidneumatico = t0.nidneumatico');
-		$builder->join('treencauchadora t6', 't6.nidrencauchadora = t0.nidrencauchadora');
-		$builder->join('ttiposervicio t7', 't7.nidtiposervicio = t0.nidtiposervicio');
+		$builder->select("t0.nidservicio idservicio, DATE_FORMAT(t0.tfecharecepcion,'%d/%m/%Y') fecharecepcion, t0.splaca placa, t0.sobservacioningreso observacioningreso, t0.snumero numero, t0.scodigo codigo, DATE_FORMAT(t0.tfechatienda,'%d/%m/%Y') fechatienda, DATE_FORMAT(t0.tfechaentrega,'%d/%m/%Y') fechaentrega, t0.sobservacionsalida observacionsalida, t0.susuario usuario, t0.bestado estado, t1.nidbanda idbanda, t1.snombrebanda nombrebanda, t2.nidcondicion idcondicion, t2.snombrecondicion nombrecondicion, t3.nidneumatico idneumatico, t3.snombreneumatico nombreneumatico, t4.nidreencauchadora idreencauchadora, t4.snombrereencauchadora nombrereencauchadora, t5.nidtiposervicio idtiposervicio, t5.snombretiposervicio nombretiposervicio, t6.nidubicacion idubicacion, t6.snombretipoubicacion nombretipoubicacion, t7.sidcliente idcliente, t7.snombrecliente nombrecliente, CONCAT(t1.snombrebanda,' - ',t2.snombrecondicion,' - ',t3.snombreneumatico,' - ',t4.snombrereencauchadora,' - ',t5.snombretiposervicio,' - ',t6.snombretipoubicacion,' - ',t7.snombrecliente) concatenado, CONCAT(t1.snombrebanda,' - ',t2.snombrecondicion,' - ',t3.snombreneumatico,' - ',t4.snombrereencauchadora,' - ',t5.snombretiposervicio,' - ',t6.snombretipoubicacion,' - ',t7.snombrecliente) concatenadodetalle");
+		$builder->join('tbanda t1', 't1.nidbanda = t0.nidbanda');
+		$builder->join('tcondicion t2', 't2.nidcondicion = t0.nidcondicion');
+		$builder->join('tneumatico t3', 't3.nidneumatico = t0.nidneumatico');
+		$builder->join('treencauchadora t4', 't4.nidreencauchadora = t0.nidreencauchadora');
+		$builder->join('ttiposervicio t5', 't5.nidtiposervicio = t0.nidtiposervicio');
+		$builder->join('tubicacion t6', 't6.nidubicacion = t0.nidubicacion');
+		$builder->join('tcliente t7', 't7.sidcliente = t0.sidcliente');
 
 		if ($todos !== '') {
 			$builder->where('t0.bestado', intval($todos));
@@ -95,13 +95,13 @@ class ServicioModel extends Model
 		if ($text !== '') {
 			$builder->groupStart()
 				->like('t0.nidservicio', $text)
-				->orLike('t1.snombrecliente', $text)
-				->orLike('t2.snombretipoubicacion', $text)
-				->orLike('t3.snombrebanda', $text)
-				->orLike('t4.snombrecondicion', $text)
-				->orLike('t5.snombreneumatico', $text)
-				->orLike('t6.snombrereencauchadora', $text)
-				->orLike('t7.snombretiposervicio', $text)
+				->orLike('t1.snombrebanda', $text)
+				->orLike('t2.snombrecondicion', $text)
+				->orLike('t3.snombreneumatico', $text)
+				->orLike('t4.snombrereencauchadora', $text)
+				->orLike('t5.snombretiposervicio', $text)
+				->orLike('t6.snombretipoubicacion', $text)
+				->orLike('t7.snombrecliente', $text)
 				->groupEnd();
 		}
 
@@ -112,10 +112,10 @@ class ServicioModel extends Model
 	}
 
 //   SECCION ====== GET ======
-	public function getservicio($nidservicio, $sidcliente, $nidbanda, $nidtiposervicio, $nidneumatico, $nidubicacion, $nidrencauchadora, $nidcondicion){
+	public function getservicio($nidservicio, $sidcliente, $nidbanda, $nidtiposervicio, $nidneumatico, $nidubicacion, $nidreencauchadora, $nidcondicion){
 		$builder = $this->conexion('tservicio t0');
-		$builder->select("t0.nidservicio idservicio, t0.sidcliente idcliente, DATE_FORMAT(t0.tfecharecepcion,'%d/%m/%Y') fecharecepcion, t0.nidbanda idbanda, t0.splaca placa, t0.sobservacioningreso observacioningreso, t0.nidtiposervicio idtiposervicio, t0.snumero numero, t0.nidneumatico idneumatico, t0.scodigo codigo, t0.nidubicacion idubicacion, t0.nidrencauchadora idrencauchadora, DATE_FORMAT(t0.tfechatienda,'%d/%m/%Y') fechatienda, t0.nidcondicion idcondicion, DATE_FORMAT(t0.tfechaentrega,'%d/%m/%Y') fechaentrega, t0.sobservacionsalida observacionsalida, t0.susuario usuario, t0.bestado estado");
-		$builder->where(['nidservicio' => $nidservicio, 'sidcliente' => $sidcliente, 'nidbanda' => $nidbanda, 'nidtiposervicio' => $nidtiposervicio, 'nidneumatico' => $nidneumatico, 'nidubicacion' => $nidubicacion, 'nidrencauchadora' => $nidrencauchadora, 'nidcondicion' => $nidcondicion]);
+		$builder->select("t0.nidservicio idservicio, t0.sidcliente idcliente, DATE_FORMAT(t0.tfecharecepcion,'%d/%m/%Y') fecharecepcion, t0.nidbanda idbanda, t0.splaca placa, t0.sobservacioningreso observacioningreso, t0.nidtiposervicio idtiposervicio, t0.snumero numero, t0.nidneumatico idneumatico, t0.scodigo codigo, t0.nidubicacion idubicacion, t0.nidreencauchadora idreencauchadora, DATE_FORMAT(t0.tfechatienda,'%d/%m/%Y') fechatienda, t0.nidcondicion idcondicion, DATE_FORMAT(t0.tfechaentrega,'%d/%m/%Y') fechaentrega, t0.sobservacionsalida observacionsalida, t0.susuario usuario, t0.bestado estado");
+		$builder->where(['nidservicio' => $nidservicio, 'sidcliente' => $sidcliente, 'nidbanda' => $nidbanda, 'nidtiposervicio' => $nidtiposervicio, 'nidneumatico' => $nidneumatico, 'nidubicacion' => $nidubicacion, 'nidreencauchadora' => $nidreencauchadora, 'nidcondicion' => $nidcondicion]);
 		$query = $builder->get();
 		return $query->getRowArray();
 	}
@@ -123,14 +123,14 @@ class ServicioModel extends Model
 //   SECCION ====== GET 2 ======
 	public function getServicio2($id){
 		$builder = $this->conexion('tservicio t0');
-		$builder->select("t0.nidservicio idservicio, t0.sidcliente idcliente, DATE_FORMAT(t0.tfecharecepcion,'%d/%m/%Y') fecharecepcion, t0.nidbanda idbanda, t0.splaca placa, t0.sobservacioningreso observacioningreso, t0.nidtiposervicio idtiposervicio, t0.snumero numero, t0.nidneumatico idneumatico, t0.scodigo codigo, t0.nidubicacion idubicacion, t0.nidrencauchadora idrencauchadora, DATE_FORMAT(t0.tfechatienda,'%d/%m/%Y') fechatienda, t0.nidcondicion idcondicion, DATE_FORMAT(t0.tfechaentrega,'%d/%m/%Y') fechaentrega, t0.sobservacionsalida observacionsalida, t0.susuario usuario, t0.bestado estado");
-		$builder->join('tcliente t1', 't1.sidcliente = t0.sidcliente');
-		$builder->join('tubicacion t2', 't2.nidubicacion = t0.nidubicacion');
-		$builder->join('tbanda t3', 't3.nidbanda = t0.nidbanda');
-		$builder->join('tcondicion t4', 't4.nidcondicion = t0.nidcondicion');
-		$builder->join('tneumatico t5', 't5.nidneumatico = t0.nidneumatico');
-		$builder->join('treencauchadora t6', 't6.nidrencauchadora = t0.nidrencauchadora');
-		$builder->join('ttiposervicio t7', 't7.nidtiposervicio = t0.nidtiposervicio');
+		$builder->select("t0.nidservicio idservicio, t0.sidcliente idcliente, DATE_FORMAT(t0.tfecharecepcion,'%d/%m/%Y') fecharecepcion, t0.nidbanda idbanda, t0.splaca placa, t0.sobservacioningreso observacioningreso, t0.nidtiposervicio idtiposervicio, t0.snumero numero, t0.nidneumatico idneumatico, t0.scodigo codigo, t0.nidubicacion idubicacion, t0.nidreencauchadora idreencauchadora, DATE_FORMAT(t0.tfechatienda,'%d/%m/%Y') fechatienda, t0.nidcondicion idcondicion, DATE_FORMAT(t0.tfechaentrega,'%d/%m/%Y') fechaentrega, t0.sobservacionsalida observacionsalida, t0.susuario usuario, t0.bestado estado");
+		$builder->join('tbanda t1', 't1.nidbanda = t0.nidbanda');
+		$builder->join('tcondicion t2', 't2.nidcondicion = t0.nidcondicion');
+		$builder->join('tneumatico t3', 't3.nidneumatico = t0.nidneumatico');
+		$builder->join('treencauchadora t4', 't4.nidreencauchadora = t0.nidreencauchadora');
+		$builder->join('ttiposervicio t5', 't5.nidtiposervicio = t0.nidtiposervicio');
+		$builder->join('tubicacion t6', 't6.nidubicacion = t0.nidubicacion');
+		$builder->join('tcliente t7', 't7.sidcliente = t0.sidcliente');
 		$builder->where('t0.nidservicio', $id);
 		$query = $builder->get();
 		return $query->getResultArray();
@@ -139,13 +139,13 @@ class ServicioModel extends Model
 	public function getCount($todos = 1, $text = ''){
 		$builder = $this->conexion('tservicio t0');
 		$builder->select('nidservicio');
-		$builder->join('tcliente t1', 't1.sidcliente = t0.sidcliente');
-		$builder->join('tubicacion t2', 't2.nidubicacion = t0.nidubicacion');
-		$builder->join('tbanda t3', 't3.nidbanda = t0.nidbanda');
-		$builder->join('tcondicion t4', 't4.nidcondicion = t0.nidcondicion');
-		$builder->join('tneumatico t5', 't5.nidneumatico = t0.nidneumatico');
-		$builder->join('treencauchadora t6', 't6.nidrencauchadora = t0.nidrencauchadora');
-		$builder->join('ttiposervicio t7', 't7.nidtiposervicio = t0.nidtiposervicio');
+		$builder->join('tbanda t1', 't1.nidbanda = t0.nidbanda');
+		$builder->join('tcondicion t2', 't2.nidcondicion = t0.nidcondicion');
+		$builder->join('tneumatico t3', 't3.nidneumatico = t0.nidneumatico');
+		$builder->join('treencauchadora t4', 't4.nidreencauchadora = t0.nidreencauchadora');
+		$builder->join('ttiposervicio t5', 't5.nidtiposervicio = t0.nidtiposervicio');
+		$builder->join('tubicacion t6', 't6.nidubicacion = t0.nidubicacion');
+		$builder->join('tcliente t7', 't7.sidcliente = t0.sidcliente');
 
 		if ($todos !== '') {
 			$builder->where('t0.bestado', intval($todos));
@@ -154,13 +154,13 @@ class ServicioModel extends Model
 		if ($text !== '') {
 			$builder->groupStart()
 				->like('t0.nidservicio', $text)
-				->orLike('t1.snombrecliente', $text)
-				->orLike('t2.snombretipoubicacion', $text)
-				->orLike('t3.snombrebanda', $text)
-				->orLike('t4.snombrecondicion', $text)
-				->orLike('t5.snombreneumatico', $text)
-				->orLike('t6.snombrereencauchadora', $text)
-				->orLike('t7.snombretiposervicio', $text)
+				->orLike('t1.snombrebanda', $text)
+				->orLike('t2.snombrecondicion', $text)
+				->orLike('t3.snombreneumatico', $text)
+				->orLike('t4.snombrereencauchadora', $text)
+				->orLike('t5.snombretiposervicio', $text)
+				->orLike('t6.snombretipoubicacion', $text)
+				->orLike('t7.snombrecliente', $text)
 				->groupEnd();
 		}
 
