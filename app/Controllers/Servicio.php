@@ -219,15 +219,15 @@ class Servicio extends BaseController
 			if ($valorAnterior != $nuevoValor) {
 	
 				$campoModificadoConTexto = $campo . 'text';
-				$valorTexto = $dataaux[$campoModificadoConTexto] ?? 'ninguna';
-	
+				$valorTexto = $dataaux[$campoModificadoConTexto] ?? '';
+				$nuevoValor = $valorTexto == "" ? $nuevoValor : $nuevoValor."-".$valorTexto;
 				$campo_modificado = $campo;
 				$fecha_modificacion = date('Y-m-d H:i:s');
 				$data = [
 					'nidservicio' => intval($nidservicio),
 					'scampo_modificado' => $campo_modificado,
 					'svalor_anterior' => $valorAnterior,
-					'svalor_nuevo' => $nuevoValor."-".$valorTexto,
+					'svalor_nuevo' => $nuevoValor,
 					'tfecha_modificacion' => $fecha_modificacion,
 					'susuario_modificacion' => $usuario,
 					'bestado' => 1
