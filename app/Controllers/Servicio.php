@@ -55,13 +55,12 @@ class Servicio extends BaseController
 		$adjacents = 1;
 		$pag = $this->paginado->pagina(1, $total, $adjacents);
 		$data = ['titulo' => 'servicio', 'pag' => $pag, 'datos' => $servicio];
-		$servicio = $this->servicio->getServicios(10, 1, 1, '');
-		$banda = $this->banda->getBandas(10, 1, 1, '');
-		$condicion = $this->condicion->getCondicions(10, 1, 1, '');
-		$neumatico = $this->neumatico->getNeumaticos(10, 1, 1, '');
-		$reencauchadora = $this->reencauchadora->getReencauchadoras(10, 1, 1, '');
-		$tiposervicio = $this->tiposervicio->getTiposervicios(10, 1, 1, '');
-		$ubicacion = $this->ubicacion->getUbicacions(10, 1, 1, '');
+		$banda = $this->banda->getBandasSelect2();
+		$condicion = $this->condicion->getCondicionsSelect2();
+		$neumatico = $this->neumatico->getNeumaticosSelect2();
+		$reencauchadora = $this->reencauchadora->getReencauchadorasSelect2();
+		$tiposervicio = $this->tiposervicio->getTiposerviciosSelect2();
+		$ubicacion = $this->ubicacion->getUbicacionsSelect2();
 		$cliente = $this->cliente->getClientes(10, 1, 1, '');
 
 		echo view('layouts/header', ['bandas' => $banda, 'condicions' => $condicion, 'neumaticos' => $neumatico, 'reencauchadoras' => $reencauchadora, 'tiposervicios' => $tiposervicio, 'ubicacions' => $ubicacion, 'clientes' => $cliente]);

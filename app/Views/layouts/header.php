@@ -118,6 +118,14 @@
 		z-index:999;
 	}
 
+  #modalAddCliente {
+    z-index: 1052; /* Valor alto para asegurar que esté por encima */
+  }
+
+  #modalAddCliente .modal-backdrop {
+      z-index: 1051; /* Ajusta el z-index del backdrop para que esté detrás del modal */
+  }
+
   /* Para dispositivos móviles (pantallas pequeñas) */
 	@media (max-width: 574.98px) {
 		.select2-container{
