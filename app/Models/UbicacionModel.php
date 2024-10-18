@@ -85,6 +85,15 @@ class UbicacionModel extends Model
 		return $query->getResultArray();
 	}
 
+	public function getUbicacionsSelect2(){
+		$builder = $this->conexion('tubicacion t0');
+		$builder->select("t0.nidubicacion idubicacion, t0.snombretipoubicacion nombretipoubicacion, t0.bestado estado, CONCAT(t0.snombretipoubicacion) concatenado, CONCAT(t0.snombretipoubicacion) concatenadodetalle");
+		$builder->where('t0.bestado', 1);
+		$builder->orderBy('t0.nidubicacion', 'DESC');
+		$query = $builder->get();
+		return $query->getResultArray();
+	}
+
 //   SECCION ====== GET ======
 	public function getubicacion($nidubicacion){
 		$builder = $this->conexion('tubicacion t0');

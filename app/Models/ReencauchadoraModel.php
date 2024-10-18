@@ -85,6 +85,15 @@ class ReencauchadoraModel extends Model
 		return $query->getResultArray();
 	}
 
+	public function getReencauchadorasSelect2(){
+		$builder = $this->conexion('treencauchadora t0');
+		$builder->select("t0.nidreencauchadora idreencauchadora, t0.snombrereencauchadora nombrereencauchadora, t0.sdireccion direccion, t0.bestado estado, CONCAT(t0.snombrereencauchadora) concatenado, CONCAT(t0.snombrereencauchadora) concatenadodetalle");
+		$builder->where('t0.bestado', 1);
+		$builder->orderBy('t0.nidreencauchadora', 'DESC');
+		$query = $builder->get();
+		return $query->getResultArray();
+	}
+
 //   SECCION ====== GET ======
 	public function getreencauchadora($nidreencauchadora){
 		$builder = $this->conexion('treencauchadora t0');

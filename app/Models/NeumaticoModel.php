@@ -85,6 +85,15 @@ class NeumaticoModel extends Model
 		return $query->getResultArray();
 	}
 
+	public function getNeumaticosSelect2(){
+		$builder = $this->conexion('tneumatico t0');
+		$builder->select("t0.nidneumatico idneumatico, t0.snombreneumatico nombreneumatico, t0.bestado estado, CONCAT(t0.snombreneumatico) concatenado, CONCAT(t0.snombreneumatico) concatenadodetalle");
+		$builder->where('t0.bestado', 1);
+		$builder->orderBy('t0.nidneumatico', 'DESC');
+		$query = $builder->get();
+		return $query->getResultArray();
+	}
+
 //   SECCION ====== GET ======
 	public function getneumatico($nidneumatico){
 		$builder = $this->conexion('tneumatico t0');

@@ -85,6 +85,15 @@ class CondicionModel extends Model
 		return $query->getResultArray();
 	}
 
+	public function getCondicionsSelect2(){
+		$builder = $this->conexion('tcondicion t0');
+		$builder->select("t0.nidcondicion idcondicion, t0.snombrecondicion nombrecondicion, t0.bestado estado, CONCAT(t0.snombrecondicion) concatenado, CONCAT(t0.snombrecondicion) concatenadodetalle");
+		$builder->where('t0.bestado', 1);
+		$builder->orderBy('t0.nidcondicion', 'DESC');
+		$query = $builder->get();
+		return $query->getResultArray();
+	}
+
 //   SECCION ====== GET ======
 	public function getcondicion($nidcondicion){
 		$builder = $this->conexion('tcondicion t0');

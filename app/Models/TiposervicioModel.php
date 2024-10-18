@@ -85,6 +85,15 @@ class TiposervicioModel extends Model
 		return $query->getResultArray();
 	}
 
+	public function getTiposerviciosSelect2(){
+		$builder = $this->conexion('ttiposervicio t0');
+		$builder->select("t0.nidtiposervicio idtiposervicio, t0.snombretiposervicio nombretiposervicio, t0.bestado estado, CONCAT(t0.snombretiposervicio) concatenado, CONCAT(t0.snombretiposervicio) concatenadodetalle");
+		$builder->where('t0.bestado', 1);
+		$builder->orderBy('t0.nidtiposervicio', 'DESC');
+		$query = $builder->get();
+		return $query->getResultArray();
+	}
+
 //   SECCION ====== GET ======
 	public function gettiposervicio($nidtiposervicio){
 		$builder = $this->conexion('ttiposervicio t0');

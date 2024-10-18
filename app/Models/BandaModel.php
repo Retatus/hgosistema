@@ -85,6 +85,15 @@ class BandaModel extends Model
 		return $query->getResultArray();
 	}
 
+	public function getBandasSelect2(){
+		$builder = $this->conexion('tbanda t0');
+		$builder->select("t0.nidbanda idbanda, t0.snombrebanda nombrebanda, t0.smarca marca, t0.bestado estado, CONCAT(t0.snombrebanda) concatenado, CONCAT(t0.snombrebanda) concatenadodetalle");
+		$builder->where('t0.bestado', 1);
+		$builder->orderBy('t0.nidbanda', 'DESC');
+		$query = $builder->get();
+		return $query->getResultArray();
+	}
+
 //   SECCION ====== GET ======
 	public function getbanda($nidbanda){
 		$builder = $this->conexion('tbanda t0');
