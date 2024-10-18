@@ -97,7 +97,7 @@ $(document).ready(function(){
 	// Función para actualizar el select
 	function actualizarAutocompleteClienteAdd() {				
 		$('#searchidcliente').val(NuevoCliente.nombrecliente);
-		$('#idcliente').val(NuevoCliente.idcliente);
+		$('#idcliente').val(NuevoCliente.idcliente);		
 	};
 	
 	function RecolectarDatosClienteAdd(){
