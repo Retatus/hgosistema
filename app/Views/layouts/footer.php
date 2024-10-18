@@ -14,6 +14,15 @@
 </div>
 <!-- ./wrapper -->
 <!-- Page script -->
+
+<script src="<?php echo base_url();?>public/hgo/js/bandaVista.js"></script>
+<script src="<?php echo base_url();?>public/hgo/js/clienteVista.js"></script>
+<script src="<?php echo base_url();?>public/hgo/js/condicionVista.js"></script>
+<script src="<?php echo base_url();?>public/hgo/js/neumaticoVista.js"></script>
+<script src="<?php echo base_url();?>public/hgo/js/reencauchadoraVista.js"></script>
+<script src="<?php echo base_url();?>public/hgo/js/tiposervicioVista.js"></script>
+<script src="<?php echo base_url();?>public/hgo/js/ubicacionVista.js"></script>
+
 <script>
   function btnVerAuditoria(Val0){
 		$.ajax({
