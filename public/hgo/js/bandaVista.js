@@ -38,6 +38,7 @@ $(document).ready(function(){
 	var NuevoBanda;
 	
 	$('#btnAddBanda').click(function(){
+		debugger
 		LimpiarModalDatosBandaAdd();
 		$('#btnModalAddBanda').toggle(true);
 		$('#modalAddBanda').modal();
@@ -61,10 +62,10 @@ $(document).ready(function(){
 			url: base_url+'/banda/opciones?accion='+accion+'&pag='+pag,
 			data: objEvento,
 			success: function(msg){
-		debugger
+				debugger
 				var resp = JSON.parse(msg);
 				if (modal) {
-					$('#modalAgregarBanda').modal('toggle');
+					$('#modalAddBanda').modal('toggle');
 					LimpiarModalDatosBandaAdd();
 					if (resp.id == 1) {
 						Swal.fire({
@@ -96,34 +97,25 @@ $(document).ready(function(){
 	// Función para actualizar el select
 	function actualizarSelectBandaAdd() {
 		var nuevaOpcion = $('<option>', {
-			value: NuevoBanda.idbanda,
 			text: NuevoBanda.nombrebanda,
 		});
-		$('#nidbanda').append(nuevaOpcion);
-		$('#nidbanda').val(NuevoBanda.nidbanda);
+		$('#idbanda').append(nuevaOpcion);
+		$('#idbanda').val(NuevoBanda.idbanda);
 	};
 	
 	function RecolectarDatosBandaAdd(){
 		NuevoBanda = {
-			nidbanda: $('#idbandaadd').val().toUpperCase(),
-			nombrecliente: $('#nombrebandaadd').val().toUpperCase(),
+			nombrebanda: $('#nombrebandaadd').val().toUpperCase(),
 			estado: 1,
 		};
 	}
 	
 	function LimpiarModalDatosBandaAdd(){
-		$('#idbandaadd').val('');
 		$('#nombrebandaadd').val('');
 	}
 	
 	function ValidarCamposVaciosBandaAdd(){
 		var error = 0;
-		if ($('#idbandaadd').val() == ''){
-			Resaltado('idbandaadd');
-			error++;
-		}else{
-			NoResaltado('idbandaadd');
-		}
 		if ($('#nombrebandaadd').val() == ''){
 			Resaltado('nombrebandaadd');
 			error++;

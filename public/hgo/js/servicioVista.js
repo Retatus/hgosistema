@@ -32,6 +32,7 @@ $(document).ready(function(){
 	var NuevoServicio;
 	
 	$('#btnAddServicio').click(function(){
+		debugger
 		LimpiarModalDatosServicioAdd();
 		$('#btnModalAddServicio').toggle(true);
 		$('#modalAddServicio').modal();
@@ -55,10 +56,10 @@ $(document).ready(function(){
 			url: base_url+'/servicio/opciones?accion='+accion+'&pag='+pag,
 			data: objEvento,
 			success: function(msg){
-		debugger
+				debugger
 				var resp = JSON.parse(msg);
 				if (modal) {
-					$('#modalAgregarServicio').modal('toggle');
+					$('#modalAddServicio').modal('toggle');
 					LimpiarModalDatosServicioAdd();
 					if (resp.id == 1) {
 						Swal.fire({
@@ -90,31 +91,22 @@ $(document).ready(function(){
 	// Función para actualizar el select
 	function actualizarSelectServicioAdd() {
 		var nuevaOpcion = $('<option>', {
-			value: NuevoServicio.idservicio,
 		});
-		$('#nidservicio').append(nuevaOpcion);
-		$('#nidservicio').val(NuevoServicio.nidservicio);
+		$('#idservicio').append(nuevaOpcion);
+		$('#idservicio').val(NuevoServicio.idservicio);
 	};
 	
 	function RecolectarDatosServicioAdd(){
 		NuevoServicio = {
-			idservicio: $('#idservicioadd').val().toUpperCase(),
 			estado: 1,
 		};
 	}
 	
 	function LimpiarModalDatosServicioAdd(){
-		$('#idservicioadd').val('');
 	}
 	
 	function ValidarCamposVaciosServicioAdd(){
 		var error = 0;
-		if ($('#idservicioadd').val() == ''){
-			Resaltado('idservicioadd');
-			error++;
-		}else{
-			NoResaltado('idservicioadd');
-		}
 		return error;
 	}
 });

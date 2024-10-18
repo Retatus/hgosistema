@@ -38,6 +38,7 @@ $(document).ready(function(){
 	var NuevoUsuario;
 	
 	$('#btnAddUsuario').click(function(){
+		debugger
 		LimpiarModalDatosUsuarioAdd();
 		$('#btnModalAddUsuario').toggle(true);
 		$('#modalAddUsuario').modal();
@@ -61,10 +62,10 @@ $(document).ready(function(){
 			url: base_url+'/usuario/opciones?accion='+accion+'&pag='+pag,
 			data: objEvento,
 			success: function(msg){
-		debugger
+				debugger
 				var resp = JSON.parse(msg);
 				if (modal) {
-					$('#modalAgregarUsuario').modal('toggle');
+					$('#modalAddUsuario').modal('toggle');
 					LimpiarModalDatosUsuarioAdd();
 					if (resp.id == 1) {
 						Swal.fire({
@@ -96,34 +97,25 @@ $(document).ready(function(){
 	// Función para actualizar el select
 	function actualizarSelectUsuarioAdd() {
 		var nuevaOpcion = $('<option>', {
-			value: NuevoUsuario.usuarioid,
 			text: NuevoUsuario.usuarionombre,
 		});
-		$('#nusuarioid').append(nuevaOpcion);
-		$('#nusuarioid').val(NuevoUsuario.nusuarioid);
+		$('#usuarioid').append(nuevaOpcion);
+		$('#usuarioid').val(NuevoUsuario.usuarioid);
 	};
 	
 	function RecolectarDatosUsuarioAdd(){
 		NuevoUsuario = {
-			usuarioid: $('#usuarioidadd').val().toUpperCase(),
 			usuarionombre: $('#usuarionombreadd').val().toUpperCase(),
 			estado: 1,
 		};
 	}
 	
 	function LimpiarModalDatosUsuarioAdd(){
-		$('#usuarioidadd').val('');
 		$('#usuarionombreadd').val('');
 	}
 	
 	function ValidarCamposVaciosUsuarioAdd(){
 		var error = 0;
-		if ($('#usuarioidadd').val() == ''){
-			Resaltado('usuarioidadd');
-			error++;
-		}else{
-			NoResaltado('usuarioidadd');
-		}
 		if ($('#usuarionombreadd').val() == ''){
 			Resaltado('usuarionombreadd');
 			error++;

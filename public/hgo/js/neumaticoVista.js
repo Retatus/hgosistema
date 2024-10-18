@@ -38,6 +38,7 @@ $(document).ready(function(){
 	var NuevoNeumatico;
 	
 	$('#btnAddNeumatico').click(function(){
+		debugger
 		LimpiarModalDatosNeumaticoAdd();
 		$('#btnModalAddNeumatico').toggle(true);
 		$('#modalAddNeumatico').modal();
@@ -61,10 +62,10 @@ $(document).ready(function(){
 			url: base_url+'/neumatico/opciones?accion='+accion+'&pag='+pag,
 			data: objEvento,
 			success: function(msg){
-		debugger
+				debugger
 				var resp = JSON.parse(msg);
 				if (modal) {
-					$('#modalAgregarNeumatico').modal('toggle');
+					$('#modalAddNeumatico').modal('toggle');
 					LimpiarModalDatosNeumaticoAdd();
 					if (resp.id == 1) {
 						Swal.fire({
@@ -96,34 +97,25 @@ $(document).ready(function(){
 	// Función para actualizar el select
 	function actualizarSelectNeumaticoAdd() {
 		var nuevaOpcion = $('<option>', {
-			value: NuevoNeumatico.idneumatico,
 			text: NuevoNeumatico.nombreneumatico,
 		});
-		$('#nidneumatico').append(nuevaOpcion);
-		$('#nidneumatico').val(NuevoNeumatico.nidneumatico);
+		$('#idneumatico').append(nuevaOpcion);
+		$('#idneumatico').val(NuevoNeumatico.idneumatico);
 	};
 	
 	function RecolectarDatosNeumaticoAdd(){
 		NuevoNeumatico = {
-			idneumatico: $('#idneumaticoadd').val().toUpperCase(),
 			nombreneumatico: $('#nombreneumaticoadd').val().toUpperCase(),
 			estado: 1,
 		};
 	}
 	
 	function LimpiarModalDatosNeumaticoAdd(){
-		$('#idneumaticoadd').val('');
 		$('#nombreneumaticoadd').val('');
 	}
 	
 	function ValidarCamposVaciosNeumaticoAdd(){
 		var error = 0;
-		if ($('#idneumaticoadd').val() == ''){
-			Resaltado('idneumaticoadd');
-			error++;
-		}else{
-			NoResaltado('idneumaticoadd');
-		}
 		if ($('#nombreneumaticoadd').val() == ''){
 			Resaltado('nombreneumaticoadd');
 			error++;

@@ -38,6 +38,7 @@ $(document).ready(function(){
 	var NuevoReencauchadora;
 	
 	$('#btnAddReencauchadora').click(function(){
+		debugger
 		LimpiarModalDatosReencauchadoraAdd();
 		$('#btnModalAddReencauchadora').toggle(true);
 		$('#modalAddReencauchadora').modal();
@@ -61,10 +62,10 @@ $(document).ready(function(){
 			url: base_url+'/reencauchadora/opciones?accion='+accion+'&pag='+pag,
 			data: objEvento,
 			success: function(msg){
-		debugger
+				debugger
 				var resp = JSON.parse(msg);
 				if (modal) {
-					$('#modalAgregarReencauchadora').modal('toggle');
+					$('#modalAddReencauchadora').modal('toggle');
 					LimpiarModalDatosReencauchadoraAdd();
 					if (resp.id == 1) {
 						Swal.fire({
@@ -96,34 +97,25 @@ $(document).ready(function(){
 	// Función para actualizar el select
 	function actualizarSelectReencauchadoraAdd() {
 		var nuevaOpcion = $('<option>', {
-			value: NuevoReencauchadora.idreencauchadora,
 			text: NuevoReencauchadora.nombrereencauchadora,
 		});
-		$('#nidreencauchadora').append(nuevaOpcion);
-		$('#nidreencauchadora').val(NuevoReencauchadora.nidreencauchadora);
+		$('#idreencauchadora').append(nuevaOpcion);
+		$('#idreencauchadora').val(NuevoReencauchadora.idreencauchadora);
 	};
 	
 	function RecolectarDatosReencauchadoraAdd(){
 		NuevoReencauchadora = {
-			idreencauchadora: $('#idreencauchadoraadd').val().toUpperCase(),
 			nombrereencauchadora: $('#nombrereencauchadoraadd').val().toUpperCase(),
 			estado: 1,
 		};
 	}
 	
 	function LimpiarModalDatosReencauchadoraAdd(){
-		$('#idreencauchadoraadd').val('');
 		$('#nombrereencauchadoraadd').val('');
 	}
 	
 	function ValidarCamposVaciosReencauchadoraAdd(){
 		var error = 0;
-		if ($('#idreencauchadoraadd').val() == ''){
-			Resaltado('idreencauchadoraadd');
-			error++;
-		}else{
-			NoResaltado('idreencauchadoraadd');
-		}
 		if ($('#nombrereencauchadoraadd').val() == ''){
 			Resaltado('nombrereencauchadoraadd');
 			error++;

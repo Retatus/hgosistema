@@ -38,6 +38,7 @@ $(document).ready(function(){
 	var NuevoTiposervicio;
 	
 	$('#btnAddTiposervicio').click(function(){
+		debugger
 		LimpiarModalDatosTiposervicioAdd();
 		$('#btnModalAddTiposervicio').toggle(true);
 		$('#modalAddTiposervicio').modal();
@@ -61,10 +62,10 @@ $(document).ready(function(){
 			url: base_url+'/tiposervicio/opciones?accion='+accion+'&pag='+pag,
 			data: objEvento,
 			success: function(msg){
-		debugger
+				debugger
 				var resp = JSON.parse(msg);
 				if (modal) {
-					$('#modalAgregarTiposervicio').modal('toggle');
+					$('#modalAddTiposervicio').modal('toggle');
 					LimpiarModalDatosTiposervicioAdd();
 					if (resp.id == 1) {
 						Swal.fire({
@@ -96,34 +97,25 @@ $(document).ready(function(){
 	// Función para actualizar el select
 	function actualizarSelectTiposervicioAdd() {
 		var nuevaOpcion = $('<option>', {
-			value: NuevoTiposervicio.idtiposervicio,
 			text: NuevoTiposervicio.nombretiposervicio,
 		});
-		$('#nidtiposervicio').append(nuevaOpcion);
-		$('#nidtiposervicio').val(NuevoTiposervicio.nidtiposervicio);
+		$('#idtiposervicio').append(nuevaOpcion);
+		$('#idtiposervicio').val(NuevoTiposervicio.idtiposervicio);
 	};
 	
 	function RecolectarDatosTiposervicioAdd(){
 		NuevoTiposervicio = {
-			idtiposervicio: $('#idtiposervicioadd').val().toUpperCase(),
 			nombretiposervicio: $('#nombretiposervicioadd').val().toUpperCase(),
 			estado: 1,
 		};
 	}
 	
 	function LimpiarModalDatosTiposervicioAdd(){
-		$('#idtiposervicioadd').val('');
 		$('#nombretiposervicioadd').val('');
 	}
 	
 	function ValidarCamposVaciosTiposervicioAdd(){
 		var error = 0;
-		if ($('#idtiposervicioadd').val() == ''){
-			Resaltado('idtiposervicioadd');
-			error++;
-		}else{
-			NoResaltado('idtiposervicioadd');
-		}
 		if ($('#nombretiposervicioadd').val() == ''){
 			Resaltado('nombretiposervicioadd');
 			error++;

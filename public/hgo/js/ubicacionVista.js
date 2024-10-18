@@ -38,6 +38,7 @@ $(document).ready(function(){
 	var NuevoUbicacion;
 	
 	$('#btnAddUbicacion').click(function(){
+		debugger
 		LimpiarModalDatosUbicacionAdd();
 		$('#btnModalAddUbicacion').toggle(true);
 		$('#modalAddUbicacion').modal();
@@ -61,10 +62,10 @@ $(document).ready(function(){
 			url: base_url+'/ubicacion/opciones?accion='+accion+'&pag='+pag,
 			data: objEvento,
 			success: function(msg){
-		debugger
+				debugger
 				var resp = JSON.parse(msg);
 				if (modal) {
-					$('#modalAgregarUbicacion').modal('toggle');
+					$('#modalAddUbicacion').modal('toggle');
 					LimpiarModalDatosUbicacionAdd();
 					if (resp.id == 1) {
 						Swal.fire({
@@ -96,34 +97,25 @@ $(document).ready(function(){
 	// Función para actualizar el select
 	function actualizarSelectUbicacionAdd() {
 		var nuevaOpcion = $('<option>', {
-			value: NuevoUbicacion.idubicacion,
 			text: NuevoUbicacion.nombretipoubicacion,
 		});
-		$('#nidubicacion').append(nuevaOpcion);
-		$('#nidubicacion').val(NuevoUbicacion.nidubicacion);
+		$('#idubicacion').append(nuevaOpcion);
+		$('#idubicacion').val(NuevoUbicacion.idubicacion);
 	};
 	
 	function RecolectarDatosUbicacionAdd(){
 		NuevoUbicacion = {
-			idubicacion: $('#idubicacionadd').val().toUpperCase(),
 			nombretipoubicacion: $('#nombretipoubicacionadd').val().toUpperCase(),
 			estado: 1,
 		};
 	}
 	
 	function LimpiarModalDatosUbicacionAdd(){
-		$('#idubicacionadd').val('');
 		$('#nombretipoubicacionadd').val('');
 	}
 	
 	function ValidarCamposVaciosUbicacionAdd(){
 		var error = 0;
-		if ($('#idubicacionadd').val() == ''){
-			Resaltado('idubicacionadd');
-			error++;
-		}else{
-			NoResaltado('idubicacionadd');
-		}
 		if ($('#nombretipoubicacionadd').val() == ''){
 			Resaltado('nombretipoubicacionadd');
 			error++;

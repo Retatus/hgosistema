@@ -38,6 +38,7 @@ $(document).ready(function(){
 	var NuevoCondicion;
 	
 	$('#btnAddCondicion').click(function(){
+		debugger
 		LimpiarModalDatosCondicionAdd();
 		$('#btnModalAddCondicion').toggle(true);
 		$('#modalAddCondicion').modal();
@@ -61,10 +62,10 @@ $(document).ready(function(){
 			url: base_url+'/condicion/opciones?accion='+accion+'&pag='+pag,
 			data: objEvento,
 			success: function(msg){
-		debugger
+				debugger
 				var resp = JSON.parse(msg);
 				if (modal) {
-					$('#modalAgregarCondicion').modal('toggle');
+					$('#modalAddCondicion').modal('toggle');
 					LimpiarModalDatosCondicionAdd();
 					if (resp.id == 1) {
 						Swal.fire({
@@ -96,34 +97,25 @@ $(document).ready(function(){
 	// Función para actualizar el select
 	function actualizarSelectCondicionAdd() {
 		var nuevaOpcion = $('<option>', {
-			value: NuevoCondicion.idcondicion,
 			text: NuevoCondicion.nombrecondicion,
 		});
-		$('#nidcondicion').append(nuevaOpcion);
-		$('#nidcondicion').val(NuevoCondicion.nidcondicion);
+		$('#idcondicion').append(nuevaOpcion);
+		$('#idcondicion').val(NuevoCondicion.idcondicion);
 	};
 	
 	function RecolectarDatosCondicionAdd(){
 		NuevoCondicion = {
-			idcondicion: $('#idcondicionadd').val().toUpperCase(),
 			nombrecondicion: $('#nombrecondicionadd').val().toUpperCase(),
 			estado: 1,
 		};
 	}
 	
 	function LimpiarModalDatosCondicionAdd(){
-		$('#idcondicionadd').val('');
 		$('#nombrecondicionadd').val('');
 	}
 	
 	function ValidarCamposVaciosCondicionAdd(){
 		var error = 0;
-		if ($('#idcondicionadd').val() == ''){
-			Resaltado('idcondicionadd');
-			error++;
-		}else{
-			NoResaltado('idcondicionadd');
-		}
 		if ($('#nombrecondicionadd').val() == ''){
 			Resaltado('nombrecondicionadd');
 			error++;
