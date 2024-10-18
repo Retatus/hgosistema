@@ -170,7 +170,7 @@
 								<?php endif;?>
 							</select>
 							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat">+</button>
+								<button type="button" class="btn btn-info btn-flat" id='btnAddCliente'>+</button>
 							</span>
 						</div>	
 					</div>
@@ -201,7 +201,7 @@
 								<?php endif;?>
 							</select>
 							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat">+</button>
+								<button type="button" class="btn btn-info btn-flat" id='btnAddBanda'>+</button>
 							</span>
 						</div>						
 					</div>
@@ -225,7 +225,7 @@
 								<?php endif;?>
 							</select>
 							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat">+</button>
+								<button type="button" class="btn btn-info btn-flat" id='btnAddTiposervicio'>+</button>
 							</span>
 						</div>
 					</div>
@@ -249,7 +249,7 @@
 								<?php endif;?>
 							</select>
 							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat">+</button>
+								<button type="button" class="btn btn-info btn-flat" id='btnAddNeumatico'>+</button>
 							</span>
 						</div>							
 					</div>
@@ -273,7 +273,7 @@
 								<?php endif;?>
 							</select>
 							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat">+</button>
+								<button type="button" class="btn btn-info btn-flat" id='btnAddUbicacion'>+</button>
 							</span>
 						</div>
 					</div>
@@ -291,7 +291,7 @@
 								<?php endif;?>
 							</select>
 							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat">+</button>
+								<button type="button" class="btn btn-info btn-flat" id='btnAddReencauchadora'>+</button>
 							</span>
 						</div>						
 					</div>
@@ -322,7 +322,7 @@
 								<?php endif; ?>
 							</select>
 							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat">+</button>
+								<button type="button" class="btn btn-info btn-flat" id='btnAddCondicion'>+</button>
 							</span>
 						</div>
 					</div>
@@ -340,13 +340,13 @@
 						</div>
 					</div>
 				</div>
-				<div class='col-6 form-group row'>
+				<div class='col-6 form-group row' hidden>
 					<label for = usuario class='col-sm-4' for='id'>Usuario:</label>
 					<div class = 'col-sm-8'>
 						<div class="input-group input-group-sm">
 							<input type="text" class="form-control">
 							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat">+</button>
+							<button type="button" class="btn btn-info btn-flat">+</button>						'>+</button>
 							</span>
 						</div>
 					</div>
