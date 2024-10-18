@@ -117,9 +117,17 @@ class Condicion extends BaseController
 	public function autocompletecondicions()
 	{
 		$todos = 1;
-		$keyword = $this->request->getPost('keyword');
-		$data = $this->condicion->getAutocompletecondicions($todos,$keyword);
-		echo json_encode($data);
+		$keyword = $this->request->getVar('term');
+		$result = $this->condicion->getAutocompletecondicions($todos,$keyword);
+		$data = [];
+		foreach ($result as $row) {
+			$data[] = [
+				'id' => $row['idcondicion'],
+				'label' => $row['nombrecondicion'],
+				'value' => $row['nombrecondicion']
+			];
+		}
+		return $this->response->setJSON($data);
 	}
 //   SECCION ====== Condicion SELECT NOMBRE ======
 	public function getCondicionsSelectNombre(){

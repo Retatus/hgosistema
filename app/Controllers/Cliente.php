@@ -123,9 +123,17 @@ class Cliente extends BaseController
 	public function autocompleteclientes()
 	{
 		$todos = 1;
-		$keyword = $this->request->getPost('keyword');
-		$data = $this->cliente->getAutocompleteclientes($todos,$keyword);
-		echo json_encode($data);
+		$keyword = $this->request->getVar('term');
+		$result = $this->cliente->getAutocompleteclientes($todos,$keyword);
+		$data = [];
+		foreach ($result as $row) {
+			$data[] = [
+				'id' => $row['idcliente'],
+				'label' => $row['nombrecliente'],
+				'value' => $row['nombrecliente']
+			];
+		}
+		return $this->response->setJSON($data);
 	}
 //   SECCION ====== Cliente SELECT NOMBRE ======
 	public function getClientesSelectNombre(){

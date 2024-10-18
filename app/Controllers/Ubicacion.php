@@ -117,9 +117,17 @@ class Ubicacion extends BaseController
 	public function autocompleteubicacions()
 	{
 		$todos = 1;
-		$keyword = $this->request->getPost('keyword');
-		$data = $this->ubicacion->getAutocompleteubicacions($todos,$keyword);
-		echo json_encode($data);
+		$keyword = $this->request->getVar('term');
+		$result = $this->ubicacion->getAutocompleteubicacions($todos,$keyword);
+		$data = [];
+		foreach ($result as $row) {
+			$data[] = [
+				'id' => $row['idubicacion'],
+				'label' => $row['nombretipoubicacion'],
+				'value' => $row['nombretipoubicacion']
+			];
+		}
+		return $this->response->setJSON($data);
 	}
 //   SECCION ====== Ubicacion SELECT NOMBRE ======
 	public function getUbicacionsSelectNombre(){

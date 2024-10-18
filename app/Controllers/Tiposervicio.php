@@ -117,9 +117,17 @@ class Tiposervicio extends BaseController
 	public function autocompletetiposervicios()
 	{
 		$todos = 1;
-		$keyword = $this->request->getPost('keyword');
-		$data = $this->tiposervicio->getAutocompletetiposervicios($todos,$keyword);
-		echo json_encode($data);
+		$keyword = $this->request->getVar('term');
+		$result = $this->tiposervicio->getAutocompletetiposervicios($todos,$keyword);
+		$data = [];
+		foreach ($result as $row) {
+			$data[] = [
+				'id' => $row['idtiposervicio'],
+				'label' => $row['nombretiposervicio'],
+				'value' => $row['nombretiposervicio']
+			];
+		}
+		return $this->response->setJSON($data);
 	}
 //   SECCION ====== Tiposervicio SELECT NOMBRE ======
 	public function getTiposerviciosSelectNombre(){

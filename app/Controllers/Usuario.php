@@ -151,7 +151,7 @@ class Usuario extends BaseController
 
         // Carga la vista con el formulario
         return view('login/login');
-    }
+	}
 
 //   SECCION ====== EDIT ======
 	public function edit(){
@@ -165,9 +165,17 @@ class Usuario extends BaseController
 	public function autocompleteusuarios()
 	{
 		$todos = 1;
-		$keyword = $this->request->getPost('keyword');
-		$data = $this->usuario->getAutocompleteusuarios($todos,$keyword);
-		echo json_encode($data);
+		$keyword = $this->request->getVar('term');
+		$result = $this->usuario->getAutocompleteusuarios($todos,$keyword);
+		$data = [];
+		foreach ($result as $row) {
+			$data[] = [
+				'id' => $row['usuarioid'],
+				'label' => $row['usuarionombre'],
+				'value' => $row['usuarionombre']
+			];
+		}
+		return $this->response->setJSON($data);
 	}
 //   SECCION ====== Usuario SELECT NOMBRE ======
 	public function getUsuariosSelectNombre(){

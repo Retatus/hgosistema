@@ -120,9 +120,17 @@ class Banda extends BaseController
 	public function autocompletebandas()
 	{
 		$todos = 1;
-		$keyword = $this->request->getPost('keyword');
-		$data = $this->banda->getAutocompletebandas($todos,$keyword);
-		echo json_encode($data);
+		$keyword = $this->request->getVar('term');
+		$result = $this->banda->getAutocompletebandas($todos,$keyword);
+		$data = [];
+		foreach ($result as $row) {
+			$data[] = [
+				'id' => $row['idbanda'],
+				'label' => $row['nombrebanda'],
+				'value' => $row['nombrebanda']
+			];
+		}
+		return $this->response->setJSON($data);
 	}
 //   SECCION ====== Banda SELECT NOMBRE ======
 	public function getBandasSelectNombre(){

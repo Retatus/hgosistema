@@ -117,9 +117,17 @@ class Neumatico extends BaseController
 	public function autocompleteneumaticos()
 	{
 		$todos = 1;
-		$keyword = $this->request->getPost('keyword');
-		$data = $this->neumatico->getAutocompleteneumaticos($todos,$keyword);
-		echo json_encode($data);
+		$keyword = $this->request->getVar('term');
+		$result = $this->neumatico->getAutocompleteneumaticos($todos,$keyword);
+		$data = [];
+		foreach ($result as $row) {
+			$data[] = [
+				'id' => $row['idneumatico'],
+				'label' => $row['nombreneumatico'],
+				'value' => $row['nombreneumatico']
+			];
+		}
+		return $this->response->setJSON($data);
 	}
 //   SECCION ====== Neumatico SELECT NOMBRE ======
 	public function getNeumaticosSelectNombre(){
