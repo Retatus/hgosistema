@@ -38,6 +38,7 @@ $(document).ready(function(){
 	var NuevoCliente;
 	
 	$('#btnAddCliente').click(function(){
+		debugger
 		LimpiarModalDatosClienteAdd();
 		$('#btnModalAddCliente').toggle(true);
 		$('#modalAddCliente').modal();
@@ -61,10 +62,10 @@ $(document).ready(function(){
 			url: base_url+'/cliente/opciones?accion='+accion+'&pag='+pag,
 			data: objEvento,
 			success: function(msg){
-		debugger
+				debugger
 				var resp = JSON.parse(msg);
 				if (modal) {
-					$('#modalAgregarCliente').modal('toggle');
+					$('#modalAddCliente').modal('toggle');
 					LimpiarModalDatosClienteAdd();
 					if (resp.id == 1) {
 						Swal.fire({
@@ -73,7 +74,7 @@ $(document).ready(function(){
 							}).then((result) => {
 							if (result.value) {
 								//window.location.href = base_url + 'mantenimiento/servicios/';
-								actualizarSelectClienteAdd();
+								actualizarAutocompleteClienteAdd();
 							}
 						})
 					} else {
@@ -94,13 +95,9 @@ $(document).ready(function(){
 		});
 	}
 	// Función para actualizar el select
-	function actualizarSelectClienteAdd() {
-		var nuevaOpcion = $('<option>', {
-			value: NuevoCliente.idcliente,
-			text: NuevoCliente.nombrecliente,
-		});
-		$('#sidcliente').append(nuevaOpcion);
-		$('#sidcliente').val(NuevoCliente.sidcliente);
+	function actualizarAutocompleteClienteAdd() {				
+		$('#searchidcliente').val(NuevoCliente.nombrecliente);
+		$('#idcliente').val(NuevoCliente.idcliente);
 	};
 	
 	function RecolectarDatosClienteAdd(){
