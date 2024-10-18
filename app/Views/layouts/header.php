@@ -118,6 +118,33 @@
 		z-index:999;
 	}
 
+  /* Para dispositivos móviles (pantallas pequeñas) */
+	@media (max-width: 574.98px) {
+		.select2-container{
+			width: 87% !important;
+		}
+	}
+
+	/* Para dispositivos de tamaño mediano (tabletas) */
+	@media (min-width: 575px) and (max-width: 991.98px) {
+		.select2-container{
+			width: 81% !important;
+		}
+	}
+	
+	/* Para pantallas grandes (laptops) */
+	@media (min-width: 992px) and (max-width: 1199.98px) {
+		.select2-container{
+			width: 89% !important;
+		}
+	}
+
+	/* Para pantallas extra grandes (monitores grandes) */
+	@media (min-width: 1200px) {
+		.select2-container{
+			width: 93% !important;
+		}
+	}
 
   .demo-content {
       width: 100%;

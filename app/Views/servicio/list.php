@@ -160,14 +160,19 @@
 				<div class='col-6 form-group row'>
 					<label for = idcliente class='col-sm-4'>Cliente:</label>
 					<div class = 'col-sm-8'>
-						<select class='form-control form-control-sm select2' id='idcliente'>
-							<option value='0'>-- SELECCIONAR1 --</option>
-							<?php if (!empty($clientes)):?>
-								<?php foreach($clientes as $cliente):?>
-									<option value= '<?php echo $cliente['idcliente'];?>'><?php echo $cliente['concatenado'];?></option>
-								<?php endforeach;?>
-							<?php endif;?>
-						</select>
+						<div class="input-group input-group-sm">
+							<select class='form-control form-control-sm select2' id='idcliente'>
+								<option value='0'>-- SELECCIONAR1 --</option>
+								<?php if (!empty($clientes)):?>
+									<?php foreach($clientes as $cliente):?>
+										<option value= '<?php echo $cliente['idcliente'];?>'><?php echo $cliente['concatenado'];?></option>
+									<?php endforeach;?>
+								<?php endif;?>
+							</select>
+							<span class="input-group-append">
+								<button type="button" class="btn btn-info btn-flat">+</button>
+							</span>
+						</div>	
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -186,14 +191,19 @@
 				<div class='col-6 form-group row'>
 					<label for = idbanda class='col-sm-4'>Banda:</label>
 					<div class = 'col-sm-8'>
-						<select class='form-control form-control-sm select2' id='idbanda'>
-							<option value='0'>-- SELECCIONAR1 --</option>
-							<?php if (!empty($bandas)):?>
-								<?php foreach($bandas as $banda):?>
-									<option value= '<?php echo $banda['idbanda'];?>'><?php echo $banda['concatenado'];?></option>
-								<?php endforeach;?>
-							<?php endif;?>
-						</select>
+						<div class="input-group input-group-sm">
+							<select class='form-control form-control-sm select2' id='idbanda'>
+								<option value='0'>-- SELECCIONAR1 --</option>
+								<?php if (!empty($bandas)):?>
+									<?php foreach($bandas as $banda):?>
+										<option value= '<?php echo $banda['idbanda'];?>'><?php echo $banda['concatenado'];?></option>
+									<?php endforeach;?>
+								<?php endif;?>
+							</select>
+							<span class="input-group-append">
+								<button type="button" class="btn btn-info btn-flat">+</button>
+							</span>
+						</div>						
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -205,14 +215,19 @@
 				<div class='col-6 form-group row'>
 					<label for = idtiposervicio class='col-sm-4'>Tiposervicio:</label>
 					<div class = 'col-sm-8'>
-						<select class='form-control form-control-sm select2' id='idtiposervicio'>
-							<option value='0'>-- SELECCIONAR1 --</option>
-							<?php if (!empty($tiposervicios)):?>
-								<?php foreach($tiposervicios as $tiposervicio):?>
-									<option value= '<?php echo $tiposervicio['idtiposervicio'];?>'><?php echo $tiposervicio['concatenado'];?></option>
-								<?php endforeach;?>
-							<?php endif;?>
-						</select>
+						<div class="input-group input-group-sm">
+							<select class='form-control form-control-sm select2' id='idtiposervicio'>
+								<option value='0'>-- SELECCIONAR1 --</option>
+								<?php if (!empty($tiposervicios)):?>
+									<?php foreach($tiposervicios as $tiposervicio):?>
+										<option value= '<?php echo $tiposervicio['idtiposervicio'];?>'><?php echo $tiposervicio['concatenado'];?></option>
+									<?php endforeach;?>
+								<?php endif;?>
+							</select>
+							<span class="input-group-append">
+								<button type="button" class="btn btn-info btn-flat">+</button>
+							</span>
+						</div>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -224,14 +239,19 @@
 				<div class='col-6 form-group row'>
 					<label for = idneumatico class='col-sm-4'>Neumatico:</label>
 					<div class = 'col-sm-8'>
-						<select class='form-control form-control-sm select2' id='idneumatico'>
-							<option value='0'>-- SELECCIONAR1 --</option>
-							<?php if (!empty($neumaticos)):?>
-								<?php foreach($neumaticos as $neumatico):?>
-									<option value= '<?php echo $neumatico['idneumatico'];?>'><?php echo $neumatico['concatenado'];?></option>
-								<?php endforeach;?>
-							<?php endif;?>
-						</select>
+						<div class="input-group input-group-sm">
+							<select class='form-control form-control-sm select2' id='idneumatico'>
+								<option value='0'>-- SELECCIONAR1 --</option>
+								<?php if (!empty($neumaticos)):?>
+									<?php foreach($neumaticos as $neumatico):?>
+										<option value= '<?php echo $neumatico['idneumatico'];?>'><?php echo $neumatico['concatenado'];?></option>
+									<?php endforeach;?>
+								<?php endif;?>
+							</select>
+							<span class="input-group-append">
+								<button type="button" class="btn btn-info btn-flat">+</button>
+							</span>
+						</div>							
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -243,27 +263,37 @@
 				<div class='col-6 form-group row'>
 					<label for = idubicacion class='col-sm-4'>Ubicacion:</label>
 					<div class = 'col-sm-8'>
-						<select class='form-control form-control-sm select2' id='idubicacion'>
-							<option value='0'>-- SELECCIONAR1 --</option>
-							<?php if (!empty($ubicacions)):?>
-								<?php foreach($ubicacions as $ubicacion):?>
-									<option value= '<?php echo $ubicacion['idubicacion'];?>'><?php echo $ubicacion['concatenado'];?></option>
-								<?php endforeach;?>
-							<?php endif;?>
-						</select>
+						<div class="input-group input-group-sm">
+							<select class='form-control form-control-sm select2' id='idubicacion'>
+								<option value='0'>-- SELECCIONAR1 --</option>
+								<?php if (!empty($ubicacions)):?>
+									<?php foreach($ubicacions as $ubicacion):?>
+										<option value= '<?php echo $ubicacion['idubicacion'];?>'><?php echo $ubicacion['concatenado'];?></option>
+									<?php endforeach;?>
+								<?php endif;?>
+							</select>
+							<span class="input-group-append">
+								<button type="button" class="btn btn-info btn-flat">+</button>
+							</span>
+						</div>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
 					<label for = idreencauchadora class='col-sm-4'>Reencauchadora:</label>
 					<div class = 'col-sm-8'>
-						<select class='form-control form-control-sm select2' id='idreencauchadora'>
-							<option value='0'>-- SELECCIONAR1 --</option>
-							<?php if (!empty($reencauchadoras)):?>
-								<?php foreach($reencauchadoras as $reencauchadora):?>
-									<option value= '<?php echo $reencauchadora['idreencauchadora'];?>'><?php echo $reencauchadora['concatenado'];?></option>
-								<?php endforeach;?>
-							<?php endif;?>
-						</select>
+						<div class="input-group input-group-sm">
+							<select class='form-control form-control-sm select2' id='idreencauchadora'>
+								<option value='0'>-- SELECCIONAR1 --</option>
+								<?php if (!empty($reencauchadoras)):?>
+									<?php foreach($reencauchadoras as $reencauchadora):?>
+										<option value= '<?php echo $reencauchadora['idreencauchadora'];?>'><?php echo $reencauchadora['concatenado'];?></option>
+									<?php endforeach;?>
+								<?php endif;?>
+							</select>
+							<span class="input-group-append">
+								<button type="button" class="btn btn-info btn-flat">+</button>
+							</span>
+						</div>						
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -281,15 +311,20 @@
 				</div>
 				<div class='col-6 form-group row'>
 					<label for = idcondicion class='col-sm-4'>Condicion:</label>
-					<div class = 'col-sm-8'>
-						<select class='form-control form-control-sm select2' id='idcondicion'>
-							<option value='0'>-- SELECCIONAR1 --</option>
-							<?php if (!empty($condicions)):?>
-								<?php foreach($condicions as $condicion):?>
-									<option value= '<?php echo $condicion['idcondicion'];?>'><?php echo $condicion['concatenado'];?></option>
-								<?php endforeach;?>
-							<?php endif;?>
-						</select>
+					<div class='col-sm-8'>
+						<div class="input-group input-group-sm">
+							<select class='form-control form-control-sm select2'  id='idcondicion'>
+								<option value='0'>-- SELECCIONAR1 --</option>
+								<?php if (!empty($condicions)): ?>
+									<?php foreach($condicions as $condicion): ?>
+										<option value='<?php echo $condicion['idcondicion']; ?>'><?php echo $condicion['concatenado']; ?></option>
+									<?php endforeach; ?>
+								<?php endif; ?>
+							</select>
+							<span class="input-group-append">
+								<button type="button" class="btn btn-info btn-flat">+</button>
+							</span>
+						</div>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -308,8 +343,15 @@
 				<div class='col-6 form-group row'>
 					<label for = usuario class='col-sm-4' for='id'>Usuario:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase' id='usuario' name='usuario' placeholder='T001' autocomplete = 'off'>
+						<div class="input-group input-group-sm">
+							<input type="text" class="form-control">
+							<span class="input-group-append">
+								<button type="button" class="btn btn-info btn-flat">+</button>
+							</span>
+						</div>
 					</div>
+
+					
 				</div>
 				<div class='col-6 form-group row'>
 					<label for = estado class='col-sm-4' for='rol'>Estado:</label>
