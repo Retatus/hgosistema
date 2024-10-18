@@ -160,8 +160,13 @@
 				<div class='col-6 form-group row'>
 					<label for = idcliente class='col-sm-4'>Cliente:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' id='searchidcliente' placeholder='Ingrese el nombre del idcliente' class='form-control form-control-sm'>
-						<input type='text' id='idcliente' name='idcliente' class='form-control form-control-sm'>
+						<div class='input-group input-group-sm'>
+							<input type='text' id='searchidcliente' placeholder='Ingrese el nombre del idcliente' class='form-control form-control-sm'>
+							<input type='hidden' id='idcliente' name='idcliente' class='form-control form-control-sm'>
+							<span class='input-group-append'>
+								<button type='button' class='btn btn-info btn-flat' id='btnAddCliente'>+</button>
+							</span>
+						</div>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -180,8 +185,13 @@
 				<div class='col-6 form-group row'>
 					<label for = idbanda class='col-sm-4'>Banda:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' id='searchidbanda' placeholder='Ingrese el nombre del idbanda' class='form-control form-control-sm'>
-						<input type='text' id='idbanda' name='idbanda' class='form-control form-control-sm'>
+						<div class='input-group input-group-sm'>
+							<input type='text' id='searchidbanda' placeholder='Ingrese el nombre del idbanda' class='form-control form-control-sm'>
+							<input type='hidden' id='idbanda' name='idbanda' class='form-control form-control-sm'>
+							<span class='input-group-append'>
+								<button type='button' class='btn btn-info btn-flat' id='btnAddBanda'>+</button>
+							</span>
+						</div>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -193,8 +203,13 @@
 				<div class='col-6 form-group row'>
 					<label for = idtiposervicio class='col-sm-4'>Tiposervicio:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' id='searchidtiposervicio' placeholder='Ingrese el nombre del idtiposervicio' class='form-control form-control-sm'>
-						<input type='text' id='idtiposervicio' name='idtiposervicio' class='form-control form-control-sm'>
+						<div class='input-group input-group-sm'>
+							<input type='text' id='searchidtiposervicio' placeholder='Ingrese el nombre del idtiposervicio' class='form-control form-control-sm'>
+							<input type='hidden' id='idtiposervicio' name='idtiposervicio' class='form-control form-control-sm'>
+							<span class='input-group-append'>
+								<button type='button' class='btn btn-info btn-flat' id='btnAddTiposervicio'>+</button>
+							</span>
+						</div>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -206,8 +221,13 @@
 				<div class='col-6 form-group row'>
 					<label for = idneumatico class='col-sm-4'>Neumatico:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' id='searchidneumatico' placeholder='Ingrese el nombre del idneumatico' class='form-control form-control-sm'>
-						<input type='text' id='idneumatico' name='idneumatico' class='form-control form-control-sm'>
+						<div class='input-group input-group-sm'>
+							<input type='text' id='searchidneumatico' placeholder='Ingrese el nombre del idneumatico' class='form-control form-control-sm'>
+							<input type='hidden' id='idneumatico' name='idneumatico' class='form-control form-control-sm'>
+							<span class='input-group-append'>
+								<button type='button' class='btn btn-info btn-flat' id='btnAddNeumatico'>+</button>
+							</span>
+						</div>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -219,15 +239,25 @@
 				<div class='col-6 form-group row'>
 					<label for = idubicacion class='col-sm-4'>Ubicacion:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' id='searchidubicacion' placeholder='Ingrese el nombre del idubicacion' class='form-control form-control-sm'>
-						<input type='text' id='idubicacion' name='idubicacion' class='form-control form-control-sm'>
+						<div class='input-group input-group-sm'>
+							<input type='text' id='searchidubicacion' placeholder='Ingrese el nombre del idubicacion' class='form-control form-control-sm'>
+							<input type='hidden' id='idubicacion' name='idubicacion' class='form-control form-control-sm'>
+							<span class='input-group-append'>
+								<button type='button' class='btn btn-info btn-flat' id='btnAddUbicacion'>+</button>
+							</span>
+						</div>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
 					<label for = idreencauchadora class='col-sm-4'>Reencauchadora:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' id='searchidreencauchadora' placeholder='Ingrese el nombre del idreencauchadora' class='form-control form-control-sm'>
-						<input type='text' id='idreencauchadora' name='idreencauchadora' class='form-control form-control-sm'>
+						<div class='input-group input-group-sm'>
+							<input type='text' id='searchidreencauchadora' placeholder='Ingrese el nombre del idreencauchadora' class='form-control form-control-sm'>
+							<input type='hidden' id='idreencauchadora' name='idreencauchadora' class='form-control form-control-sm'>
+							<span class='input-group-append'>
+								<button type='button' class='btn btn-info btn-flat' id='btnAddReencauchadora'>+</button>
+							</span>
+						</div>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -246,8 +276,13 @@
 				<div class='col-6 form-group row'>
 					<label for = idcondicion class='col-sm-4'>Condicion:</label>
 					<div class = 'col-sm-8'>
-						<input type='text' id='searchidcondicion' placeholder='Ingrese el nombre del idcondicion' class='form-control form-control-sm'>
-						<input type='text' id='idcondicion' name='idcondicion' class='form-control form-control-sm'>
+						<div class='input-group input-group-sm'>
+							<input type='text' id='searchidcondicion' placeholder='Ingrese el nombre del idcondicion' class='form-control form-control-sm'>
+							<input type='hidden' id='idcondicion' name='idcondicion' class='form-control form-control-sm'>
+							<span class='input-group-append'>
+								<button type='button' class='btn btn-info btn-flat' id='btnAddCondicion'>+</button>
+							</span>
+						</div>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
