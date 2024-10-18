@@ -58,6 +58,9 @@ class ServicioModel extends Model
 		if ($text !== '') {
 			$builder->groupStart()
 				->like('t0.nidservicio', $text)
+				->orLike('t0.splaca', $text)
+				->orLike('t0.snumero', $text)
+				->orLike('t0.scodigo', $text)
 				->orLike('t1.snombrebanda', $text)
 				->orLike('t2.snombrecondicion', $text)
 				->orLike('t3.snombreneumatico', $text)
@@ -154,6 +157,9 @@ class ServicioModel extends Model
 		if ($text !== '') {
 			$builder->groupStart()
 				->like('t0.nidservicio', $text)
+				->orLike('t0.splaca', $text)
+				->orLike('t0.snumero', $text)
+				->orLike('t0.scodigo', $text)
 				->orLike('t1.snombrebanda', $text)
 				->orLike('t2.snombrecondicion', $text)
 				->orLike('t3.snombreneumatico', $text)
