@@ -67,6 +67,7 @@ class ServicioModel extends Model
 				->orLike('t4.snombrereencauchadora', $text)
 				->orLike('t5.snombretiposervicio', $text)
 				->orLike('t6.snombretipoubicacion', $text)
+				->orLike('t7.sidcliente', $text)
 				->orLike('t7.snombrecliente', $text)
 				->groupEnd();
 		}
@@ -166,6 +167,7 @@ class ServicioModel extends Model
 				->orLike('t4.snombrereencauchadora', $text)
 				->orLike('t5.snombretiposervicio', $text)
 				->orLike('t6.snombretipoubicacion', $text)
+				->orLike('t7.sidcliente', $text)
 				->orLike('t7.snombrecliente', $text)
 				->groupEnd();
 		}
