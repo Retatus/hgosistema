@@ -2,7 +2,7 @@
 $(document).ready(function(){
 	
 	const modalHtmlCondicion = `<div class='modal fade' id='modalAddCondicion' tabindex='-1'>
-		<div class='modal-dialog modal-lg'>
+		<div class='modal-dialog modal-md'>
 			<div class='modal-content'>
 			<div class='modal-header'>
 				<h4 class='modal-title'>Detalle Condicion</h4>
@@ -12,13 +12,13 @@ $(document).ready(function(){
 			</div>
 			<div class='modal-body'>
 				<div class='form-group row'>
-					<div class='col-6 form-group row'>
+					<div class='col-12 form-group row'>
 						<label for = 'idcondicionadd' class='col-sm-4'>Idcondicion:</label>
 						<div class = 'col-sm-8'>
 							<input type='text' class='form-control form-control-sm text-uppercase' id='idcondicionadd' name='idcondicionadd' placeholder='T001' autocomplete = 'off'>
 						</div>
 					</div>
-					<div class='col-6 form-group row'>
+					<div class='col-12 form-group row'>
 						<label for = 'nombrecondicionadd' class='col-sm-4' for='id'>Nombrecondicion:</label>
 						<div class = 'col-sm-8'>
 							<input type='text' class='form-control form-control-sm text-uppercase' id='nombrecondicionadd' name='nombrecondicionadd' placeholder='T001' autocomplete = 'off'>

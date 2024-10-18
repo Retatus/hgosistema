@@ -2,7 +2,7 @@
 $(document).ready(function(){
 	
 	const modalHtmlBanda = `<div class='modal fade' id='modalAddBanda' tabindex='-1'>
-		<div class='modal-dialog modal-lg'>
+		<div class='modal-dialog modal-md'>
 			<div class='modal-content'>
 			<div class='modal-header'>
 				<h4 class='modal-title'>Detalle Banda</h4>
@@ -12,13 +12,13 @@ $(document).ready(function(){
 			</div>
 			<div class='modal-body'>
 				<div class='form-group row'>
-					<div class='col-6 form-group row' hidden>
+					<div class='col-12 form-group row' hidden>
 						<label for = 'idbandaadd' class='col-sm-4'>Idbanda:</label>
 						<div class = 'col-sm-8'>
 							<input type='text' class='form-control form-control-sm text-uppercase' id='idbandaadd' name='idbandaadd' placeholder='T001' autocomplete = 'off'>
 						</div>
 					</div>
-					<div class='col-6 form-group row'>
+					<div class='col-12 form-group row'>
 						<label for = 'nombrebandaadd' class='col-sm-4' for='id'>Nombrebanda:</label>
 						<div class = 'col-sm-8'>
 							<input type='text' class='form-control form-control-sm text-uppercase' id='nombrebandaadd' name='nombrebandaadd' placeholder='T001' autocomplete = 'off'>

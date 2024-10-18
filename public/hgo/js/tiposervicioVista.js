@@ -2,7 +2,7 @@
 $(document).ready(function(){
 	
 	const modalHtmlTiposervicio = `<div class='modal fade' id='modalAddTiposervicio' tabindex='-1'>
-		<div class='modal-dialog modal-lg'>
+		<div class='modal-dialog modal-md'>
 			<div class='modal-content'>
 			<div class='modal-header'>
 				<h4 class='modal-title'>Detalle Tiposervicio</h4>
@@ -12,13 +12,13 @@ $(document).ready(function(){
 			</div>
 			<div class='modal-body'>
 				<div class='form-group row'>
-					<div class='col-6 form-group row' hidden>
+					<div class='col-12 form-group row' hidden>
 						<label for = 'idtiposervicioadd' class='col-sm-4'>Idtiposervicio:</label>
 						<div class = 'col-sm-8'>
 							<input type='text' class='form-control form-control-sm text-uppercase' id='idtiposervicioadd' name='idtiposervicioadd' placeholder='T001' autocomplete = 'off'>
 						</div>
 					</div>
-					<div class='col-6 form-group row'>
+					<div class='col-12 form-group row'>
 						<label for = 'nombretiposervicioadd' class='col-sm-4' for='id'>Nombretiposervicio:</label>
 						<div class = 'col-sm-8'>
 							<input type='text' class='form-control form-control-sm text-uppercase' id='nombretiposervicioadd' name='nombretiposervicioadd' placeholder='T001' autocomplete = 'off'>
