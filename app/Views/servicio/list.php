@@ -160,19 +160,8 @@
 				<div class='col-6 form-group row'>
 					<label for = idcliente class='col-sm-4'>Cliente:</label>
 					<div class = 'col-sm-8'>
-						<div class="input-group input-group-sm">
-							<select class='form-control form-control-sm select2' id='idcliente'>
-								<option value='0'>-- SELECCIONAR1 --</option>
-								<?php if (!empty($clientes)):?>
-									<?php foreach($clientes as $cliente):?>
-										<option value= '<?php echo $cliente['idcliente'];?>'><?php echo $cliente['concatenado'];?></option>
-									<?php endforeach;?>
-								<?php endif;?>
-							</select>
-							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat" id='btnAddCliente'>+</button>
-							</span>
-						</div>	
+						<input type='text' id='searchidcliente' placeholder='Ingrese el nombre del idcliente' class='form-control form-control-sm'>
+						<input type='text' id='idcliente' name='idcliente' class='form-control form-control-sm'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -191,19 +180,8 @@
 				<div class='col-6 form-group row'>
 					<label for = idbanda class='col-sm-4'>Banda:</label>
 					<div class = 'col-sm-8'>
-						<div class="input-group input-group-sm">
-							<select class='form-control form-control-sm select2' id='idbanda'>
-								<option value='0'>-- SELECCIONAR1 --</option>
-								<?php if (!empty($bandas)):?>
-									<?php foreach($bandas as $banda):?>
-										<option value= '<?php echo $banda['idbanda'];?>'><?php echo $banda['concatenado'];?></option>
-									<?php endforeach;?>
-								<?php endif;?>
-							</select>
-							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat" id='btnAddBanda'>+</button>
-							</span>
-						</div>						
+						<input type='text' id='searchidbanda' placeholder='Ingrese el nombre del idbanda' class='form-control form-control-sm'>
+						<input type='text' id='idbanda' name='idbanda' class='form-control form-control-sm'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -215,19 +193,8 @@
 				<div class='col-6 form-group row'>
 					<label for = idtiposervicio class='col-sm-4'>Tiposervicio:</label>
 					<div class = 'col-sm-8'>
-						<div class="input-group input-group-sm">
-							<select class='form-control form-control-sm select2' id='idtiposervicio'>
-								<option value='0'>-- SELECCIONAR1 --</option>
-								<?php if (!empty($tiposervicios)):?>
-									<?php foreach($tiposervicios as $tiposervicio):?>
-										<option value= '<?php echo $tiposervicio['idtiposervicio'];?>'><?php echo $tiposervicio['concatenado'];?></option>
-									<?php endforeach;?>
-								<?php endif;?>
-							</select>
-							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat" id='btnAddTiposervicio'>+</button>
-							</span>
-						</div>
+						<input type='text' id='searchidtiposervicio' placeholder='Ingrese el nombre del idtiposervicio' class='form-control form-control-sm'>
+						<input type='text' id='idtiposervicio' name='idtiposervicio' class='form-control form-control-sm'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -239,19 +206,8 @@
 				<div class='col-6 form-group row'>
 					<label for = idneumatico class='col-sm-4'>Neumatico:</label>
 					<div class = 'col-sm-8'>
-						<div class="input-group input-group-sm">
-							<select class='form-control form-control-sm select2' id='idneumatico'>
-								<option value='0'>-- SELECCIONAR1 --</option>
-								<?php if (!empty($neumaticos)):?>
-									<?php foreach($neumaticos as $neumatico):?>
-										<option value= '<?php echo $neumatico['idneumatico'];?>'><?php echo $neumatico['concatenado'];?></option>
-									<?php endforeach;?>
-								<?php endif;?>
-							</select>
-							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat" id='btnAddNeumatico'>+</button>
-							</span>
-						</div>							
+						<input type='text' id='searchidneumatico' placeholder='Ingrese el nombre del idneumatico' class='form-control form-control-sm'>
+						<input type='text' id='idneumatico' name='idneumatico' class='form-control form-control-sm'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -263,37 +219,15 @@
 				<div class='col-6 form-group row'>
 					<label for = idubicacion class='col-sm-4'>Ubicacion:</label>
 					<div class = 'col-sm-8'>
-						<div class="input-group input-group-sm">
-							<select class='form-control form-control-sm select2' id='idubicacion'>
-								<option value='0'>-- SELECCIONAR1 --</option>
-								<?php if (!empty($ubicacions)):?>
-									<?php foreach($ubicacions as $ubicacion):?>
-										<option value= '<?php echo $ubicacion['idubicacion'];?>'><?php echo $ubicacion['concatenado'];?></option>
-									<?php endforeach;?>
-								<?php endif;?>
-							</select>
-							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat" id='btnAddUbicacion'>+</button>
-							</span>
-						</div>
+						<input type='text' id='searchidubicacion' placeholder='Ingrese el nombre del idubicacion' class='form-control form-control-sm'>
+						<input type='text' id='idubicacion' name='idubicacion' class='form-control form-control-sm'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
 					<label for = idreencauchadora class='col-sm-4'>Reencauchadora:</label>
 					<div class = 'col-sm-8'>
-						<div class="input-group input-group-sm">
-							<select class='form-control form-control-sm select2' id='idreencauchadora'>
-								<option value='0'>-- SELECCIONAR1 --</option>
-								<?php if (!empty($reencauchadoras)):?>
-									<?php foreach($reencauchadoras as $reencauchadora):?>
-										<option value= '<?php echo $reencauchadora['idreencauchadora'];?>'><?php echo $reencauchadora['concatenado'];?></option>
-									<?php endforeach;?>
-								<?php endif;?>
-							</select>
-							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat" id='btnAddReencauchadora'>+</button>
-							</span>
-						</div>						
+						<input type='text' id='searchidreencauchadora' placeholder='Ingrese el nombre del idreencauchadora' class='form-control form-control-sm'>
+						<input type='text' id='idreencauchadora' name='idreencauchadora' class='form-control form-control-sm'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -311,20 +245,9 @@
 				</div>
 				<div class='col-6 form-group row'>
 					<label for = idcondicion class='col-sm-4'>Condicion:</label>
-					<div class='col-sm-8'>
-						<div class="input-group input-group-sm">
-							<select class='form-control form-control-sm select2'  id='idcondicion'>
-								<option value='0'>-- SELECCIONAR1 --</option>
-								<?php if (!empty($condicions)): ?>
-									<?php foreach($condicions as $condicion): ?>
-										<option value='<?php echo $condicion['idcondicion']; ?>'><?php echo $condicion['concatenado']; ?></option>
-									<?php endforeach; ?>
-								<?php endif; ?>
-							</select>
-							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat" id='btnAddCondicion'>+</button>
-							</span>
-						</div>
+					<div class = 'col-sm-8'>
+						<input type='text' id='searchidcondicion' placeholder='Ingrese el nombre del idcondicion' class='form-control form-control-sm'>
+						<input type='text' id='idcondicion' name='idcondicion' class='form-control form-control-sm'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -340,18 +263,11 @@
 						</div>
 					</div>
 				</div>
-				<div class='col-6 form-group row' hidden>
+				<div class='col-6 form-group row'>
 					<label for = usuario class='col-sm-4' for='id'>Usuario:</label>
 					<div class = 'col-sm-8'>
-						<div class="input-group input-group-sm">
-							<input type="text" class="form-control">
-							<span class="input-group-append">
-							<button type="button" class="btn btn-info btn-flat">+</button>						'>+</button>
-							</span>
-						</div>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='usuario' name='usuario' placeholder='T001' autocomplete = 'off'>
 					</div>
-
-					
 				</div>
 				<div class='col-6 form-group row'>
 					<label for = estado class='col-sm-4' for='rol'>Estado:</label>
@@ -444,12 +360,12 @@
 				$('#fechaentrega').val(''); // Limpia el campo si la validación falla
 			}
 		}
-	});	
+	});
 	
 	$('#btnAgregarServicio').click(function(){
 		LimpiarModalDatosServicio();
 		$('#categoria').val(1);
-		$('#id').prop('readonly', false); 
+		$('#id').prop('readonly', false);  
 		$('#usuario').prop('disabled', false); 
 		$('#IdModalGrupoCodigoHotel').prop('hidden', false);
 		$('#btnModalAgregarServicio').toggle(true);
@@ -538,28 +454,28 @@
 		NuevoServicio = {
 			idservicio: $('#idservicio').val().toUpperCase(),
 			idcliente: $('#idcliente').val().toUpperCase(),
-			idclientetext: $('#idcliente option:selected').text().toUpperCase(),
+			//idclientetext: $('#idcliente option:selected').text().toUpperCase(),
 			fecharecepcion: $('#fecharecepcion').val().toUpperCase(),
 			idbanda: $('#idbanda').val().toUpperCase(),
-			idbandatext: $('#idbanda option:selected').text().toUpperCase(),
+			//idbandatext: $('#idbanda option:selected').text().toUpperCase(),
 			placa: $('#placa').val().toUpperCase(),
 			observacioningreso: $('#observacioningreso').val().toUpperCase(),
 			idtiposervicio: $('#idtiposervicio').val().toUpperCase(),
-			idtiposerviciotext: $('#idtiposervicio option:selected').text().toUpperCase(),
+			//idtiposerviciotext: $('#idtiposervicio option:selected').text().toUpperCase(),
 			numero: $('#numero').val().toUpperCase(),
 			idneumatico: $('#idneumatico').val().toUpperCase(),
-			idneumaticotext: $('#idneumatico option:selected').text().toUpperCase(),
+			//idneumaticotext: $('#idneumatico option:selected').text().toUpperCase(),
 			codigo: $('#codigo').val().toUpperCase(),
 			idubicacion: $('#idubicacion').val().toUpperCase(),
-			idubicaciontext: $('#idubicacion option:selected').text().toUpperCase(),
+			//idubicaciontext: $('#idubicacion option:selected').text().toUpperCase(),
 			idreencauchadora: $('#idreencauchadora').val().toUpperCase(),
-			idreencauchadoratext: $('#idreencauchadora option:selected').text().toUpperCase(),
+			//idreencauchadoratext: $('#idreencauchadora option:selected').text().toUpperCase(),
 			fechatienda: $('#fechatienda').val().toUpperCase(),
 			idcondicion: $('#idcondicion').val().toUpperCase(),
-			idcondiciontext: $('#idcondicion option:selected').text().toUpperCase(),
+			//idcondiciontext: $('#idcondicion option:selected').text().toUpperCase(),
 			fechaentrega: $('#fechaentrega').val().toUpperCase(),
 			observacionsalida: $('#observacionsalida').val().toUpperCase(),
-			usuario: $('a.d-block').text(), //$('#usuario').val().toUpperCase(),
+			usuario: $('#usuario').val().toUpperCase(),
 			estado: $('#estado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
@@ -606,21 +522,175 @@
 			}
 		});
 	}
+	$('#searchidcliente').autocomplete({
+		source: function(request, response) {
+			$.ajax({
+			url: base_url+'/cliente/autocompleteclientes',
+				type: 'GET',
+				data: {
+					term: request.term
+				},
+				dataType: 'json',
+				success: function(data) {
+					response(data);
+				}
+			});
+		},
+		minLength: 2, // Número mínimo de caracteres para activar el autocomplete
+		select: function(event, ui) {
+			$('#idcliente').val(ui.item.id); // Guardar el ID del cliente seleccionado
+			$('#searchidcliente').val(ui.item.value); // Mostrar el nombre seleccionado en el input
+			return false; // Evitar que jQuery UI Autocomplete coloque el valor automáticamente
+		}
+	});
+
+	$('#searchidbanda').autocomplete({
+		source: function(request, response) {
+			$.ajax({
+			url: base_url+'/banda/autocompletebandas',
+				type: 'GET',
+				data: {
+					term: request.term
+				},
+				dataType: 'json',
+				success: function(data) {
+					response(data);
+				}
+			});
+		},
+		minLength: 2, // Número mínimo de caracteres para activar el autocomplete
+		select: function(event, ui) {
+			$('#idbanda').val(ui.item.id); // Guardar el ID del cliente seleccionado
+			$('#searchidbanda').val(ui.item.value); // Mostrar el nombre seleccionado en el input
+			return false; // Evitar que jQuery UI Autocomplete coloque el valor automáticamente
+		}
+	});
+
+	$('#searchidtiposervicio').autocomplete({
+		source: function(request, response) {
+			$.ajax({
+			url: base_url+'/tiposervicio/autocompletetiposervicios',
+				type: 'GET',
+				data: {
+					term: request.term
+				},
+				dataType: 'json',
+				success: function(data) {
+					response(data);
+				}
+			});
+		},
+		minLength: 2, // Número mínimo de caracteres para activar el autocomplete
+		select: function(event, ui) {
+			$('#idtiposervicio').val(ui.item.id); // Guardar el ID del cliente seleccionado
+			$('#searchidtiposervicio').val(ui.item.value); // Mostrar el nombre seleccionado en el input
+			return false; // Evitar que jQuery UI Autocomplete coloque el valor automáticamente
+		}
+	});
+
+	$('#searchidneumatico').autocomplete({
+		source: function(request, response) {
+			$.ajax({
+			url: base_url+'/neumatico/autocompleteneumaticos',
+				type: 'GET',
+				data: {
+					term: request.term
+				},
+				dataType: 'json',
+				success: function(data) {
+					response(data);
+				}
+			});
+		},
+		minLength: 2, // Número mínimo de caracteres para activar el autocomplete
+		select: function(event, ui) {
+			$('#idneumatico').val(ui.item.id); // Guardar el ID del cliente seleccionado
+			$('#searchidneumatico').val(ui.item.value); // Mostrar el nombre seleccionado en el input
+			return false; // Evitar que jQuery UI Autocomplete coloque el valor automáticamente
+		}
+	});
+
+	$('#searchidubicacion').autocomplete({
+		source: function(request, response) {
+			$.ajax({
+			url: base_url+'/ubicacion/autocompleteubicacions',
+				type: 'GET',
+				data: {
+					term: request.term
+				},
+				dataType: 'json',
+				success: function(data) {
+					response(data);
+				}
+			});
+		},
+		minLength: 2, // Número mínimo de caracteres para activar el autocomplete
+		select: function(event, ui) {
+			$('#idubicacion').val(ui.item.id); // Guardar el ID del cliente seleccionado
+			$('#searchidubicacion').val(ui.item.value); // Mostrar el nombre seleccionado en el input
+			return false; // Evitar que jQuery UI Autocomplete coloque el valor automáticamente
+		}
+	});
+
+	$('#searchidreencauchadora').autocomplete({
+		source: function(request, response) {
+			$.ajax({
+			url: base_url+'/reencauchadora/autocompletereencauchadoras',
+				type: 'GET',
+				data: {
+					term: request.term
+				},
+				dataType: 'json',
+				success: function(data) {
+					response(data);
+				}
+			});
+		},
+		minLength: 2, // Número mínimo de caracteres para activar el autocomplete
+		select: function(event, ui) {
+			$('#idreencauchadora').val(ui.item.id); // Guardar el ID del cliente seleccionado
+			$('#searchidreencauchadora').val(ui.item.value); // Mostrar el nombre seleccionado en el input
+			return false; // Evitar que jQuery UI Autocomplete coloque el valor automáticamente
+		}
+	});
+
+	$('#searchidcondicion').autocomplete({
+		source: function(request, response) {
+			$.ajax({
+			url: base_url+'/condicion/autocompletecondicions',
+				type: 'GET',
+				data: {
+					term: request.term
+				},
+				dataType: 'json',
+				success: function(data) {
+					response(data);
+				}
+			});
+		},
+		minLength: 2, // Número mínimo de caracteres para activar el autocomplete
+		select: function(event, ui) {
+			$('#idcondicion').val(ui.item.id); // Guardar el ID del cliente seleccionado
+			$('#searchidcondicion').val(ui.item.value); // Mostrar el nombre seleccionado en el input
+			return false; // Evitar que jQuery UI Autocomplete coloque el valor automáticamente
+		}
+	});
+
 	function LimpiarModalDatosServicio(){
 		$('#idservicio').val('0');
-		$('#idcliente').select2().val(0).select2('destroy').select2();
+		//$('#idcliente').select2().val(0).select2('destroy').select2();
 		$('#fecharecepcion').val('');
-		$('#idbanda').select2().val(0).select2('destroy').select2();
+		//$('#idbanda').select2().val(0).select2('destroy').select2();
 		$('#placa').val('');
 		$('#observacioningreso').val('');
-		$('#idtiposervicio').select2().val(0).select2('destroy').select2();
+		//$('#idtiposervicio').select2().val(0).select2('destroy').select2();
 		$('#numero').val('');
-		$('#idneumatico').select2().val(0).select2('destroy').select2();
+		//$('#idneumatico').select2().val(0).select2('destroy').select2();
 		$('#codigo').val('');
-		$('#idubicacion').select2().val(0).select2('destroy').select2();
-		$('#idreencauchadora').select2().val(0).select2('destroy').select2();
+		//$('#idubicacion').select2().val(0).select2('destroy').select2();
+		//$('#idreencauchadora').select2().val(0).select2('destroy').select2();
 		$('#fechatienda').val('');
-		$('#idcondicion').select2().val(0).select2('destroy').select2();
+		//$('#idcondicion').select2().val(0).select2('destroy').select2();
 		$('#fechaentrega').val('');
 		$('#observacionsalida').val('');
 		$('#usuario').val('');
