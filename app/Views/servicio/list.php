@@ -47,30 +47,30 @@
 								<thead>
 									<tr>
 										<th hidden>Idservicio</th>
-										<th>Fecharecepcion</th>
-										<th>Placa</th>
-										<th>Observacioningreso</th>
-										<th>Numero</th>
-										<th>Codigo</th>
-										<th>Fechatienda</th>
-										<th>Fechaentrega</th>
-										<th>Observacionsalida</th>
-										<th>Usuario</th>
-										<th>Estado</th>
+										<th>RUC</th>
+										<th>RAZON SOCIAL</th>
+										<th>FECHA REPCION</th>
 										<th hidden>Idbanda</th>
-										<th>Nombrebanda</th>
-										<th hidden>Idcondicion</th>
-										<th>Nombrecondicion</th>
-										<th hidden>Idneumatico</th>
-										<th>Nombreneumatico</th>
-										<th hidden>Idreencauchadora</th>
-										<th>Nombrereencauchadora</th>
+										<th>DISEÑO BANDA</th>
+										<th>PLACA</th>
+										<th>OBSERVACION INGRESO</th>
 										<th hidden>Idtiposervicio</th>
-										<th>Nombretiposervicio</th>
+										<th>TIPO SERVICIO</th>
+										<th>NUMERO</th>
+										<th hidden>Idneumatico</th>
+										<th>MARCA</th>
+										<th>CODIGO</th>
 										<th hidden>Idubicacion</th>
-										<th>Nombretipoubicacion</th>
-										<th>Idcliente</th>
-										<th>Nombrecliente</th>
+										<th>UBICACION</th>
+										<th hidden>Idreencauchadora</th>
+										<th>REENCAUCHADORA</th>
+										<th>FECHA TIENDA</th>
+										<th hidden>Idcondicion</th>
+										<th>CONDICION</th>
+										<th>FECHA ENTREGA</th>
+										<th>OBSERVACION SALIDA</th>
+										<th hidden>Usuario</th>
+										<th>ESTADO</th>
 										<th hidden>Concatenado</th>
 										<th hidden>Concatenadodetalle</th>
 										<th>Acciones</th>
@@ -80,31 +80,31 @@
 									<?php if(!empty($datos)):?>
 										<?php foreach($datos as $servicio):?>
 											<tr>
-												<td hidden><?php echo $servicio['idservicio'];?></td>
-												<td><?php echo $servicio['fecharecepcion'];?></td>
-												<td><?php echo $servicio['placa'];?></td>
-												<td><?php echo $servicio['observacioningreso'];?></td>
-												<td><?php echo $servicio['numero'];?></td>
-												<td><?php echo $servicio['codigo'];?></td>
-												<td><?php echo $servicio['fechatienda'];?></td>
-												<td><?php echo $servicio['fechaentrega'];?></td>
-												<td><?php echo $servicio['observacionsalida'];?></td>
-												<td><?php echo $servicio['usuario'];?></td>
-												<td class = 'hidden-xs'><?php echo $est = ($servicio['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
-												<td hidden><?php echo $servicio['idbanda'];?></td>
-												<td><?php echo $servicio['nombrebanda'];?></td>
-												<td hidden><?php echo $servicio['idcondicion'];?></td>
-												<td><?php echo $servicio['nombrecondicion'];?></td>
-												<td hidden><?php echo $servicio['idneumatico'];?></td>
-												<td><?php echo $servicio['nombreneumatico'];?></td>
-												<td hidden><?php echo $servicio['idreencauchadora'];?></td>
-												<td><?php echo $servicio['nombrereencauchadora'];?></td>
-												<td hidden><?php echo $servicio['idtiposervicio'];?></td>
-												<td><?php echo $servicio['nombretiposervicio'];?></td>
-												<td hidden><?php echo $servicio['idubicacion'];?></td>
-												<td><?php echo $servicio['nombretipoubicacion'];?></td>
+												<td hidden><?php echo $servicio['idservicio'];?></td>												
 												<td><?php echo $servicio['idcliente'];?></td>
 												<td><?php echo $servicio['nombrecliente'];?></td>
+												<td><?php echo $servicio['fecharecepcion'];?></td>
+												<td hidden><?php echo $servicio['idbanda'];?></td>
+												<td><?php echo $servicio['nombrebanda'];?></td>
+												<td><?php echo $servicio['placa'];?></td>
+												<td><?php echo $servicio['observacioningreso'];?></td>
+												<td hidden><?php echo $servicio['idtiposervicio'];?></td>
+												<td><?php echo $servicio['nombretiposervicio'];?></td>
+												<td><?php echo $servicio['numero'];?></td>
+												<td hidden><?php echo $servicio['idneumatico'];?></td>
+												<td><?php echo $servicio['nombreneumatico'];?></td>
+												<td><?php echo $servicio['codigo'];?></td>
+												<td hidden><?php echo $servicio['idubicacion'];?></td>
+												<td><?php echo $servicio['nombretipoubicacion'];?></td>
+												<td hidden><?php echo $servicio['idreencauchadora'];?></td>
+												<td><?php echo $servicio['nombrereencauchadora'];?></td>
+												<td><?php echo $servicio['fechatienda'];?></td>
+												<td hidden><?php echo $servicio['idcondicion'];?></td>
+												<td><?php echo $servicio['nombrecondicion'];?></td>
+												<td><?php echo $servicio['fechaentrega'];?></td>
+												<td><?php echo $servicio['observacionsalida'];?></td>
+												<td hidden><?php echo $servicio['usuario'];?></td>
+												<td class = 'hidden-xs'><?php echo $est = ($servicio['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
 												<td hidden><?php echo $servicio['concatenado'];?></td>
 												<td hidden><?php echo $servicio['concatenadodetalle'];?></td>
 												<td>
@@ -372,6 +372,11 @@
 		</div>
 	</div>
 </div>
+<style>
+	div.scroll { 
+      overflow: auto;
+  } 
+</style>
 <!--  SECCION ====== SCRIPT ====== -->
 <script>
 
@@ -784,30 +789,30 @@
 		$.each(objeto, function(i, value) {
 				var fila = `<tr>
 				<td hidden>${value.idservicio !== null ? value.idservicio : ''}</td>
-				<td>${value.fecharecepcion !== null ? value.fecharecepcion : ''}</td>
-				<td>${value.placa !== null ? value.placa : ''}</td>
-				<td>${value.observacioningreso !== null ? value.observacioningreso : ''}</td>
-				<td>${value.numero !== null ? value.numero : ''}</td>
-				<td>${value.codigo !== null ? value.codigo : ''}</td>
-				<td>${value.fechatienda !== null ? value.fechatienda : ''}</td>
-				<td>${value.fechaentrega !== null ? value.fechaentrega : ''}</td>
-				<td>${value.observacionsalida !== null ? value.observacionsalida : ''}</td>
-				<td>${value.usuario !== null ? value.usuario : ''}</td>
-				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
-				<td hidden>${value.idbanda !== null ? value.idbanda : ''}</td>
-				<td>${value.nombrebanda !== null ? value.nombrebanda : ''}</td>
-				<td hidden>${value.idcondicion !== null ? value.idcondicion : ''}</td>
-				<td>${value.nombrecondicion !== null ? value.nombrecondicion : ''}</td>
-				<td hidden>${value.idneumatico !== null ? value.idneumatico : ''}</td>
-				<td>${value.nombreneumatico !== null ? value.nombreneumatico : ''}</td>
-				<td hidden>${value.idreencauchadora !== null ? value.idreencauchadora : ''}</td>
-				<td>${value.nombrereencauchadora !== null ? value.nombrereencauchadora : ''}</td>
-				<td hidden>${value.idtiposervicio !== null ? value.idtiposervicio : ''}</td>
-				<td>${value.nombretiposervicio !== null ? value.nombretiposervicio : ''}</td>
-				<td hidden>${value.idubicacion !== null ? value.idubicacion : ''}</td>
-				<td>${value.nombretipoubicacion !== null ? value.nombretipoubicacion : ''}</td>
 				<td>${value.idcliente !== null ? value.idcliente : ''}</td>
 				<td>${value.nombrecliente !== null ? value.nombrecliente : ''}</td>
+				<td>${value.fecharecepcion !== null ? value.fecharecepcion : ''}</td>
+				<td hidden>${value.idbanda !== null ? value.idbanda : ''}</td>
+				<td>${value.nombrebanda !== null ? value.nombrebanda : ''}</td>
+				<td>${value.placa !== null ? value.placa : ''}</td>
+				<td>${value.observacioningreso !== null ? value.observacioningreso : ''}</td>
+				<td hidden>${value.idtiposervicio !== null ? value.idtiposervicio : ''}</td>
+				<td>${value.nombretiposervicio !== null ? value.nombretiposervicio : ''}</td>
+				<td>${value.numero !== null ? value.numero : ''}</td>
+				<td hidden>${value.idneumatico !== null ? value.idneumatico : ''}</td>
+				<td>${value.nombreneumatico !== null ? value.nombreneumatico : ''}</td>
+				<td>${value.codigo !== null ? value.codigo : ''}</td>
+				<td hidden>${value.idubicacion !== null ? value.idubicacion : ''}</td>
+				<td>${value.nombretipoubicacion !== null ? value.nombretipoubicacion : ''}</td>
+				<td hidden>${value.idreencauchadora !== null ? value.idreencauchadora : ''}</td>
+				<td>${value.nombrereencauchadora !== null ? value.nombrereencauchadora : ''}</td>
+				<td>${value.fechatienda !== null ? value.fechatienda : ''}</td>
+				<td hidden>${value.idcondicion !== null ? value.idcondicion : ''}</td>
+				<td>${value.nombrecondicion !== null ? value.nombrecondicion : ''}</td>
+				<td>${value.fechaentrega !== null ? value.fechaentrega : ''}</td>
+				<td>${value.observacionsalida !== null ? value.observacionsalida : ''}</td>
+				<td hidden>${value.usuario !== null ? value.usuario : ''}</td>
+				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
 				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
 				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
 				<td>
