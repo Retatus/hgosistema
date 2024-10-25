@@ -85,6 +85,12 @@
 <script src="<?php echo base_url();?>public/plugins/bootstrap4-toggle/css/bootstrap4-toggle.css"></script> -->
 <style type="text/css">
 
+.card{
+  display: grid;
+  min-height: 90dvh;
+  grid-template-rows: auto 1fr auto;
+}
+
 .numeroDerecha{
   text-align: right;
 }

@@ -30,6 +30,9 @@ class Database extends Config
         'username'     => 'root',
         'password'     => '',
         'database'     => 'hgosistema',
+        // 'username'     => 'hgoasiai_sistema',
+        // 'password'     => 'kMkV@{=DhQE;',
+        // 'database'     => 'hgoasiai_hgosistema',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
@@ -42,6 +45,7 @@ class Database extends Config
         'strictOn'     => false,
         'failover'     => [],
         'port'         => 3307,
+        //'port'         => 3306,
         'numberNative' => false,
         'dateFormat'   => [
             'date'     => 'Y-m-d',
