@@ -135,7 +135,7 @@ class Auditoria extends BaseController
 		$data = $this->auditoria->getauditoriaServicio($nidservicio);
 		echo json_encode($data);
 	}
-	
+
 
 	public function autocompleteauditorias()
 	{
@@ -143,7 +143,7 @@ class Auditoria extends BaseController
 		$keyword = $this->request->getPost('keyword');
 		$data = $this->auditoria->getAutocompleteauditorias($todos,$keyword);
 		echo json_encode($data);
-	}	
+	}
 //   SECCION ====== Auditoria SELECT NOMBRE ======
 	public function getAuditoriasSelectNombre(){
 		$searchTerm = trim($this->request->getPost('term'));
@@ -179,7 +179,7 @@ class Auditoria extends BaseController
 		$sheet->getColumnDimension('E')->setAutoSize(true);
 		$sheet->getColumnDimension('F')->setAutoSize(true);
 		$sheet->getColumnDimension('G')->setAutoSize(true);
-		$sheet->getColumnDimension('H')->setAutoSize(true);		
+		$sheet->getColumnDimension('H')->setAutoSize(true);
 		$sheet->getStyle('A1:H1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF92C5FC');
 		$border = ['borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['argb' => 'FF000000'], ], ], ];
 		$sheet->setCellValue('A1', 'IDAUDITORIA');
@@ -189,7 +189,7 @@ class Auditoria extends BaseController
 		$sheet->setCellValue('E1', 'FECHA_MODIFICACION');
 		$sheet->setCellValue('F1', 'USUARIO_MODIFICACION');
 		$sheet->setCellValue('G1', 'ESTADO');
-		$sheet->setCellValue('H1', 'IDSERVICIO');		
+		$sheet->setCellValue('H1', 'IDSERVICIO');
 		$i=2;
 		foreach ($auditoria as $row){
 			$sheet->setCellValue('A'.$i, $row['idauditoria']);

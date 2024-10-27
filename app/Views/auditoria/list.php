@@ -8,13 +8,13 @@
 					<div class='card-header'>
 						<div class='row'>
 							<div class='col-sm-8'>
-								<button type='button' class='btn btn-info btn-sm' id='btnAgregarAuditoria'>
-									<span class='fa fa-plus'></span> Agregar Auditoria
+								<button hidden type='button' class='btn btn-info btn-sm' id='btnAgregarAuditoria'>
+									<span class='fa fa-plus'></span> Agregar
 								</button>
-								<a href='<?php echo base_url();?>auditoria/excel' class='btn btn-success btn-sm'>
+								<a hidden href='<?php echo base_url();?>auditoria/excel' class='btn btn-success btn-sm'>
 									<span class='fa fa-file-excel'></span> Exportar
 								</a>
-								<a href='<?php echo base_url();?>auditoria/pdf' target='_blank' class='btn btn-danger btn-sm'>
+								<a hidden href='<?php echo base_url();?>auditoria/pdf' target='_blank' class='btn btn-danger btn-sm'>
 									<span class='fa fa-file-pdf-o'></span> Exportar
 								</a>
 							</div>
@@ -53,10 +53,9 @@
 										<th>Valor_Nuevo</th>
 										<th>Fecha_Modificacion</th>
 										<th>Usuario_Modificacion</th>
-										<th>Estado</th>										
+										<th>Estado</th>
 										<th>Concatenado</th>
 										<th hidden>Concatenadodetalle</th>
-										<th>Acciones</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -70,21 +69,9 @@
 												<td><?php echo $auditoria['valor_nuevo'];?></td>
 												<td><?php echo $auditoria['fecha_modificacion'];?></td>
 												<td><?php echo $auditoria['usuario_modificacion'];?></td>
-												<td class = 'hidden-xs'><?php echo $est = ($auditoria['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>																								
+												<td class = 'hidden-xs'><?php echo $est = ($auditoria['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
 												<td ><?php echo $auditoria['concatenado'];?></td>
-												<td hidden><?php echo $auditoria['concatenadodetalle'];?></td>
-												<td>
-													<div class='row'>
-														<div style='margin: auto;'>
-															<button type='button' onclick="btnEditarAuditoria('<?php echo $auditoria['idauditoria'].'\',\''.$auditoria['idservicio'];?>')" class='btn btn-info btn-xs'>
-																<span class='fa fa-search fa-xs'></span>
-															</button>
-														</div>
-														<div style='margin: auto;'>
-															<a class='btn btn-success btn-xs' href="<?php echo base_url();?>reserva/add/<?php echo $auditoria['idauditoria'].'\',\''.$auditoria['idservicio'];?>"><i class='fa fa-pencil'></i></a>
-														</div>
-													</div>
-												</td>
+												<td hidden><?php echo $auditoria['concatenadodetalle'];?></td>												
 											</tr>
 										<?php endforeach;?>
 									<?php endif;?>
@@ -420,21 +407,9 @@
 				<td>${value.fecha_modificacion !== null ? value.fecha_modificacion : ''}</td>
 				<td>${value.usuario_modificacion !== null ? value.usuario_modificacion : ''}</td>
 				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
-				<td hidden>${value.idservicio !== null ? value.idservicio : ''}</td>				
+				<td hidden>${value.idservicio !== null ? value.idservicio : ''}</td>
 				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
 				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
-				<td>
-				<div class='row'>
-					<div style='margin: auto;'>
-						<button type='button' onclick="btnEditarAuditoria('${value.idauditoria}', '${value.idservicio}')" class='btn btn-info btn-xs'>
-							<span class='fa fa-search fa-xs'></span>
-						</button>
-					</div>
-						<div style='margin: auto;'>
-							<a class='btn btn-success btn-xs' href='<?php echo base_url();?>/reserva/add/$auditoria['idauditoria'].'\',\''.$auditoria['idservicio']'><i class='fa fa-pencil'></i></a>
-					</div>
-				</div>
-				</td>
 				</tr>`
 			$('#TablaAuditoria tbody').append(fila);
 		});
