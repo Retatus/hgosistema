@@ -36,34 +36,27 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo base_url();?>tiposervicio">
-                        <i class="fa fa-users nav-icon"></i>
-                        <p>Tipo servicio</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo base_url();?>reencauchadora">
-                        <i class="fas fa-clock nav-icon"></i>
-                        <p>Reeccauchadora</p>
-                    </a>
-                </li>                    
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo base_url();?>neumatico">
-                        <i class="fa fa-subway nav-icon"></i>
-                        <p>Neumatico</p>
-                    </a>
-                </li>
-                
-                <li class="nav-item">
                     <a class="nav-link" href="<?php echo base_url();?>banda">
-                    <i class="fa fa-subway nav-icon"></i>
+                    <i class="fa fa-life-ring nav-icon"></i>
                         <p>Banda</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo base_url();?>condicion">
-                        <i class="fa fa-file-pdf-o nav-icon"></i>
-                        <p>Condicion</p>
+                    <a class="nav-link" href="<?php echo base_url();?>tiposervicio">
+                        <i class="fa fa-life-ring nav-icon"></i>
+                        <p>Tipo servicio</p>
+                    </a>
+                </li>                
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo base_url();?>medida">
+                    <i class="fa fa-life-ring nav-icon" aria-hidden="true"></i>
+                        <p>Medida Neumatico</p>
+                    </a>
+                </li>                     
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo base_url();?>marca">
+                        <i class="fa fa-life-ring nav-icon"></i>
+                        <p>Marca</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -71,14 +64,31 @@
                         <i class="fa fa-map-marker nav-icon"></i>
                         <p>Ubicacion</p>
                     </a>
-                </li>
-                
+                </li>  
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo base_url();?>reencauchadora">
+                        <i class="fa fa-life-ring nav-icon"></i>
+                        <p>Reeccauchadora</p>
+                    </a>
+                </li>                            
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo base_url();?>condicion">
+                        <i class="fa fa-check nav-icon"></i>
+                        <p>Condicion</p>
+                    </a>
+                </li>                
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo base_url();?>usuario">
+                        <i class="fa fa-users nav-icon"></i>
+                        <p>Usuarios</p>
+                    </a>
+                </li>  
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo base_url();?>auditoria">
                         <i class="fa fa-search nav-icon"></i>
                         <p>Auditoria</p>
                     </a>
-                </li>
+                </li> 
             </li>              
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
@@ -89,12 +99,7 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview">  
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_url();?>usuario">
-                            <i class="fa fa-users nav-icon"></i>
-                            <p>Usuarios</p>
-                        </a>
-                    </li>   
+                    
                 </ul>
             </li> 
           <?php 
