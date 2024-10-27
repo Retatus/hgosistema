@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3307
--- Tiempo de generación: 19-10-2024 a las 01:32:56
+-- Tiempo de generación: 27-10-2024 a las 12:34:38
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -164,7 +164,13 @@ INSERT INTO `tauditoria` (`nidauditoria`, `nidservicio`, `scampo_modificado`, `s
 (54, 38, 'susuario', '', 'RENATO', '2024-10-18 18:15:58', 'RENATO', b'1'),
 (55, 38, 'sobservacioningreso', 'SE TRASLADO AL TALLER DE RICHAR', 'SE TRASLADO AL TALLER DE RICHAR, TUVO UN PEQUEÑO DEFECTO', '2024-10-18 18:16:51', 'RENATO', b'1'),
 (56, 39, 'sobservacioningreso', '', 'SE CAMBIO DE REENCAUCHADORA', '2024-10-18 18:25:12', 'RENATO', b'1'),
-(57, 39, 'nidreencauchadora', '4', '2-HGO', '2024-10-18 18:25:12', 'RENATO', b'1');
+(57, 39, 'nidreencauchadora', '4', '2-HGO', '2024-10-18 18:25:12', 'RENATO', b'1'),
+(58, 41, 'splaca', 'ASDASD', 'X3LL-618', '2024-10-26 07:05:38', 'RENATO', b'1'),
+(59, 41, 'sobservacioningreso', '', 'CORRECCION DE PLACA', '2024-10-26 07:05:38', 'RENATO', b'1'),
+(60, 41, 'splaca', 'X3LL-618', 'X3L-618', '2024-10-26 21:59:19', 'RENATO', b'1'),
+(61, 40, 'bformaestado', NULL, '1', '2024-10-26 22:55:41', 'RENATO', b'1'),
+(62, 39, 'bformaestado', NULL, '0', '2024-10-26 22:56:21', 'RENATO', b'1'),
+(63, 41, 'bformaestado', '1', '0', '2024-10-27 06:28:28', 'RENATO', b'1');
 
 -- --------------------------------------------------------
 
@@ -191,7 +197,9 @@ INSERT INTO `tbanda` (`nidbanda`, `snombrebanda`, `smarca`, `bestado`) VALUES
 (5, 'PRUEBAS', 'PRUEBAS', b'0'),
 (6, 'PRUEBAS 02', 'PRUEBAS 02', b'0'),
 (7, 'TDE2-12', 'TDE2-12', b'1'),
-(8, 'PRUEBAB', 'NO IMPORTA', b'0');
+(8, 'PRUEBAB', 'NO IMPORTA', b'0'),
+(9, 'PRUEBAS', '', b'1'),
+(10, 'PRUEBAS HOY', '', b'1');
 
 -- --------------------------------------------------------
 
@@ -232,6 +240,7 @@ INSERT INTO `tcliente` (`sidcliente`, `snombrecliente`, `sdireccion`, `stelefono
 ('20600598334', 'RAPIFAC SA', 'CALLE HIPOLITO HUNANUE', '98754546521', b'1'),
 ('20601369886', 'CORPORACION GRIFERA J&F S.R.L.', 'AV. CUSCO SAYLLA', '9875454478', b'1'),
 ('23655498', 'JUAN FELIX', '', '', b'1'),
+('25312602', 'PABLO BENGOCHEA', '', '', b'1'),
 ('32565456', 'GABIELA', '', '', b'1'),
 ('42253441', 'RENATO', 'CUSCO', '9888471542', b'1'),
 ('43253442', 'BASILIDES', 'CUSCO', '987457548', b'1'),
@@ -302,6 +311,62 @@ CREATE TABLE `tconfigdatabase` (
 --
 
 INSERT INTO `tconfigdatabase` (`id`, `tablaprincipal`, `tablaforanea`, `tablaforaneafk`, `indice_campos`, `alias`, `nombre`, `tipodato`, `primarykey`, `incremental`, `concat`, `orden`, `indice_tablas`, `alias_tablas`, `alias_campos`, `variable_constructor`, `variable_model`, `variable_nombre`, `variable_nombre_capital`, `tconfigdatabase`, `indice`) VALUES
+(0, 'tauditoria', 'tauditoria', 'tauditoria', 1, 't0', 'nidauditoria', 'int', 'PRI', 0, b'0', 0, 0, 'tauditoria t0', 't0.nidauditoria', 'auditoria', 'AuditoriaModel', 'idauditoria', 'Idauditoria', NULL, NULL),
+(0, 'tauditoria', 'tauditoria', 'tservicio', 2, 't0', 'nidservicio', 'int', 'MUL', 0, b'0', 0, 0, 'tauditoria t0', 't0.nidservicio', 'servicio', 'AuditoriaModel', 'idservicio', 'Idservicio', NULL, NULL),
+(0, 'tauditoria', 'tauditoria', 'tauditoria', 3, 't0', 'scampo_modificado', 'varchar', '', 0, b'0', 0, 0, 'tauditoria t0', 't0.scampo_modificado', 'auditoria', 'AuditoriaModel', 'campo_modificado', 'Campo_Modificado', NULL, NULL),
+(0, 'tauditoria', 'tauditoria', 'tauditoria', 4, 't0', 'svalor_anterior', 'text', '', 0, b'0', 0, 0, 'tauditoria t0', 't0.svalor_anterior', 'auditoria', 'AuditoriaModel', 'valor_anterior', 'Valor_Anterior', NULL, NULL),
+(0, 'tauditoria', 'tauditoria', 'tauditoria', 5, 't0', 'svalor_nuevo', 'text', '', 0, b'0', 0, 0, 'tauditoria t0', 't0.svalor_nuevo', 'auditoria', 'AuditoriaModel', 'valor_nuevo', 'Valor_Nuevo', NULL, NULL),
+(0, 'tauditoria', 'tauditoria', 'tauditoria', 6, 't0', 'tfecha_modificacion', 'datetime', '', 0, b'0', 0, 0, 'tauditoria t0', 't0.tfecha_modificacion', 'auditoria', 'AuditoriaModel', 'fecha_modificacion', 'Fecha_Modificacion', NULL, NULL),
+(0, 'tauditoria', 'tauditoria', 'tauditoria', 7, 't0', 'susuario_modificacion', 'varchar', '', 0, b'0', 0, 0, 'tauditoria t0', 't0.susuario_modificacion', 'auditoria', 'AuditoriaModel', 'usuario_modificacion', 'Usuario_Modificacion', NULL, NULL),
+(0, 'tauditoria', 'tauditoria', 'tauditoria', 8, 't0', 'bestado', 'bit', '', 0, b'0', 0, 0, 'tauditoria t0', 't0.bestado', 'auditoria', 'AuditoriaModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tservicio', 1, 't1', 'nidservicio', 'int', 'PRI', 0, b'0', 0, 1, 'tservicio t1', 't1.nidservicio', 'servicio', 'ServicioModel', 'idservicio', 'Idservicio', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tcliente', 2, 't1', 'sidcliente', 'varchar', 'MUL', 0, b'0', 0, 1, 'tservicio t1', 't1.sidcliente', 'cliente', 'ServicioModel', 'idcliente', 'Idcliente', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tservicio', 3, 't1', 'tfecharecepcion', 'date', '', 0, b'0', 0, 1, 'tservicio t1', 't1.tfecharecepcion', 'servicio', 'ServicioModel', 'fecharecepcion', 'Fecharecepcion', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tbanda', 4, 't1', 'nidbanda', 'int', 'MUL', 0, b'0', 0, 1, 'tservicio t1', 't1.nidbanda', 'banda', 'ServicioModel', 'idbanda', 'Idbanda', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tservicio', 5, 't1', 'splaca', 'varchar', '', 0, b'0', 0, 1, 'tservicio t1', 't1.splaca', 'servicio', 'ServicioModel', 'placa', 'Placa', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tservicio', 6, 't1', 'sobservacioningreso', 'varchar', '', 0, b'0', 0, 1, 'tservicio t1', 't1.sobservacioningreso', 'servicio', 'ServicioModel', 'observacioningreso', 'Observacioningreso', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'ttiposervicio', 7, 't1', 'nidtiposervicio', 'int', 'MUL', 0, b'0', 0, 1, 'tservicio t1', 't1.nidtiposervicio', 'tiposervicio', 'ServicioModel', 'idtiposervicio', 'Idtiposervicio', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tmedida', 8, 't1', 'nidmedida', 'int', 'MUL', 0, b'0', 0, 1, 'tservicio t1', 't1.nidmedida', 'medida', 'ServicioModel', 'idmedida', 'Idmedida', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tmarca', 9, 't1', 'nidmarca', 'int', 'MUL', 0, b'0', 0, 1, 'tservicio t1', 't1.nidmarca', 'marca', 'ServicioModel', 'idmarca', 'Idmarca', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tservicio', 10, 't1', 'scodigo', 'varchar', '', 0, b'0', 0, 1, 'tservicio t1', 't1.scodigo', 'servicio', 'ServicioModel', 'codigo', 'Codigo', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tubicacion', 11, 't1', 'nidubicacion', 'int', 'MUL', 0, b'0', 0, 1, 'tservicio t1', 't1.nidubicacion', 'ubicacion', 'ServicioModel', 'idubicacion', 'Idubicacion', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'treencauchadora', 12, 't1', 'nidreencauchadora', 'int', 'MUL', 0, b'0', 0, 1, 'tservicio t1', 't1.nidreencauchadora', 'reencauchadora', 'ServicioModel', 'idreencauchadora', 'Idreencauchadora', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tservicio', 13, 't1', 'tfechatienda', 'date', '', 0, b'0', 0, 1, 'tservicio t1', 't1.tfechatienda', 'servicio', 'ServicioModel', 'fechatienda', 'Fechatienda', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tcondicion', 14, 't1', 'nidcondicion', 'tinyint', 'MUL', 0, b'0', 0, 1, 'tservicio t1', 't1.nidcondicion', 'condicion', 'ServicioModel', 'idcondicion', 'Idcondicion', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tservicio', 15, 't1', 'tfechaentrega', 'date', '', 0, b'0', 0, 1, 'tservicio t1', 't1.tfechaentrega', 'servicio', 'ServicioModel', 'fechaentrega', 'Fechaentrega', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tservicio', 16, 't1', 'sobservacionsalida', 'varchar', '', 0, b'0', 0, 1, 'tservicio t1', 't1.sobservacionsalida', 'servicio', 'ServicioModel', 'observacionsalida', 'Observacionsalida', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tservicio', 17, 't1', 'susuario', 'varchar', '', 0, b'0', 0, 1, 'tservicio t1', 't1.susuario', 'servicio', 'ServicioModel', 'usuario', 'Usuario', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tservicio', 18, 't1', 'bformaestado', 'varchar', '', 0, b'0', 0, 1, 'tservicio t1', 't1.bformaestado', 'servicio', 'ServicioModel', 'formaestado', 'Formaestado', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tservicio', 19, 't1', 'sdocrefrencia', 'varchar', '', 0, b'0', 0, 1, 'tservicio t1', 't1.sdocrefrencia', 'servicio', 'ServicioModel', 'docrefrencia', 'Docrefrencia', NULL, NULL),
+(0, 'tauditoria', 'tservicio', 'tservicio', 20, 't1', 'bestado', 'bit', '', 0, b'0', 0, 1, 'tservicio t1', 't1.bestado', 'servicio', 'ServicioModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tauditoria', 'tbanda', 'tbanda', 1, 't2', 'nidbanda', 'int', 'PRI', 0, b'0', 0, 2, 'tbanda t2', 't2.nidbanda', 'banda', 'BandaModel', 'idbanda', 'Idbanda', NULL, NULL),
+(0, 'tauditoria', 'tbanda', 'tbanda', 2, 't2', 'snombrebanda', 'varchar', '', 0, b'0', 0, 2, 'tbanda t2', 't2.snombrebanda', 'banda', 'BandaModel', 'nombrebanda', 'Nombrebanda', NULL, NULL),
+(0, 'tauditoria', 'tbanda', 'tbanda', 3, 't2', 'smarca', 'varchar', '', 0, b'0', 0, 2, 'tbanda t2', 't2.smarca', 'banda', 'BandaModel', 'marca', 'Marca', NULL, NULL),
+(0, 'tauditoria', 'tbanda', 'tbanda', 4, 't2', 'bestado', 'bit', '', 0, b'0', 0, 2, 'tbanda t2', 't2.bestado', 'banda', 'BandaModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tauditoria', 'tcondicion', 'tcondicion', 1, 't3', 'nidcondicion', 'tinyint', 'PRI', 0, b'0', 0, 3, 'tcondicion t3', 't3.nidcondicion', 'condicion', 'CondicionModel', 'idcondicion', 'Idcondicion', NULL, NULL),
+(0, 'tauditoria', 'tcondicion', 'tcondicion', 2, 't3', 'snombrecondicion', 'varchar', '', 0, b'0', 0, 3, 'tcondicion t3', 't3.snombrecondicion', 'condicion', 'CondicionModel', 'nombrecondicion', 'Nombrecondicion', NULL, NULL),
+(0, 'tauditoria', 'tcondicion', 'tcondicion', 3, 't3', 'bestado', 'bit', '', 0, b'0', 0, 3, 'tcondicion t3', 't3.bestado', 'condicion', 'CondicionModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tauditoria', 'tmarca', 'tmarca', 1, 't4', 'nidmarca', 'int', 'PRI', 0, b'0', 0, 4, 'tmarca t4', 't4.nidmarca', 'marca', 'MarcaModel', 'idmarca', 'Idmarca', NULL, NULL),
+(0, 'tauditoria', 'tmarca', 'tmarca', 2, 't4', 'snombremarca', 'varchar', '', 0, b'0', 0, 4, 'tmarca t4', 't4.snombremarca', 'marca', 'MarcaModel', 'nombremarca', 'Nombremarca', NULL, NULL),
+(0, 'tauditoria', 'tmarca', 'tmarca', 3, 't4', 'bestado', 'bit', '', 0, b'0', 0, 4, 'tmarca t4', 't4.bestado', 'marca', 'MarcaModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tauditoria', 'tmedida', 'tmedida', 1, 't5', 'nidmedida', 'int', 'PRI', 0, b'0', 0, 5, 'tmedida t5', 't5.nidmedida', 'medida', 'MedidaModel', 'idmedida', 'Idmedida', NULL, NULL),
+(0, 'tauditoria', 'tmedida', 'tmedida', 2, 't5', 'snombremedida', 'varchar', '', 0, b'0', 0, 5, 'tmedida t5', 't5.snombremedida', 'medida', 'MedidaModel', 'nombremedida', 'Nombremedida', NULL, NULL),
+(0, 'tauditoria', 'tmedida', 'tmedida', 3, 't5', 'bestado', 'bit', '', 0, b'0', 0, 5, 'tmedida t5', 't5.bestado', 'medida', 'MedidaModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tauditoria', 'treencauchadora', 'treencauchadora', 1, 't6', 'nidreencauchadora', 'int', 'PRI', 0, b'0', 0, 6, 'treencauchadora t6', 't6.nidreencauchadora', 'reencauchadora', 'ReencauchadoraModel', 'idreencauchadora', 'Idreencauchadora', NULL, NULL),
+(0, 'tauditoria', 'treencauchadora', 'treencauchadora', 2, 't6', 'snombrereencauchadora', 'varchar', '', 0, b'0', 0, 6, 'treencauchadora t6', 't6.snombrereencauchadora', 'reencauchadora', 'ReencauchadoraModel', 'nombrereencauchadora', 'Nombrereencauchadora', NULL, NULL),
+(0, 'tauditoria', 'treencauchadora', 'treencauchadora', 3, 't6', 'sdireccion', 'varchar', '', 0, b'0', 0, 6, 'treencauchadora t6', 't6.sdireccion', 'reencauchadora', 'ReencauchadoraModel', 'direccion', 'Direccion', NULL, NULL),
+(0, 'tauditoria', 'treencauchadora', 'treencauchadora', 4, 't6', 'bestado', 'bit', '', 0, b'0', 0, 6, 'treencauchadora t6', 't6.bestado', 'reencauchadora', 'ReencauchadoraModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tauditoria', 'ttiposervicio', 'ttiposervicio', 1, 't7', 'nidtiposervicio', 'int', 'PRI', 0, b'0', 0, 7, 'ttiposervicio t7', 't7.nidtiposervicio', 'tiposervicio', 'TiposervicioModel', 'idtiposervicio', 'Idtiposervicio', NULL, NULL),
+(0, 'tauditoria', 'ttiposervicio', 'ttiposervicio', 2, 't7', 'snombretiposervicio', 'varchar', '', 0, b'0', 0, 7, 'ttiposervicio t7', 't7.snombretiposervicio', 'tiposervicio', 'TiposervicioModel', 'nombretiposervicio', 'Nombretiposervicio', NULL, NULL),
+(0, 'tauditoria', 'ttiposervicio', 'ttiposervicio', 3, 't7', 'bestado', 'bit', '', 0, b'0', 0, 7, 'ttiposervicio t7', 't7.bestado', 'tiposervicio', 'TiposervicioModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tauditoria', 'tubicacion', 'tubicacion', 1, 't8', 'nidubicacion', 'int', 'PRI', 0, b'0', 0, 8, 'tubicacion t8', 't8.nidubicacion', 'ubicacion', 'UbicacionModel', 'idubicacion', 'Idubicacion', NULL, NULL),
+(0, 'tauditoria', 'tubicacion', 'tubicacion', 2, 't8', 'snombretipoubicacion', 'varchar', '', 0, b'0', 0, 8, 'tubicacion t8', 't8.snombretipoubicacion', 'ubicacion', 'UbicacionModel', 'nombretipoubicacion', 'Nombretipoubicacion', NULL, NULL),
+(0, 'tauditoria', 'tubicacion', 'tubicacion', 3, 't8', 'bestado', 'bit', '', 0, b'0', 0, 8, 'tubicacion t8', 't8.bestado', 'ubicacion', 'UbicacionModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tauditoria', 'tcliente', 'tcliente', 1, 't9', 'sidcliente', 'varchar', 'PRI', 0, b'0', 0, 9, 'tcliente t9', 't9.sidcliente', 'cliente', 'ClienteModel', 'idcliente', 'Idcliente', NULL, NULL),
+(0, 'tauditoria', 'tcliente', 'tcliente', 2, 't9', 'snombrecliente', 'varchar', '', 0, b'0', 0, 9, 'tcliente t9', 't9.snombrecliente', 'cliente', 'ClienteModel', 'nombrecliente', 'Nombrecliente', NULL, NULL),
+(0, 'tauditoria', 'tcliente', 'tcliente', 3, 't9', 'sdireccion', 'varchar', '', 0, b'0', 0, 9, 'tcliente t9', 't9.sdireccion', 'cliente', 'ClienteModel', 'direccion', 'Direccion', NULL, NULL),
+(0, 'tauditoria', 'tcliente', 'tcliente', 4, 't9', 'stelefono', 'varchar', '', 0, b'0', 0, 9, 'tcliente t9', 't9.stelefono', 'cliente', 'ClienteModel', 'telefono', 'Telefono', NULL, NULL),
+(0, 'tauditoria', 'tcliente', 'tcliente', 5, 't9', 'bestado', 'bit', '', 0, b'0', 0, 9, 'tcliente t9', 't9.bestado', 'cliente', 'ClienteModel', 'estado', 'Estado', NULL, NULL),
 (0, 'tbanda', 'tbanda', 'tbanda', 1, 't0', 'nidbanda', 'int', 'PRI', 0, b'0', 0, 0, 'tbanda t0', 't0.nidbanda', 'banda', 'BandaModel', 'idbanda', 'Idbanda', NULL, NULL),
 (0, 'tbanda', 'tbanda', 'tbanda', 2, 't0', 'snombrebanda', 'varchar', '', 0, b'0', 0, 0, 'tbanda t0', 't0.snombrebanda', 'banda', 'BandaModel', 'nombrebanda', 'Nombrebanda', NULL, NULL),
 (0, 'tbanda', 'tbanda', 'tbanda', 3, 't0', 'smarca', 'varchar', '', 0, b'0', 0, 0, 'tbanda t0', 't0.smarca', 'banda', 'BandaModel', 'marca', 'Marca', NULL, NULL),
@@ -314,9 +379,12 @@ INSERT INTO `tconfigdatabase` (`id`, `tablaprincipal`, `tablaforanea`, `tablafor
 (0, 'tcondicion', 'tcondicion', 'tcondicion', 1, 't0', 'nidcondicion', 'tinyint', 'PRI', 0, b'0', 0, 0, 'tcondicion t0', 't0.nidcondicion', 'condicion', 'CondicionModel', 'idcondicion', 'Idcondicion', NULL, NULL),
 (0, 'tcondicion', 'tcondicion', 'tcondicion', 2, 't0', 'snombrecondicion', 'varchar', '', 0, b'0', 0, 0, 'tcondicion t0', 't0.snombrecondicion', 'condicion', 'CondicionModel', 'nombrecondicion', 'Nombrecondicion', NULL, NULL),
 (0, 'tcondicion', 'tcondicion', 'tcondicion', 3, 't0', 'bestado', 'bit', '', 0, b'0', 0, 0, 'tcondicion t0', 't0.bestado', 'condicion', 'CondicionModel', 'estado', 'Estado', NULL, NULL),
-(0, 'tneumatico', 'tneumatico', 'tneumatico', 1, 't0', 'nidneumatico', 'int', 'PRI', 0, b'0', 0, 0, 'tneumatico t0', 't0.nidneumatico', 'neumatico', 'NeumaticoModel', 'idneumatico', 'Idneumatico', NULL, NULL),
-(0, 'tneumatico', 'tneumatico', 'tneumatico', 2, 't0', 'snombreneumatico', 'varchar', '', 0, b'0', 0, 0, 'tneumatico t0', 't0.snombreneumatico', 'neumatico', 'NeumaticoModel', 'nombreneumatico', 'Nombreneumatico', NULL, NULL),
-(0, 'tneumatico', 'tneumatico', 'tneumatico', 3, 't0', 'bestado', 'bit', '', 0, b'0', 0, 0, 'tneumatico t0', 't0.bestado', 'neumatico', 'NeumaticoModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tmarca', 'tmarca', 'tmarca', 1, 't0', 'nidmarca', 'int', 'PRI', 0, b'0', 0, 0, 'tmarca t0', 't0.nidmarca', 'marca', 'MarcaModel', 'idmarca', 'Idmarca', NULL, NULL),
+(0, 'tmarca', 'tmarca', 'tmarca', 2, 't0', 'snombremarca', 'varchar', '', 0, b'0', 0, 0, 'tmarca t0', 't0.snombremarca', 'marca', 'MarcaModel', 'nombremarca', 'Nombremarca', NULL, NULL),
+(0, 'tmarca', 'tmarca', 'tmarca', 3, 't0', 'bestado', 'bit', '', 0, b'0', 0, 0, 'tmarca t0', 't0.bestado', 'marca', 'MarcaModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tmedida', 'tmedida', 'tmedida', 1, 't0', 'nidmedida', 'int', 'PRI', 0, b'0', 0, 0, 'tmedida t0', 't0.nidmedida', 'medida', 'MedidaModel', 'idmedida', 'Idmedida', NULL, NULL),
+(0, 'tmedida', 'tmedida', 'tmedida', 2, 't0', 'snombremedida', 'varchar', '', 0, b'0', 0, 0, 'tmedida t0', 't0.snombremedida', 'medida', 'MedidaModel', 'nombremedida', 'Nombremedida', NULL, NULL),
+(0, 'tmedida', 'tmedida', 'tmedida', 3, 't0', 'bestado', 'bit', '', 0, b'0', 0, 0, 'tmedida t0', 't0.bestado', 'medida', 'MedidaModel', 'estado', 'Estado', NULL, NULL),
 (0, 'treencauchadora', 'treencauchadora', 'treencauchadora', 1, 't0', 'nidreencauchadora', 'int', 'PRI', 0, b'0', 0, 0, 'treencauchadora t0', 't0.nidreencauchadora', 'reencauchadora', 'ReencauchadoraModel', 'idreencauchadora', 'Idreencauchadora', NULL, NULL),
 (0, 'treencauchadora', 'treencauchadora', 'treencauchadora', 2, 't0', 'snombrereencauchadora', 'varchar', '', 0, b'0', 0, 0, 'treencauchadora t0', 't0.snombrereencauchadora', 'reencauchadora', 'ReencauchadoraModel', 'nombrereencauchadora', 'Nombrereencauchadora', NULL, NULL),
 (0, 'treencauchadora', 'treencauchadora', 'treencauchadora', 3, 't0', 'sdireccion', 'varchar', '', 0, b'0', 0, 0, 'treencauchadora t0', 't0.sdireccion', 'reencauchadora', 'ReencauchadoraModel', 'direccion', 'Direccion', NULL, NULL),
@@ -328,8 +396,8 @@ INSERT INTO `tconfigdatabase` (`id`, `tablaprincipal`, `tablaforanea`, `tablafor
 (0, 'tservicio', 'tservicio', 'tservicio', 5, 't0', 'splaca', 'varchar', '', 0, b'0', 0, 0, 'tservicio t0', 't0.splaca', 'servicio', 'ServicioModel', 'placa', 'Placa', NULL, NULL),
 (0, 'tservicio', 'tservicio', 'tservicio', 6, 't0', 'sobservacioningreso', 'varchar', '', 0, b'0', 0, 0, 'tservicio t0', 't0.sobservacioningreso', 'servicio', 'ServicioModel', 'observacioningreso', 'Observacioningreso', NULL, NULL),
 (0, 'tservicio', 'tservicio', 'ttiposervicio', 7, 't0', 'nidtiposervicio', 'int', 'MUL', 0, b'0', 0, 0, 'tservicio t0', 't0.nidtiposervicio', 'tiposervicio', 'ServicioModel', 'idtiposervicio', 'Idtiposervicio', NULL, NULL),
-(0, 'tservicio', 'tservicio', 'tservicio', 8, 't0', 'snumero', 'varchar', '', 0, b'0', 0, 0, 'tservicio t0', 't0.snumero', 'servicio', 'ServicioModel', 'numero', 'Numero', NULL, NULL),
-(0, 'tservicio', 'tservicio', 'tneumatico', 9, 't0', 'nidneumatico', 'int', 'MUL', 0, b'0', 0, 0, 'tservicio t0', 't0.nidneumatico', 'neumatico', 'ServicioModel', 'idneumatico', 'Idneumatico', NULL, NULL),
+(0, 'tservicio', 'tservicio', 'tmedida', 8, 't0', 'nidmedida', 'int', 'MUL', 0, b'0', 0, 0, 'tservicio t0', 't0.nidmedida', 'medida', 'ServicioModel', 'idmedida', 'Idmedida', NULL, NULL),
+(0, 'tservicio', 'tservicio', 'tmarca', 9, 't0', 'nidmarca', 'int', 'MUL', 0, b'0', 0, 0, 'tservicio t0', 't0.nidmarca', 'marca', 'ServicioModel', 'idmarca', 'Idmarca', NULL, NULL),
 (0, 'tservicio', 'tservicio', 'tservicio', 10, 't0', 'scodigo', 'varchar', '', 0, b'0', 0, 0, 'tservicio t0', 't0.scodigo', 'servicio', 'ServicioModel', 'codigo', 'Codigo', NULL, NULL),
 (0, 'tservicio', 'tservicio', 'tubicacion', 11, 't0', 'nidubicacion', 'int', 'MUL', 0, b'0', 0, 0, 'tservicio t0', 't0.nidubicacion', 'ubicacion', 'ServicioModel', 'idubicacion', 'Idubicacion', NULL, NULL),
 (0, 'tservicio', 'tservicio', 'treencauchadora', 12, 't0', 'nidreencauchadora', 'int', 'MUL', 0, b'0', 0, 0, 'tservicio t0', 't0.nidreencauchadora', 'reencauchadora', 'ServicioModel', 'idreencauchadora', 'Idreencauchadora', NULL, NULL),
@@ -338,7 +406,9 @@ INSERT INTO `tconfigdatabase` (`id`, `tablaprincipal`, `tablaforanea`, `tablafor
 (0, 'tservicio', 'tservicio', 'tservicio', 15, 't0', 'tfechaentrega', 'date', '', 0, b'0', 0, 0, 'tservicio t0', 't0.tfechaentrega', 'servicio', 'ServicioModel', 'fechaentrega', 'Fechaentrega', NULL, NULL),
 (0, 'tservicio', 'tservicio', 'tservicio', 16, 't0', 'sobservacionsalida', 'varchar', '', 0, b'0', 0, 0, 'tservicio t0', 't0.sobservacionsalida', 'servicio', 'ServicioModel', 'observacionsalida', 'Observacionsalida', NULL, NULL),
 (0, 'tservicio', 'tservicio', 'tservicio', 17, 't0', 'susuario', 'varchar', '', 0, b'0', 0, 0, 'tservicio t0', 't0.susuario', 'servicio', 'ServicioModel', 'usuario', 'Usuario', NULL, NULL),
-(0, 'tservicio', 'tservicio', 'tservicio', 18, 't0', 'bestado', 'bit', '', 0, b'0', 0, 0, 'tservicio t0', 't0.bestado', 'servicio', 'ServicioModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tservicio', 'tservicio', 'tservicio', 18, 't0', 'bformaestado', 'varchar', '', 0, b'0', 0, 0, 'tservicio t0', 't0.bformaestado', 'servicio', 'ServicioModel', 'formaestado', 'Formaestado', NULL, NULL),
+(0, 'tservicio', 'tservicio', 'tservicio', 19, 't0', 'sdocrefrencia', 'varchar', '', 0, b'0', 0, 0, 'tservicio t0', 't0.sdocrefrencia', 'servicio', 'ServicioModel', 'docrefrencia', 'Docrefrencia', NULL, NULL),
+(0, 'tservicio', 'tservicio', 'tservicio', 20, 't0', 'bestado', 'bit', '', 0, b'0', 0, 0, 'tservicio t0', 't0.bestado', 'servicio', 'ServicioModel', 'estado', 'Estado', NULL, NULL),
 (0, 'tservicio', 'tbanda', 'tbanda', 1, 't1', 'nidbanda', 'int', 'PRI', 0, b'0', 0, 1, 'tbanda t1', 't1.nidbanda', 'banda', 'BandaModel', 'idbanda', 'Idbanda', NULL, NULL),
 (0, 'tservicio', 'tbanda', 'tbanda', 2, 't1', 'snombrebanda', 'varchar', '', 0, b'0', 0, 1, 'tbanda t1', 't1.snombrebanda', 'banda', 'BandaModel', 'nombrebanda', 'Nombrebanda', NULL, NULL),
 (0, 'tservicio', 'tbanda', 'tbanda', 3, 't1', 'smarca', 'varchar', '', 0, b'0', 0, 1, 'tbanda t1', 't1.smarca', 'banda', 'BandaModel', 'marca', 'Marca', NULL, NULL),
@@ -346,24 +416,27 @@ INSERT INTO `tconfigdatabase` (`id`, `tablaprincipal`, `tablaforanea`, `tablafor
 (0, 'tservicio', 'tcondicion', 'tcondicion', 1, 't2', 'nidcondicion', 'tinyint', 'PRI', 0, b'0', 0, 2, 'tcondicion t2', 't2.nidcondicion', 'condicion', 'CondicionModel', 'idcondicion', 'Idcondicion', NULL, NULL),
 (0, 'tservicio', 'tcondicion', 'tcondicion', 2, 't2', 'snombrecondicion', 'varchar', '', 0, b'0', 0, 2, 'tcondicion t2', 't2.snombrecondicion', 'condicion', 'CondicionModel', 'nombrecondicion', 'Nombrecondicion', NULL, NULL),
 (0, 'tservicio', 'tcondicion', 'tcondicion', 3, 't2', 'bestado', 'bit', '', 0, b'0', 0, 2, 'tcondicion t2', 't2.bestado', 'condicion', 'CondicionModel', 'estado', 'Estado', NULL, NULL),
-(0, 'tservicio', 'tneumatico', 'tneumatico', 1, 't3', 'nidneumatico', 'int', 'PRI', 0, b'0', 0, 3, 'tneumatico t3', 't3.nidneumatico', 'neumatico', 'NeumaticoModel', 'idneumatico', 'Idneumatico', NULL, NULL),
-(0, 'tservicio', 'tneumatico', 'tneumatico', 2, 't3', 'snombreneumatico', 'varchar', '', 0, b'0', 0, 3, 'tneumatico t3', 't3.snombreneumatico', 'neumatico', 'NeumaticoModel', 'nombreneumatico', 'Nombreneumatico', NULL, NULL),
-(0, 'tservicio', 'tneumatico', 'tneumatico', 3, 't3', 'bestado', 'bit', '', 0, b'0', 0, 3, 'tneumatico t3', 't3.bestado', 'neumatico', 'NeumaticoModel', 'estado', 'Estado', NULL, NULL),
-(0, 'tservicio', 'treencauchadora', 'treencauchadora', 1, 't4', 'nidreencauchadora', 'int', 'PRI', 0, b'0', 0, 4, 'treencauchadora t4', 't4.nidreencauchadora', 'reencauchadora', 'ReencauchadoraModel', 'idreencauchadora', 'Idreencauchadora', NULL, NULL),
-(0, 'tservicio', 'treencauchadora', 'treencauchadora', 2, 't4', 'snombrereencauchadora', 'varchar', '', 0, b'0', 0, 4, 'treencauchadora t4', 't4.snombrereencauchadora', 'reencauchadora', 'ReencauchadoraModel', 'nombrereencauchadora', 'Nombrereencauchadora', NULL, NULL),
-(0, 'tservicio', 'treencauchadora', 'treencauchadora', 3, 't4', 'sdireccion', 'varchar', '', 0, b'0', 0, 4, 'treencauchadora t4', 't4.sdireccion', 'reencauchadora', 'ReencauchadoraModel', 'direccion', 'Direccion', NULL, NULL),
-(0, 'tservicio', 'treencauchadora', 'treencauchadora', 4, 't4', 'bestado', 'bit', '', 0, b'0', 0, 4, 'treencauchadora t4', 't4.bestado', 'reencauchadora', 'ReencauchadoraModel', 'estado', 'Estado', NULL, NULL),
-(0, 'tservicio', 'ttiposervicio', 'ttiposervicio', 1, 't5', 'nidtiposervicio', 'int', 'PRI', 0, b'0', 0, 5, 'ttiposervicio t5', 't5.nidtiposervicio', 'tiposervicio', 'TiposervicioModel', 'idtiposervicio', 'Idtiposervicio', NULL, NULL),
-(0, 'tservicio', 'ttiposervicio', 'ttiposervicio', 2, 't5', 'snombretiposervicio', 'varchar', '', 0, b'0', 0, 5, 'ttiposervicio t5', 't5.snombretiposervicio', 'tiposervicio', 'TiposervicioModel', 'nombretiposervicio', 'Nombretiposervicio', NULL, NULL),
-(0, 'tservicio', 'ttiposervicio', 'ttiposervicio', 3, 't5', 'bestado', 'bit', '', 0, b'0', 0, 5, 'ttiposervicio t5', 't5.bestado', 'tiposervicio', 'TiposervicioModel', 'estado', 'Estado', NULL, NULL),
-(0, 'tservicio', 'tubicacion', 'tubicacion', 1, 't6', 'nidubicacion', 'int', 'PRI', 0, b'0', 0, 6, 'tubicacion t6', 't6.nidubicacion', 'ubicacion', 'UbicacionModel', 'idubicacion', 'Idubicacion', NULL, NULL),
-(0, 'tservicio', 'tubicacion', 'tubicacion', 2, 't6', 'snombretipoubicacion', 'varchar', '', 0, b'0', 0, 6, 'tubicacion t6', 't6.snombretipoubicacion', 'ubicacion', 'UbicacionModel', 'nombretipoubicacion', 'Nombretipoubicacion', NULL, NULL),
-(0, 'tservicio', 'tubicacion', 'tubicacion', 3, 't6', 'bestado', 'bit', '', 0, b'0', 0, 6, 'tubicacion t6', 't6.bestado', 'ubicacion', 'UbicacionModel', 'estado', 'Estado', NULL, NULL),
-(0, 'tservicio', 'tcliente', 'tcliente', 1, 't7', 'sidcliente', 'varchar', 'PRI', 0, b'0', 0, 7, 'tcliente t7', 't7.sidcliente', 'cliente', 'ClienteModel', 'idcliente', 'Idcliente', NULL, NULL),
-(0, 'tservicio', 'tcliente', 'tcliente', 2, 't7', 'snombrecliente', 'varchar', '', 0, b'0', 0, 7, 'tcliente t7', 't7.snombrecliente', 'cliente', 'ClienteModel', 'nombrecliente', 'Nombrecliente', NULL, NULL),
-(0, 'tservicio', 'tcliente', 'tcliente', 3, 't7', 'sdireccion', 'varchar', '', 0, b'0', 0, 7, 'tcliente t7', 't7.sdireccion', 'cliente', 'ClienteModel', 'direccion', 'Direccion', NULL, NULL),
-(0, 'tservicio', 'tcliente', 'tcliente', 4, 't7', 'stelefono', 'varchar', '', 0, b'0', 0, 7, 'tcliente t7', 't7.stelefono', 'cliente', 'ClienteModel', 'telefono', 'Telefono', NULL, NULL),
-(0, 'tservicio', 'tcliente', 'tcliente', 5, 't7', 'bestado', 'bit', '', 0, b'0', 0, 7, 'tcliente t7', 't7.bestado', 'cliente', 'ClienteModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tservicio', 'tmarca', 'tmarca', 1, 't3', 'nidmarca', 'int', 'PRI', 0, b'0', 0, 3, 'tmarca t3', 't3.nidmarca', 'marca', 'MarcaModel', 'idmarca', 'Idmarca', NULL, NULL),
+(0, 'tservicio', 'tmarca', 'tmarca', 2, 't3', 'snombremarca', 'varchar', '', 0, b'0', 0, 3, 'tmarca t3', 't3.snombremarca', 'marca', 'MarcaModel', 'nombremarca', 'Nombremarca', NULL, NULL),
+(0, 'tservicio', 'tmarca', 'tmarca', 3, 't3', 'bestado', 'bit', '', 0, b'0', 0, 3, 'tmarca t3', 't3.bestado', 'marca', 'MarcaModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tservicio', 'tmedida', 'tmedida', 1, 't4', 'nidmedida', 'int', 'PRI', 0, b'0', 0, 4, 'tmedida t4', 't4.nidmedida', 'medida', 'MedidaModel', 'idmedida', 'Idmedida', NULL, NULL),
+(0, 'tservicio', 'tmedida', 'tmedida', 2, 't4', 'snombremedida', 'varchar', '', 0, b'0', 0, 4, 'tmedida t4', 't4.snombremedida', 'medida', 'MedidaModel', 'nombremedida', 'Nombremedida', NULL, NULL),
+(0, 'tservicio', 'tmedida', 'tmedida', 3, 't4', 'bestado', 'bit', '', 0, b'0', 0, 4, 'tmedida t4', 't4.bestado', 'medida', 'MedidaModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tservicio', 'treencauchadora', 'treencauchadora', 1, 't5', 'nidreencauchadora', 'int', 'PRI', 0, b'0', 0, 5, 'treencauchadora t5', 't5.nidreencauchadora', 'reencauchadora', 'ReencauchadoraModel', 'idreencauchadora', 'Idreencauchadora', NULL, NULL),
+(0, 'tservicio', 'treencauchadora', 'treencauchadora', 2, 't5', 'snombrereencauchadora', 'varchar', '', 0, b'0', 0, 5, 'treencauchadora t5', 't5.snombrereencauchadora', 'reencauchadora', 'ReencauchadoraModel', 'nombrereencauchadora', 'Nombrereencauchadora', NULL, NULL),
+(0, 'tservicio', 'treencauchadora', 'treencauchadora', 3, 't5', 'sdireccion', 'varchar', '', 0, b'0', 0, 5, 'treencauchadora t5', 't5.sdireccion', 'reencauchadora', 'ReencauchadoraModel', 'direccion', 'Direccion', NULL, NULL),
+(0, 'tservicio', 'treencauchadora', 'treencauchadora', 4, 't5', 'bestado', 'bit', '', 0, b'0', 0, 5, 'treencauchadora t5', 't5.bestado', 'reencauchadora', 'ReencauchadoraModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tservicio', 'ttiposervicio', 'ttiposervicio', 1, 't6', 'nidtiposervicio', 'int', 'PRI', 0, b'0', 0, 6, 'ttiposervicio t6', 't6.nidtiposervicio', 'tiposervicio', 'TiposervicioModel', 'idtiposervicio', 'Idtiposervicio', NULL, NULL),
+(0, 'tservicio', 'ttiposervicio', 'ttiposervicio', 2, 't6', 'snombretiposervicio', 'varchar', '', 0, b'0', 0, 6, 'ttiposervicio t6', 't6.snombretiposervicio', 'tiposervicio', 'TiposervicioModel', 'nombretiposervicio', 'Nombretiposervicio', NULL, NULL),
+(0, 'tservicio', 'ttiposervicio', 'ttiposervicio', 3, 't6', 'bestado', 'bit', '', 0, b'0', 0, 6, 'ttiposervicio t6', 't6.bestado', 'tiposervicio', 'TiposervicioModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tservicio', 'tubicacion', 'tubicacion', 1, 't7', 'nidubicacion', 'int', 'PRI', 0, b'0', 0, 7, 'tubicacion t7', 't7.nidubicacion', 'ubicacion', 'UbicacionModel', 'idubicacion', 'Idubicacion', NULL, NULL),
+(0, 'tservicio', 'tubicacion', 'tubicacion', 2, 't7', 'snombretipoubicacion', 'varchar', '', 0, b'0', 0, 7, 'tubicacion t7', 't7.snombretipoubicacion', 'ubicacion', 'UbicacionModel', 'nombretipoubicacion', 'Nombretipoubicacion', NULL, NULL),
+(0, 'tservicio', 'tubicacion', 'tubicacion', 3, 't7', 'bestado', 'bit', '', 0, b'0', 0, 7, 'tubicacion t7', 't7.bestado', 'ubicacion', 'UbicacionModel', 'estado', 'Estado', NULL, NULL),
+(0, 'tservicio', 'tcliente', 'tcliente', 1, 't8', 'sidcliente', 'varchar', 'PRI', 0, b'0', 0, 8, 'tcliente t8', 't8.sidcliente', 'cliente', 'ClienteModel', 'idcliente', 'Idcliente', NULL, NULL),
+(0, 'tservicio', 'tcliente', 'tcliente', 2, 't8', 'snombrecliente', 'varchar', '', 0, b'0', 0, 8, 'tcliente t8', 't8.snombrecliente', 'cliente', 'ClienteModel', 'nombrecliente', 'Nombrecliente', NULL, NULL),
+(0, 'tservicio', 'tcliente', 'tcliente', 3, 't8', 'sdireccion', 'varchar', '', 0, b'0', 0, 8, 'tcliente t8', 't8.sdireccion', 'cliente', 'ClienteModel', 'direccion', 'Direccion', NULL, NULL),
+(0, 'tservicio', 'tcliente', 'tcliente', 4, 't8', 'stelefono', 'varchar', '', 0, b'0', 0, 8, 'tcliente t8', 't8.stelefono', 'cliente', 'ClienteModel', 'telefono', 'Telefono', NULL, NULL),
+(0, 'tservicio', 'tcliente', 'tcliente', 5, 't8', 'bestado', 'bit', '', 0, b'0', 0, 8, 'tcliente t8', 't8.bestado', 'cliente', 'ClienteModel', 'estado', 'Estado', NULL, NULL),
 (0, 'ttiposervicio', 'ttiposervicio', 'ttiposervicio', 1, 't0', 'nidtiposervicio', 'int', 'PRI', 0, b'0', 0, 0, 'ttiposervicio t0', 't0.nidtiposervicio', 'tiposervicio', 'TiposervicioModel', 'idtiposervicio', 'Idtiposervicio', NULL, NULL),
 (0, 'ttiposervicio', 'ttiposervicio', 'ttiposervicio', 2, 't0', 'snombretiposervicio', 'varchar', '', 0, b'0', 0, 0, 'ttiposervicio t0', 't0.snombretiposervicio', 'tiposervicio', 'TiposervicioModel', 'nombretiposervicio', 'Nombretiposervicio', NULL, NULL),
 (0, 'ttiposervicio', 'ttiposervicio', 'ttiposervicio', 3, 't0', 'bestado', 'bit', '', 0, b'0', 0, 0, 'ttiposervicio t0', 't0.bestado', 'tiposervicio', 'TiposervicioModel', 'estado', 'Estado', NULL, NULL),
@@ -520,26 +593,46 @@ INSERT INTO `tconfiguracionestemporal` (`id`, `stabla`, `stablaforeing`, `salias
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tneumatico`
+-- Estructura de tabla para la tabla `tmarca`
 --
 
-CREATE TABLE `tneumatico` (
-  `nidneumatico` int(11) NOT NULL,
-  `snombreneumatico` varchar(45) DEFAULT NULL,
+CREATE TABLE `tmarca` (
+  `nidmarca` int(11) NOT NULL,
+  `snombremarca` varchar(45) DEFAULT NULL,
   `bestado` bit(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
--- Volcado de datos para la tabla `tneumatico`
+-- Volcado de datos para la tabla `tmarca`
 --
 
-INSERT INTO `tneumatico` (`nidneumatico`, `snombreneumatico`, `bestado`) VALUES
+INSERT INTO `tmarca` (`nidmarca`, `snombremarca`, `bestado`) VALUES
 (1, 'AMBERSTONE', b'1'),
 (2, 'CONTINENTAL', b'1'),
 (3, 'DERUIBO', b'1'),
 (4, '295/80R22.5', b'0'),
 (5, 'LONGMARCH', b'1'),
 (6, 'MICHELIN', b'1');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tmedida`
+--
+
+CREATE TABLE `tmedida` (
+  `nidmedida` int(11) NOT NULL,
+  `snombremedida` varchar(45) DEFAULT NULL,
+  `bestado` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `tmedida`
+--
+
+INSERT INTO `tmedida` (`nidmedida`, `snombremedida`, `bestado`) VALUES
+(1, '11R22.5', b'1'),
+(2, '295/80R22.5', b'1');
 
 -- --------------------------------------------------------
 
@@ -580,8 +673,8 @@ CREATE TABLE `tservicio` (
   `splaca` varchar(8) DEFAULT NULL,
   `sobservacioningreso` varchar(150) DEFAULT NULL,
   `nidtiposervicio` int(11) DEFAULT NULL,
-  `snumero` varchar(25) DEFAULT NULL,
-  `nidneumatico` int(11) DEFAULT NULL,
+  `nidmedida` int(11) DEFAULT NULL,
+  `nidmarca` int(11) DEFAULT NULL,
   `scodigo` varchar(21) DEFAULT NULL,
   `nidubicacion` int(11) DEFAULT NULL,
   `nidreencauchadora` int(11) DEFAULT NULL,
@@ -590,6 +683,8 @@ CREATE TABLE `tservicio` (
   `tfechaentrega` date DEFAULT NULL,
   `sobservacionsalida` varchar(150) DEFAULT NULL,
   `susuario` varchar(25) DEFAULT NULL,
+  `bformaestado` varchar(45) DEFAULT NULL,
+  `sdocrefrencia` varchar(45) DEFAULT NULL,
   `bestado` bit(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -597,45 +692,47 @@ CREATE TABLE `tservicio` (
 -- Volcado de datos para la tabla `tservicio`
 --
 
-INSERT INTO `tservicio` (`nidservicio`, `sidcliente`, `tfecharecepcion`, `nidbanda`, `splaca`, `sobservacioningreso`, `nidtiposervicio`, `snumero`, `nidneumatico`, `scodigo`, `nidubicacion`, `nidreencauchadora`, `tfechatienda`, `nidcondicion`, `tfechaentrega`, `sobservacionsalida`, `susuario`, `bestado`) VALUES
-(1, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 6, NULL, 2, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, b'1'),
-(2, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 6, NULL, 3, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, b'1'),
-(3, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 6, NULL, 3, NULL, 3, 1, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, b'1'),
-(4, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 6, NULL, 3, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, b'1'),
-(5, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS PRUEBAS', 6, NULL, 2, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, b'1'),
-(7, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 6, NULL, 3, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, b'1'),
-(8, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 6, NULL, 3, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, b'1'),
-(9, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 4, NULL, 3, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, b'1'),
-(10, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 3, NULL, 3, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, b'1'),
-(11, '20600598334', '2024-10-11', 2, NULL, 'NUEVAS PRUEBAS', 6, NULL, 3, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, b'1'),
-(12, '20600598334', '2024-10-11', 3, NULL, 'NUEVAS PRUEBAS DOS', 4, NULL, 1, NULL, 1, 4, '2024-10-19', 2, NULL, 'NUEVAS ENTREGAS', NULL, b'1'),
-(13, '20600598334', '2024-10-11', 3, NULL, 'NUEVAS PRUEBAS ULTIMAS', 2, NULL, 2, NULL, 4, 2, '2024-10-19', 2, NULL, 'NUEVAS ENTREGAS', NULL, b'0'),
-(14, '20600598334', '2024-10-11', 3, NULL, 'NUEVAS PRUEBAS ULTIMAS NUEVO', 2, NULL, 2, NULL, 4, 2, '2024-10-19', 2, NULL, 'NUEVAS ENTREGAS', NULL, b'1'),
-(15, '20600598334', '2024-10-11', 3, NULL, 'NUEVO INGRESO DE NUMATICO DE VOLQUETE', 5, NULL, 3, NULL, 1, 4, NULL, 2, NULL, '', NULL, b'0'),
-(16, '20600598334', '2024-10-11', 3, NULL, 'NUEVO INGRESO DE NUMATICO DE VOLQUETE, SE LLEVO CARLITOS', 5, NULL, 3, NULL, 4, 4, NULL, 2, NULL, '', NULL, b'0'),
-(17, '20600598334', '2024-10-11', 3, NULL, 'NUEVO INGRESO DE NUMATICO DE VOLQUETE, SE LLEVO CARLITOS', 5, NULL, 3, NULL, 4, 4, '2024-10-11', 2, NULL, 'SE ENTREGO ALCLIENTE EN HORAS DE LA TARDE', NULL, b'1'),
-(18, '20450551326', '2024-10-11', 4, NULL, 'LLANTA NUEVA GOODYEAR', 3, NULL, 2, NULL, 4, 4, NULL, 4, NULL, '', NULL, b'0'),
-(19, '20450551326', '2024-10-11', 4, NULL, 'LLANTA NUEVA GOODYEAR, SE PASO AL TALLER', 3, NULL, 2, NULL, 3, 3, NULL, 4, NULL, '', NULL, b'0'),
-(20, '20450551326', '2024-10-11', 4, NULL, 'LLANTA NUEVA GOODYEAR, SE PASO AL TALLER', 3, NULL, 2, NULL, 3, 3, NULL, 4, NULL, 'SE ENTREGA LA LLANTA', NULL, b'0'),
-(21, '20450551326', '2024-10-11', 4, NULL, 'CLIENTE DEVOLVIO LLANTA', 3, NULL, 2, NULL, 3, 3, NULL, 4, NULL, 'SE ENTREGA LA LLANTA', NULL, b'0'),
-(22, '20450551326', '2024-10-11', 4, NULL, 'CLIENTE DEVOLVIO LLANTA', 3, NULL, 2, NULL, 3, 3, '2024-10-12', 4, NULL, 'SE CORRIGE Y SE VUELVE A ENTREGAR', NULL, b'0'),
-(23, '20450551326', '2024-10-11', 4, NULL, 'CLIENTE DEVOLVIO LLANTA', 3, NULL, 2, NULL, 3, 3, '2024-10-12', 2, NULL, 'SE CORRIGE Y SE VUELVE A ENTREGAR, SIN EMENDADURAS', NULL, b'0'),
-(24, '20450551326', '2024-10-11', 4, NULL, 'CLIENTE DEVOLVIO LLANTA', 3, NULL, 2, '6155253228', 3, 3, '2024-10-12', 2, NULL, 'SE CORRIGE Y SE VUELVE A ENTREGAR, SIN EMENDADURAS', NULL, b'1'),
-(25, '20601369886', '2024-10-12', 3, '-', '295/80R22.5', 1, NULL, 2, '6148004916', 1, 2, '2024-10-18', 4, NULL, 'ASDF', NULL, b'0'),
-(26, '20601369886', '2024-10-12', 3, 'BHV-944', '295/80R22.5', 1, '295/80R22.5', 3, '6148004916', 1, 2, NULL, 4, NULL, 'ASDF', NULL, b'0'),
-(27, '20601369886', '2024-10-12', 3, 'BHV-944', 'NINGUNA', 1, '295/80R22.5', 3, '6148004916', 1, 2, NULL, 4, NULL, '', NULL, b'1'),
-(28, '154813155111', '2024-09-05', 7, 'BWE-855', 'SE RECOGIO DE LA VIA EXPRESA', 1, '295/80R22.5', 3, 'B231029018307', 1, 1, NULL, 1, NULL, 'EL CLIENTE LO RECOGIO DE LA TIENDA', NULL, b'0'),
-(29, '154813155111', '2024-09-05', 7, 'BWE-855', 'SE RECOGIO DE LA VIA EXPRESA', 1, '295/80R22.5', 5, 'B231029018307', 1, 1, NULL, 1, NULL, 'EL CLIENTE LO RECOGIO DE LA TIENDA', NULL, b'0'),
-(30, '154813155111', '2024-09-05', 7, 'BWE-855', 'SE RECOGIO DE LA VIA EXPRESA QWE LUCAS LUCAS', 1, '295/80R22.5', 5, 'B231029018307', 1, 1, '2024-10-16', 1, '2024-10-23', 'EL CLIENTE LO RECOGIO DE LA TIENDA QWE 234', NULL, b'1'),
-(31, '10239480689', '2024-10-14', 7, 'B7Z-929', 'PRUEBAS INGRESO CON OBCERVACIONES 13355', 3, '295/80R22.5', 5, 'B210712011571', 1, 2, '2024-10-10', 3, '2024-10-17', 'PRUEBAS SALIDA NUEVAMENTE', 'RENATO', b'1'),
-(32, '20601369886', '2024-10-16', 7, 'X2L-615', 'PRUEBAS DE USUARIO DE SESSION OKOK', 3, '295/80R22.5', 5, 'EEC14667', 1, 2, '2024-10-18', 4, '2024-10-19', 'PRUEBAS 123 QUE FUE NUEVOS VALORES', 'BACILIDES', b'1'),
-(33, '43253442', '2024-10-17', 7, 'ASD', 'ASD', 7, '123', 1, 'ASD', 1, 5, '2024-10-18', 3, '2024-10-18', 'ASD ASDASDASD', '123', b'1'),
-(34, '43253442', '2024-10-17', 7, 'X3L-652', 'SE RECEPCIONO COPN OBSERVACIONES 3 HUECOS', 2, '11R22.5', 2, '2309AS7173', 3, 3, '2024-10-18', 4, '2024-10-18', 'CLIENTE RECOGIO EL PEDIDO', 'RENATO', b'1'),
-(35, '20450551326', '2024-10-18', 3, 'S3L-154', '', 5, '12.00R20', 2, '5647DFR4E', 1, 2, NULL, 4, NULL, '', 'BACILIDES', b'1'),
-(36, '32565456', '2024-10-17', 6, 'QWE234', '', 4, '1235456', 3, '5645SD', 2, 3, '2024-10-18', 4, '2024-10-18', '', 'BACILIDES', b'1'),
-(37, '0778', '2024-10-18', 8, '123', '', 9, '123', 3, '123', 3, 3, '2024-10-19', 4, '2024-10-26', '', '', b'1'),
-(38, '123644555', '2024-10-18', 7, 'X3L-157', 'SE TRASLADO AL TALLER DE RICHAR, TUVO UN PEQUEÑO DEFECTO', 3, '1245', 1, 'SDF4532112', 2, 3, '2024-10-18', 4, NULL, 'EL CLIENTE RECOGIO SU LLANTA', 'RENATO', b'1'),
-(39, '43253478', '2024-10-18', 7, 'XL3-456', 'SE CAMBIO DE REENCAUCHADORA', 5, '15487', 6, 'ASDERE', 1, 2, NULL, 4, NULL, '', 'RENATO', b'1');
+INSERT INTO `tservicio` (`nidservicio`, `sidcliente`, `tfecharecepcion`, `nidbanda`, `splaca`, `sobservacioningreso`, `nidtiposervicio`, `nidmedida`, `nidmarca`, `scodigo`, `nidubicacion`, `nidreencauchadora`, `tfechatienda`, `nidcondicion`, `tfechaentrega`, `sobservacionsalida`, `susuario`, `bformaestado`, `sdocrefrencia`, `bestado`) VALUES
+(1, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 6, 1, 1, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, '1', NULL, b'1'),
+(2, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 6, 1, 1, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, '1', NULL, b'1'),
+(3, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 6, 1, 1, NULL, 3, 1, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, '1', NULL, b'1'),
+(4, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 6, 1, 1, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, '1', NULL, b'1'),
+(5, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS PRUEBAS', 6, 1, 1, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, '1', NULL, b'1'),
+(7, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 6, 1, 1, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, '1', NULL, b'1'),
+(8, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 6, 1, 1, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, '1', NULL, b'1'),
+(9, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 4, 1, 1, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, '1', NULL, b'1'),
+(10, '20600598334', '2024-10-11', 6, NULL, 'NUEVAS PRUEBAS', 3, 1, 1, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, '1', NULL, b'1'),
+(11, '20600598334', '2024-10-11', 2, NULL, 'NUEVAS PRUEBAS', 6, 1, 1, NULL, 3, 4, '2024-10-19', 3, NULL, 'NUEVAS ENTREGAS', NULL, '1', NULL, b'1'),
+(12, '20600598334', '2024-10-11', 3, NULL, 'NUEVAS PRUEBAS DOS', 4, 1, 1, NULL, 1, 4, '2024-10-19', 2, NULL, 'NUEVAS ENTREGAS', NULL, '1', NULL, b'1'),
+(13, '20600598334', '2024-10-11', 3, NULL, 'NUEVAS PRUEBAS ULTIMAS', 2, 1, 1, NULL, 4, 2, '2024-10-19', 2, NULL, 'NUEVAS ENTREGAS', NULL, '1', NULL, b'0'),
+(14, '20600598334', '2024-10-11', 3, NULL, 'NUEVAS PRUEBAS ULTIMAS NUEVO', 2, 1, 1, NULL, 4, 2, '2024-10-19', 2, NULL, 'NUEVAS ENTREGAS', NULL, '1', NULL, b'1'),
+(15, '20600598334', '2024-10-11', 3, NULL, 'NUEVO INGRESO DE NUMATICO DE VOLQUETE', 5, 1, 1, NULL, 1, 4, NULL, 2, NULL, '', NULL, '1', NULL, b'0'),
+(16, '20600598334', '2024-10-11', 3, NULL, 'NUEVO INGRESO DE NUMATICO DE VOLQUETE, SE LLEVO CARLITOS', 5, 1, 1, NULL, 4, 4, NULL, 2, NULL, '', NULL, '1', NULL, b'0'),
+(17, '20600598334', '2024-10-11', 3, NULL, 'NUEVO INGRESO DE NUMATICO DE VOLQUETE, SE LLEVO CARLITOS', 5, 1, 1, NULL, 4, 4, '2024-10-11', 2, NULL, 'SE ENTREGO ALCLIENTE EN HORAS DE LA TARDE', NULL, '1', NULL, b'1'),
+(18, '20450551326', '2024-10-11', 4, NULL, 'LLANTA NUEVA GOODYEAR', 3, 1, 1, NULL, 4, 4, NULL, 4, NULL, '', NULL, '1', NULL, b'0'),
+(19, '20450551326', '2024-10-11', 4, NULL, 'LLANTA NUEVA GOODYEAR, SE PASO AL TALLER', 3, 1, 1, NULL, 3, 3, NULL, 4, NULL, '', NULL, '1', NULL, b'0'),
+(20, '20450551326', '2024-10-11', 4, NULL, 'LLANTA NUEVA GOODYEAR, SE PASO AL TALLER', 3, 1, 1, NULL, 3, 3, NULL, 4, NULL, 'SE ENTREGA LA LLANTA', NULL, '1', NULL, b'0'),
+(21, '20450551326', '2024-10-11', 4, NULL, 'CLIENTE DEVOLVIO LLANTA', 3, 1, 1, NULL, 3, 3, NULL, 4, NULL, 'SE ENTREGA LA LLANTA', NULL, '1', NULL, b'0'),
+(22, '20450551326', '2024-10-11', 4, NULL, 'CLIENTE DEVOLVIO LLANTA', 3, 1, 1, NULL, 3, 3, '2024-10-12', 4, NULL, 'SE CORRIGE Y SE VUELVE A ENTREGAR', NULL, '1', NULL, b'0'),
+(23, '20450551326', '2024-10-11', 4, NULL, 'CLIENTE DEVOLVIO LLANTA', 3, 1, 1, NULL, 3, 3, '2024-10-12', 2, NULL, 'SE CORRIGE Y SE VUELVE A ENTREGAR, SIN EMENDADURAS', NULL, '1', NULL, b'0'),
+(24, '20450551326', '2024-10-11', 4, NULL, 'CLIENTE DEVOLVIO LLANTA', 3, 1, 1, '6155253228', 3, 3, '2024-10-12', 2, NULL, 'SE CORRIGE Y SE VUELVE A ENTREGAR, SIN EMENDADURAS', NULL, '1', NULL, b'1'),
+(25, '20601369886', '2024-10-12', 3, '-', '295/80R22.5', 1, 1, 1, '6148004916', 1, 2, '2024-10-18', 4, NULL, 'ASDF', NULL, '1', NULL, b'0'),
+(26, '20601369886', '2024-10-12', 3, 'BHV-944', '295/80R22.5', 1, 1, 1, '6148004916', 1, 2, NULL, 4, NULL, 'ASDF', NULL, '1', NULL, b'0'),
+(27, '20601369886', '2024-10-12', 3, 'BHV-944', 'NINGUNA', 1, 1, 1, '6148004916', 1, 2, NULL, 4, NULL, '', NULL, '1', NULL, b'1'),
+(28, '154813155111', '2024-09-05', 7, 'BWE-855', 'SE RECOGIO DE LA VIA EXPRESA', 1, 1, 1, 'B231029018307', 1, 1, NULL, 1, NULL, 'EL CLIENTE LO RECOGIO DE LA TIENDA', NULL, '1', NULL, b'0'),
+(29, '154813155111', '2024-09-05', 7, 'BWE-855', 'SE RECOGIO DE LA VIA EXPRESA', 1, 1, 1, 'B231029018307', 1, 1, NULL, 1, NULL, 'EL CLIENTE LO RECOGIO DE LA TIENDA', NULL, '1', NULL, b'0'),
+(30, '154813155111', '2024-09-05', 7, 'BWE-855', 'SE RECOGIO DE LA VIA EXPRESA QWE LUCAS LUCAS', 1, 1, 1, 'B231029018307', 1, 1, '2024-10-16', 1, '2024-10-23', 'EL CLIENTE LO RECOGIO DE LA TIENDA QWE 234', NULL, '1', NULL, b'1'),
+(31, '10239480689', '2024-10-14', 7, 'B7Z-929', 'PRUEBAS INGRESO CON OBCERVACIONES 13355', 3, 1, 1, 'B210712011571', 1, 2, '2024-10-10', 3, '2024-10-17', 'PRUEBAS SALIDA NUEVAMENTE', 'RENATO', '1', NULL, b'1'),
+(32, '20601369886', '2024-10-16', 7, 'X2L-615', 'PRUEBAS DE USUARIO DE SESSION OKOK', 3, 1, 1, 'EEC14667', 1, 2, '2024-10-18', 4, '2024-10-19', 'PRUEBAS 123 QUE FUE NUEVOS VALORES', 'BACILIDES', '1', NULL, b'1'),
+(33, '43253442', '2024-10-17', 7, 'ASD', 'ASD', 7, 1, 1, 'ASD', 1, 5, '2024-10-18', 3, '2024-10-18', 'ASD ASDASDASD', '123', '1', NULL, b'1'),
+(34, '43253442', '2024-10-17', 7, 'X3L-652', 'SE RECEPCIONO COPN OBSERVACIONES 3 HUECOS', 2, 1, 1, '2309AS7173', 3, 3, '2024-10-18', 4, '2024-10-18', 'CLIENTE RECOGIO EL PEDIDO', 'RENATO', '1', NULL, b'1'),
+(35, '20450551326', '2024-10-18', 3, 'S3L-154', '', 5, 1, 1, '5647DFR4E', 1, 2, NULL, 4, NULL, '', 'BACILIDES', '1', NULL, b'1'),
+(36, '32565456', '2024-10-17', 6, 'QWE234', '', 4, 1, 1, '5645SD', 2, 3, '2024-10-18', 4, '2024-10-18', '', 'BACILIDES', '1', NULL, b'1'),
+(37, '0778', '2024-10-18', 8, '123', '', 9, 1, 1, '123', 3, 3, '2024-10-19', 4, '2024-10-26', '', '', '1', NULL, b'1'),
+(38, '123644555', '2024-10-18', 7, 'X3L-157', 'SE TRASLADO AL TALLER DE RICHAR, TUVO UN PEQUEÑO DEFECTO', 3, 1, 1, 'SDF4532112', 2, 3, '2024-10-18', 4, NULL, 'EL CLIENTE RECOGIO SU LLANTA', 'RENATO', '1', NULL, b'1'),
+(39, '43253478', '2024-10-18', 7, 'XL3-456', 'SE CAMBIO DE REENCAUCHADORA', 5, 1, 1, 'ASDERE', 1, 2, NULL, 4, NULL, '', 'RENATO', '1', '', b'1'),
+(40, '123644555', '2024-10-17', 7, 'ASD', 'ASD', 5, 1, 1, 'ASD', 3, 4, '2024-10-19', 4, '2024-10-24', 'ASD', 'RENATO', '1', '', b'1'),
+(41, '123644555', '2024-10-26', 7, 'X3L-618', 'CORRECCION DE PLACA', 1, 2, 1, 'ASDAD', 4, 4, '2024-10-27', 3, '2024-10-27', '', 'RENATO', '0', 'ASDAS', b'1');
 
 -- --------------------------------------------------------
 
@@ -748,10 +845,16 @@ ALTER TABLE `tcondicion`
   ADD PRIMARY KEY (`nidcondicion`);
 
 --
--- Indices de la tabla `tneumatico`
+-- Indices de la tabla `tmarca`
 --
-ALTER TABLE `tneumatico`
-  ADD PRIMARY KEY (`nidneumatico`);
+ALTER TABLE `tmarca`
+  ADD PRIMARY KEY (`nidmarca`);
+
+--
+-- Indices de la tabla `tmedida`
+--
+ALTER TABLE `tmedida`
+  ADD PRIMARY KEY (`nidmedida`);
 
 --
 -- Indices de la tabla `treencauchadora`
@@ -766,11 +869,12 @@ ALTER TABLE `tservicio`
   ADD PRIMARY KEY (`nidservicio`),
   ADD KEY `sidcliente_idx` (`sidcliente`),
   ADD KEY `nidbanda_idx` (`nidbanda`),
-  ADD KEY `nidneumatico_idx` (`nidneumatico`),
   ADD KEY `idubicacion_idx` (`nidubicacion`),
   ADD KEY `nidtiposervicio_idx` (`nidtiposervicio`),
   ADD KEY `nidrencauchadora_idx` (`nidreencauchadora`),
-  ADD KEY `nidcondicion_idx` (`nidcondicion`);
+  ADD KEY `nidcondicion_idx` (`nidcondicion`),
+  ADD KEY `nidnumero_idx` (`nidmedida`),
+  ADD KEY `nidmarca_idx` (`nidmarca`);
 
 --
 -- Indices de la tabla `ttiposervicio`
@@ -798,13 +902,13 @@ ALTER TABLE `tusuario`
 -- AUTO_INCREMENT de la tabla `tauditoria`
 --
 ALTER TABLE `tauditoria`
-  MODIFY `nidauditoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `nidauditoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT de la tabla `tbanda`
 --
 ALTER TABLE `tbanda`
-  MODIFY `nidbanda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `nidbanda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `tcondicion`
@@ -813,10 +917,16 @@ ALTER TABLE `tcondicion`
   MODIFY `nidcondicion` tinyint(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `tneumatico`
+-- AUTO_INCREMENT de la tabla `tmarca`
 --
-ALTER TABLE `tneumatico`
-  MODIFY `nidneumatico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `tmarca`
+  MODIFY `nidmarca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `tmedida`
+--
+ALTER TABLE `tmedida`
+  MODIFY `nidmedida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `treencauchadora`
@@ -828,7 +938,7 @@ ALTER TABLE `treencauchadora`
 -- AUTO_INCREMENT de la tabla `tservicio`
 --
 ALTER TABLE `tservicio`
-  MODIFY `nidservicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `nidservicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `ttiposervicio`
@@ -864,7 +974,8 @@ ALTER TABLE `tauditoria`
 ALTER TABLE `tservicio`
   ADD CONSTRAINT `nidbanda` FOREIGN KEY (`nidbanda`) REFERENCES `tbanda` (`nidbanda`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `nidcondicion` FOREIGN KEY (`nidcondicion`) REFERENCES `tcondicion` (`nidcondicion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `nidneumatico` FOREIGN KEY (`nidneumatico`) REFERENCES `tneumatico` (`nidneumatico`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `nidmarca` FOREIGN KEY (`nidmarca`) REFERENCES `tmarca` (`nidmarca`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `nidmedida` FOREIGN KEY (`nidmedida`) REFERENCES `tmedida` (`nidmedida`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `nidreencauchadora` FOREIGN KEY (`nidreencauchadora`) REFERENCES `treencauchadora` (`nidreencauchadora`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `nidtiposervicio` FOREIGN KEY (`nidtiposervicio`) REFERENCES `ttiposervicio` (`nidtiposervicio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `nidubicacion` FOREIGN KEY (`nidubicacion`) REFERENCES `tubicacion` (`nidubicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
