@@ -85,6 +85,20 @@
 <script src="<?php echo base_url();?>public/plugins/bootstrap4-toggle/css/bootstrap4-toggle.css"></script> -->
 <style type="text/css">
 
+.tableheader{
+  color: white;
+  text-align: center;
+}
+.blue{
+  background-color: #007bff;
+}
+.green{
+  background-color: #28a745;
+}
+.orange{
+  background-color: #ffc107;
+}
+
 .card{
   display: grid;
   min-height: 90dvh;

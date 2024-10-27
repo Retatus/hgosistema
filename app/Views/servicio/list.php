@@ -25,6 +25,11 @@
 									</div>
 									<div class='p-2'>
 										<div class='input-group'>
+											<select id='idFTodos2' class='form-control form-control-sm'>
+												<option value=''>TODOS</option>
+												<option value='1'>CANCELADO</option>
+												<option value='0' selected>PENDIENTE</option>
+											</select>
 											<select id='idFTodos' class='form-control form-control-sm'>
 												<option value=''>TODOS</option>
 												<option value='0'>DESCATIVOS</option>
@@ -47,33 +52,36 @@
 								<thead>
 									<tr>
 										<th hidden>Idservicio</th>
-										<th>RUC</th>
-										<th>RAZON SOCIAL</th>
-										<th>FECHA REPCION</th>
+										<th class = 'tableheader blue'>RUC</th>
+										<th class = 'tableheader blue'>RAZON SOCIAL</th>
+										<th class = 'tableheader blue'>FECHA REPCION</th>
 										<th hidden>Idbanda</th>
-										<th>DISEÑO BANDA</th>
-										<th>PLACA</th>
-										<th>OBSERVACION INGRESO</th>
+										<th class = 'tableheader blue'>DISEÑO BANDA</th>
+										<th class = 'tableheader blue'>PLACA</th>
+										<th class = 'tableheader blue'>OBSERVACION INGRESO</th>
 										<th hidden>Idtiposervicio</th>
-										<th>TIPO SERVICIO</th>
-										<th>NUMERO</th>
-										<th hidden>Idneumatico</th>
-										<th>MARCA</th>
-										<th>CODIGO</th>
+										<th class = 'tableheader blue'>TIPO SERVICIO</th>
+										
+										<th hidden>Idmedida</th>
+										<th class = 'tableheader blue'>MEDIDA</th>
+										<th hidden>Idmarca</th>
+										<th class = 'tableheader blue'>MARCA</th>
+										<th class = 'tableheader green'>CODIGO</th>
 										<th hidden>Idubicacion</th>
-										<th>UBICACION</th>
+										<th class = 'tableheader green'>UBICACION</th>
 										<th hidden>Idreencauchadora</th>
-										<th>REENCAUCHADORA</th>
-										<th>FECHA TIENDA</th>
+										<th class = 'tableheader green'>REENCAUCHADORA</th>
+										<th class = 'tableheader green'>FECHA TIENDA</th>
 										<th hidden>Idcondicion</th>
-										<th>CONDICION</th>
-										<th>FECHA ENTREGA</th>
-										<th>OBSERVACION SALIDA</th>
+										<th class = 'tableheader blue'>CONDICION</th>
+										<th class = 'tableheader orange'>FECHA ENTREGA</th>
+										<th class = 'tableheader orange'>OBSERVACION SALIDA</th>
 										<th hidden>Usuario</th>
-										<th>ESTADO</th>
+										<th class = 'tableheader blue'>FORMA</th>
+										<th class = 'tableheader blue'>ESTADO</th>
 										<th hidden>Concatenado</th>
 										<th hidden>Concatenadodetalle</th>
-										<th>Acciones</th>
+										<th class = 'tableheader blue'>ACCIONES</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -90,9 +98,10 @@
 												<td><?php echo $servicio['observacioningreso'];?></td>
 												<td hidden><?php echo $servicio['idtiposervicio'];?></td>
 												<td><?php echo $servicio['nombretiposervicio'];?></td>
-												<td><?php echo $servicio['numero'];?></td>
-												<td hidden><?php echo $servicio['idneumatico'];?></td>
-												<td><?php echo $servicio['nombreneumatico'];?></td>
+												<td hidden><?php echo $servicio['idmedida'];?></td>
+												<td><?php echo $servicio['nombremedida'];?></td>
+												<td hidden><?php echo $servicio['idmarca'];?></td>
+												<td><?php echo $servicio['nombremarca'];?></td>																								
 												<td><?php echo $servicio['codigo'];?></td>
 												<td hidden><?php echo $servicio['idubicacion'];?></td>
 												<td><?php echo $servicio['nombretipoubicacion'];?></td>
@@ -104,13 +113,14 @@
 												<td><?php echo $servicio['fechaentrega'];?></td>
 												<td><?php echo $servicio['observacionsalida'];?></td>
 												<td hidden><?php echo $servicio['usuario'];?></td>
-												<td class = 'hidden-xs'><?php echo $est = ($servicio['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>
+												<td class = 'hidden-xs'><?php echo $est = ($servicio['formaestado']== 1) ? 'CANCELADO' : 'PENDIENTE';?></td>
+												<td class = 'hidden-xs'><?php echo $est = ($servicio['estado']== 1) ? 'ACTIVO' : 'DESACTIVO';?></td>												
 												<td hidden><?php echo $servicio['concatenado'];?></td>
 												<td hidden><?php echo $servicio['concatenadodetalle'];?></td>
 												<td>
 													<div class='row'>
 														<div style='margin: auto;'>
-															<button type='button' onclick="btnEditarServicio('<?php echo $servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idneumatico'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idreencauchadora'].'\',\''.$servicio['idcondicion'];?>')" class='btn btn-info btn-xs'>
+															<button type='button' onclick="btnEditarServicio('<?php echo $servicio['idservicio'].'\',\''.$servicio['idcliente'].'\',\''.$servicio['idbanda'].'\',\''.$servicio['idtiposervicio'].'\',\''.$servicio['idmedida'].'\',\''.$servicio['idmarca'].'\',\''.$servicio['idubicacion'].'\',\''.$servicio['idreencauchadora'].'\',\''.$servicio['idcondicion'];?>')" class='btn btn-info btn-xs'>
 																<span class='fa fa-pencil fa-xs'></span>
 															</button>
 														</div>
@@ -160,7 +170,7 @@
 				<div class='col-6 form-group row'>
 					<label for = idcliente class='col-sm-4'>Cliente:</label>
 					<div class = 'col-sm-8'>
-						<div class='input-group input-group-sm'>
+					<div class='input-group input-group-sm'>
 							<input type='search' id='searchidcliente' placeholder='Ingrese el nombre del idcliente' class='form-control form-control-sm search'>
 							<input type='text' id='idcliente' name='idcliente' class='form-control form-control-sm' readonly>
 							<span class='input-group-append'>
@@ -185,7 +195,7 @@
 				<div class='col-6 form-group row'>
 					<label for = idbanda class='col-sm-4'>Banda:</label>
 					<div class = 'col-sm-8'>
-						<div class="input-group input-group-sm">
+					<div class="input-group input-group-sm">
 							<select class='form-control form-control-sm select2' id='idbanda'>
 								<option value='0'>-- SELECCIONAR1 --</option>
 								<?php if (!empty($bandas)):?>
@@ -197,7 +207,7 @@
 							<span class="input-group-append">
 								<button type="button" class="btn btn-info btn-flat" id='btnAddBanda'>+</button>
 							</span>
-						</div>						
+						</div>		
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -225,20 +235,14 @@
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
-					<label for = numero class='col-sm-4' for='id'>Numero:</label>
-					<div class = 'col-sm-8'>
-						<input type='text' class='form-control form-control-sm text-uppercase' id='numero' name='numero' placeholder='T001' autocomplete = 'off'>
-					</div>
-				</div>
-				<div class='col-6 form-group row'>
-					<label for = idneumatico class='col-sm-4'>Neumatico:</label>
+					<label for = idmedida class='col-sm-4'>Medida:</label>
 					<div class = 'col-sm-8'>
 						<div class="input-group input-group-sm">
-							<select class='form-control form-control-sm select2' id='idneumatico'>
+							<select class='form-control form-control-sm select2' id='idmedida'>
 								<option value='0'>-- SELECCIONAR1 --</option>
-								<?php if (!empty($neumaticos)):?>
-									<?php foreach($neumaticos as $neumatico):?>
-										<option value= '<?php echo $neumatico['idneumatico'];?>'><?php echo $neumatico['concatenado'];?></option>
+								<?php if (!empty($medidas)):?>
+									<?php foreach($medidas as $medida):?>
+										<option value= '<?php echo $medida['idmedida'];?>'><?php echo $medida['concatenado'];?></option>
 									<?php endforeach;?>
 								<?php endif;?>
 							</select>
@@ -247,6 +251,24 @@
 							</span>
 						</div>							
 					</div>
+				</div>
+				<div class='col-6 form-group row'>
+					<label for = idmarca class='col-sm-4'>Marca:</label>
+					<div class = 'col-sm-8'>
+						<div class="input-group input-group-sm">
+							<select class='form-control form-control-sm select2' id='idmarca'>
+								<option value='0'>-- SELECCIONAR1 --</option>
+								<?php if (!empty($marcas)):?>
+									<?php foreach($marcas as $marca):?>
+										<option value= '<?php echo $marca['idmarca'];?>'><?php echo $marca['concatenado'];?></option>
+									<?php endforeach;?>
+								<?php endif;?>
+							</select>
+							<span class="input-group-append">
+								<button type="button" class="btn btn-info btn-flat" id='btnAddNeumatico'>+</button>
+							</span>
+						</div>							
+					</div>																																																																																																																																																																																																																																																																																																																																																								
 				</div>
 				<div class='col-6 form-group row'>
 					<label for = codigo class='col-sm-4' for='id'>Codigo:</label>
@@ -334,10 +356,25 @@
 						</div>
 					</div>
 				</div>
-				<div class='col-6 form-group row' hidden>
+				<div class='col-6 form-group row'>
 					<label for = usuario class='col-sm-4' for='id'>Usuario:</label>
 					<div class = 'col-sm-8'>
 						<input type='text' class='form-control form-control-sm text-uppercase' id='usuario' name='usuario' placeholder='T001' autocomplete = 'off'>
+					</div>
+				</div>
+				<div class='col-6 form-group row'>
+					<label for = formaestado class='col-sm-4' for='rol'>Forma:</label>
+					<div class='col-sm-8'>
+						<select class='form-control form-control-sm' id='formaestado' name='formaestado'>
+							<option value = '1' selected >CANCELADO</option>
+							<option value = '0' >PENDIENTE</option>
+						</select>
+					</div>
+				</div>
+				<div class='col-6 form-group row'>
+					<label for = docrefrencia class='col-sm-4' for='id'>Docrefrencia:</label>
+					<div class = 'col-sm-8'>
+						<input type='text' class='form-control form-control-sm text-uppercase' id='docrefrencia' name='docrefrencia' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
 				<div class='col-6 form-group row'>
@@ -455,11 +492,11 @@
 		$('#modalAgregarServicio').modal();
 	});
 //   SECCION ====== btn Editar ======
-	function btnEditarServicio(Val0, Val1, Val2, Val3, Val4, Val5, Val6, Val7){
+	function btnEditarServicio(Val0, Val1, Val2, Val3, Val4, Val5, Val6, Val7, Val8){
 		$.ajax({
 			type: 'POST',
 			url: base_url + '/servicio/edit',
-			data: {idservicio: Val0, idcliente: Val1, idbanda: Val2, idtiposervicio: Val3, idneumatico: Val4, idubicacion: Val5, idreencauchadora: Val6, idcondicion: Val7},
+			data: {idservicio: Val0, idcliente: Val1, idbanda: Val2, idtiposervicio: Val3, idmedida: Val4, idmarca: Val5, idubicacion: Val6, idreencauchadora: Val7, idcondicion: Val8},
 			success: function(msg){
 				debugger
 				var temp = JSON.parse(msg);
@@ -473,8 +510,8 @@
 				$('#placa').val(temp.placa);
 				$('#observacioningreso').val(temp.observacioningreso);
 				$('#idtiposervicio').select2().val(temp.idtiposervicio).select2('destroy').select2();
-				$('#numero').val(temp.numero);
-				$('#idneumatico').select2().val(temp.idneumatico).select2('destroy').select2();
+				$('#idmedida').select2().val(temp.idmedida).select2('destroy').select2();
+				$('#idmarca').select2().val(temp.idmarca).select2('destroy').select2();
 				$('#codigo').val(temp.codigo);
 				$('#idubicacion').select2().val(temp.idubicacion).select2('destroy').select2();
 				$('#idreencauchadora').select2().val(temp.idreencauchadora).select2('destroy').select2();
@@ -484,6 +521,8 @@
 				$('#observacionsalida').val(temp.observacionsalida);
 				$('#usuario').val(temp.usuario);
 				$('#usuario').prop('disabled', true);
+				$('#formaestado').val(temp.formaestado);
+				$('#docrefrencia').val(temp.docrefrencia);
 				$('#estado').val(temp.estado);
 				$('#btnModalAgregarServicio').toggle(false);
 				$('#btnModalEditarServicio').toggle(true);
@@ -553,9 +592,10 @@
 			observacioningreso: $('#observacioningreso').val().toUpperCase(),
 			idtiposervicio: $('#idtiposervicio').val().toUpperCase(),
 			idtiposerviciotext: $('#idtiposervicio option:selected').text().toUpperCase(),
-			numero: $('#numero').val().toUpperCase(),
-			idneumatico: $('#idneumatico').val().toUpperCase(),
-			idneumaticotext: $('#idneumatico option:selected').text().toUpperCase(),
+			idmedida: $('#idmedida').val().toUpperCase(),
+			idmedidatext: $('#idmedida option:selected').text().toUpperCase(),
+			idmarca: $('#idmarca').val().toUpperCase(),
+			idmarcatext: $('#idmarca option:selected').text().toUpperCase(),
 			codigo: $('#codigo').val().toUpperCase(),
 			idubicacion: $('#idubicacion').val().toUpperCase(),
 			idubicaciontext: $('#idubicacion option:selected').text().toUpperCase(),
@@ -567,7 +607,10 @@
 			fechaentrega: $('#fechaentrega').val().toUpperCase(),
 			observacionsalida: $('#observacionsalida').val().toUpperCase(),
 			usuario: $('a.d-block').text(),
+			formaestado: $('#formaestado').val().toUpperCase(),
+			docrefrencia: $('#docrefrencia').val().toUpperCase(),
 			estado: $('#estado').val().toUpperCase(),
+			todos2: $('#idFTodos2').val(),
 			todos: $('#idFTodos').val(),
 			texto: $('#idFTexto').val()
 		};
@@ -635,7 +678,7 @@
 		}
 	});
 
-
+	
 
 	function LimpiarModalDatosServicio(){
 		$('#idservicio').val('0');
@@ -645,9 +688,9 @@
 		$('#idbanda').select2().val(0).select2('destroy').select2();
 		$('#placa').val('');
 		$('#observacioningreso').val('');
-		$('#idtiposervicio').select2().val(0).select2('destroy').select2();
-		$('#numero').val('');
-		$('#idneumatico').select2().val(0).select2('destroy').select2();
+		$('#idtiposervicio').select2().val(1).select2('destroy').select2();
+		$('#idmedida').select2().val(0).select2('destroy').select2();
+		$('#idmarca').select2().val(0).select2('destroy').select2();
 		$('#codigo').val('');
 		$('#idubicacion').select2().val(0).select2('destroy').select2();
 		$('#idreencauchadora').select2().val(0).select2('destroy').select2();
@@ -656,6 +699,8 @@
 		$('#fechaentrega').val('');
 		$('#observacionsalida').val('');
 		$('#usuario').val('');
+		//$('#formaestado').val('');
+		$('#docrefrencia').val('');
 	}
 	function ValidarCamposVaciosServicio(){
 		var error = 0;
@@ -710,12 +755,12 @@
 		// }else{
 		// 	NoResaltado('numero');
 		// }
-		var value = $('#idneumatico').val();
+		var value = $('#idmarca').val();
 		if (!/^\d*$/.test(value)){
-			Resaltado('idneumatico');
+			Resaltado('idmarca');
 			error++;
 		}else{
-			NoResaltado('idneumatico');
+			NoResaltado('idmarca');
 		}
 		// if ($('#codigo').val() == ''){
 		// 	Resaltado('codigo');
@@ -797,10 +842,11 @@
 				<td>${value.placa !== null ? value.placa : ''}</td>
 				<td>${value.observacioningreso !== null ? value.observacioningreso : ''}</td>
 				<td hidden>${value.idtiposervicio !== null ? value.idtiposervicio : ''}</td>
-				<td>${value.nombretiposervicio !== null ? value.nombretiposervicio : ''}</td>
-				<td>${value.numero !== null ? value.numero : ''}</td>
-				<td hidden>${value.idneumatico !== null ? value.idneumatico : ''}</td>
-				<td>${value.nombreneumatico !== null ? value.nombreneumatico : ''}</td>
+				<td>${value.nombretiposervicio !== null ? value.nombretiposervicio : ''}</td>				
+				<td hidden>${value.idmedida !== null ? value.idmedida : ''}</td>
+				<td>${value.nombremedida !== null ? value.nombremedida : ''}</td>
+				<td hidden>${value.idmarca !== null ? value.idmarca : ''}</td>
+				<td>${value.nombremarca !== null ? value.nombremarca : ''}</td>
 				<td>${value.codigo !== null ? value.codigo : ''}</td>
 				<td hidden>${value.idubicacion !== null ? value.idubicacion : ''}</td>
 				<td>${value.nombretipoubicacion !== null ? value.nombretipoubicacion : ''}</td>
@@ -812,13 +858,14 @@
 				<td>${value.fechaentrega !== null ? value.fechaentrega : ''}</td>
 				<td>${value.observacionsalida !== null ? value.observacionsalida : ''}</td>
 				<td hidden>${value.usuario !== null ? value.usuario : ''}</td>
-				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>
+				<td class = 'hidden-xs'>${value.formaestado == '1' ? 'CANCELADO' : 'PENDIENTE'}</td>
+				<td class = 'hidden-xs'>${value.estado == '1' ? 'ACTIVO' : 'DESACTIVO'}</td>				
 				<td hidden>${value.concatenado !== null ? value.concatenado : ''}</td>
 				<td hidden>${value.concatenadodetalle !== null ? value.concatenadodetalle : ''}</td>
 				<td>
 				<div class='row'>
 					<div style='margin: auto;'>
-						<button type='button' onclick="btnEditarServicio('${value.idservicio}', '${value.idcliente}', '${value.idbanda}', '${value.idtiposervicio}', '${value.idneumatico}', '${value.idubicacion}', '${value.idreencauchadora}', '${value.idcondicion}')" class='btn btn-info btn-xs'>
+						<button type='button' onclick="btnEditarServicio('${value.idservicio}', '${value.idcliente}', '${value.idbanda}', '${value.idtiposervicio}', '${value.idmedida}', '${value.idmarca}', '${value.idubicacion}', '${value.idreencauchadora}', '${value.idcondicion}')" class='btn btn-info btn-xs'>
 							<span class='fa fa-pencil fa-xs'></span>
 						</button>
 					</div>
