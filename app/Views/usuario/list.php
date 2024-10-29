@@ -80,6 +80,11 @@
 																<span class='fa fa-pencil fa-xs'></span>
 															</button>
 														</div>
+														<div style='margin: auto;'>
+															<a href="#" class="btn btn-danger btn-xs" onclick="return confirmarAlter(<?= $usuario['usuarioid']; ?>);">
+																<i class="fa fa-pencil"></i>
+															</a>
+														</div>
 													</div>
 												</td>
 											</tr>
@@ -174,6 +179,26 @@
 	</div>
 </div>
 <!--  SECCION ====== SCRIPT ====== -->
+<script type="text/javascript">
+        function confirmarAlter(usuarioid) {
+            if(confirm("¿Estás seguro de reestablecer la contraseña?")){
+				$.ajax({
+					url: `<?= base_url(); ?>/usuario/reestablecer/${usuarioid}`,
+					type: 'GET',
+					dataType: 'json',
+					success: function(response) {
+						debugger
+						alert(response.message);
+					},
+					error: function() {
+						alert("Ocurrió un error al intentar restablecer la contraseña.");
+					}
+				});
+				return false; // Evita que el enlace realice la redirección
+			}
+			return false;
+        }
+    </script>
 <script>
 	var NuevoUsuario;
 	var base_url= '<?php echo base_url();?>';
