@@ -96,11 +96,25 @@ $(document).ready(function(){
 	}
 	// Función para actualizar el select
 	function actualizarSelectBandaAdd() {
-		var nuevaOpcion = $('<option>', {
-			text: NuevoBanda.nombrebanda,
+		$('#idbanda').find('option').remove();
+		$.get(`${base_url}/banda/listaSelect2`, function(response) {
+			$('#idbanda').append(`<option value='0'>-- SELECCIONAR1 --</option>`);
+			data = JSON.parse(response);
+			let ultimoItem = data[0].idbanda;
+			$.each(data, function(index, item) {
+				$('#idbanda').append($('<option>', {
+				value: item.idbanda,
+				text: item.nombrebanda
+				}));
+			});
+			$('#idbanda').select2();
+			if (ultimoItem) {
+				$('#idbanda').val(ultimoItem).trigger('change');
+			}
+		})
+		.fail(function() {
+			console.error('Error al obtener los datos');
 		});
-		$('#idbanda').append(nuevaOpcion);
-		$('#idbanda').val(NuevoBanda.idbanda);
 	};
 	
 	function RecolectarDatosBandaAdd(){

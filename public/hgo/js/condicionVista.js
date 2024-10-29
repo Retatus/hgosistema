@@ -96,11 +96,25 @@ $(document).ready(function(){
 	}
 	// Función para actualizar el select
 	function actualizarSelectCondicionAdd() {
-		var nuevaOpcion = $('<option>', {
-			text: NuevoCondicion.nombrecondicion,
+		$('#idcondicion').find('option').remove();
+		$.get(`${base_url}/condicion/listaSelect2`, function(response) {
+			$('#idcondicion').append(`<option value='0'>-- SELECCIONAR1 --</option>`);
+			data = JSON.parse(response);
+			let ultimoItem = data[0].idcondicion;
+			$.each(data, function(index, item) {
+				$('#idcondicion').append($('<option>', {
+				value: item.idcondicion,
+				text: item.nombrecondicion
+				}));
+			});
+			$('#idcondicion').select2();
+			if (ultimoItem) {
+				$('#idcondicion').val(ultimoItem).trigger('change');
+			}
+		})
+		.fail(function() {
+			console.error('Error al obtener los datos');
 		});
-		$('#idcondicion').append(nuevaOpcion);
-		$('#idcondicion').val(NuevoCondicion.idcondicion);
 	};
 	
 	function RecolectarDatosCondicionAdd(){

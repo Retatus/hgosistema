@@ -96,11 +96,25 @@ $(document).ready(function(){
 	}
 	// Función para actualizar el select
 	function actualizarSelectUbicacionAdd() {
-		var nuevaOpcion = $('<option>', {
-			text: NuevoUbicacion.nombretipoubicacion,
+		$('#idubicacion').find('option').remove();
+		$.get(`${base_url}/ubicacion/listaSelect2`, function(response) {
+			$('#idubicacion').append(`<option value='0'>-- SELECCIONAR1 --</option>`);
+			data = JSON.parse(response);
+			let ultimoItem = data[0].idubicacion;
+			$.each(data, function(index, item) {
+				$('#idubicacion').append($('<option>', {
+				value: item.idubicacion,
+				text: item.nombretipoubicacion
+				}));
+			});
+			$('#idubicacion').select2();
+			if (ultimoItem) {
+				$('#idubicacion').val(ultimoItem).trigger('change');
+			}
+		})
+		.fail(function() {
+			console.error('Error al obtener los datos');
 		});
-		$('#idubicacion').append(nuevaOpcion);
-		$('#idubicacion').val(NuevoUbicacion.idubicacion);
 	};
 	
 	function RecolectarDatosUbicacionAdd(){

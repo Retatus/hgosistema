@@ -96,11 +96,25 @@ $(document).ready(function(){
 	}
 	// Función para actualizar el select
 	function actualizarSelectMarcaAdd() {
-		var nuevaOpcion = $('<option>', {
-			text: NuevoMarca.nombremarca,
+		$('#idmarca').find('option').remove();
+		$.get(`${base_url}/marca/listaSelect2`, function(response) {
+			$('#idmarca').append(`<option value='0'>-- SELECCIONAR1 --</option>`);
+			data = JSON.parse(response);
+			let ultimoItem = data[0].idmarca;
+			$.each(data, function(index, item) {
+				$('#idmarca').append($('<option>', {
+				value: item.idmarca,
+				text: item.nombremarca
+				}));
+			});
+			$('#idmarca').select2();
+			if (ultimoItem) {
+				$('#idmarca').val(ultimoItem).trigger('change');
+			}
+		})
+		.fail(function() {
+			console.error('Error al obtener los datos');
 		});
-		$('#idmarca').append(nuevaOpcion);
-		$('#idmarca').val(NuevoMarca.idmarca);
 	};
 	
 	function RecolectarDatosMarcaAdd(){

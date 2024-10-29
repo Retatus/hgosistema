@@ -96,11 +96,25 @@ $(document).ready(function(){
 	}
 	// Función para actualizar el select
 	function actualizarSelectTiposervicioAdd() {
-		var nuevaOpcion = $('<option>', {
-			text: NuevoTiposervicio.nombretiposervicio,
+		$('#idtiposervicio').find('option').remove();
+		$.get(`${base_url}/tiposervicio/listaSelect2`, function(response) {
+			$('#idtiposervicio').append(`<option value='0'>-- SELECCIONAR1 --</option>`);
+			data = JSON.parse(response);
+			let ultimoItem = data[0].idtiposervicio;
+			$.each(data, function(index, item) {
+				$('#idtiposervicio').append($('<option>', {
+				value: item.idtiposervicio,
+				text: item.nombretiposervicio
+				}));
+			});
+			$('#idtiposervicio').select2();
+			if (ultimoItem) {
+				$('#idtiposervicio').val(ultimoItem).trigger('change');
+			}
+		})
+		.fail(function() {
+			console.error('Error al obtener los datos');
 		});
-		$('#idtiposervicio').append(nuevaOpcion);
-		$('#idtiposervicio').val(NuevoTiposervicio.idtiposervicio);
 	};
 	
 	function RecolectarDatosTiposervicioAdd(){

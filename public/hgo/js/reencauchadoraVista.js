@@ -96,11 +96,25 @@ $(document).ready(function(){
 	}
 	// Función para actualizar el select
 	function actualizarSelectReencauchadoraAdd() {
-		var nuevaOpcion = $('<option>', {
-			text: NuevoReencauchadora.nombrereencauchadora,
+		$('#idreencauchadora').find('option').remove();
+		$.get(`${base_url}/reencauchadora/listaSelect2`, function(response) {
+			$('#idreencauchadora').append(`<option value='0'>-- SELECCIONAR1 --</option>`);
+			data = JSON.parse(response);
+			let ultimoItem = data[0].idreencauchadora;
+			$.each(data, function(index, item) {
+				$('#idreencauchadora').append($('<option>', {
+				value: item.idreencauchadora,
+				text: item.nombrereencauchadora
+				}));
+			});
+			$('#idreencauchadora').select2();
+			if (ultimoItem) {
+				$('#idreencauchadora').val(ultimoItem).trigger('change');
+			}
+		})
+		.fail(function() {
+			console.error('Error al obtener los datos');
 		});
-		$('#idreencauchadora').append(nuevaOpcion);
-		$('#idreencauchadora').val(NuevoReencauchadora.idreencauchadora);
 	};
 	
 	function RecolectarDatosReencauchadoraAdd(){
