@@ -113,6 +113,7 @@ class Ubicacion extends BaseController
 		echo json_encode($data);
 	}
 
+//   SECCION ====== SELECT2 ======
 	public function listaSelect2(){
 		$data = $this->ubicacion->getUbicacionsSelect2();
 		echo json_encode($data);

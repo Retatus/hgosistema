@@ -113,6 +113,7 @@ class Tiposervicio extends BaseController
 		echo json_encode($data);
 	}
 
+//   SECCION ====== SELECT2 ======
 	public function listaSelect2(){
 		$data = $this->tiposervicio->getTiposerviciosSelect2();
 		echo json_encode($data);

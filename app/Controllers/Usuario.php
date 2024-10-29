@@ -153,6 +153,16 @@ class Usuario extends BaseController
         return view('login/login');
 	}
 
+	//   SECCION ====== RESET ======
+	public function reestablecer($userId){
+		$user = $this->usuario->find($userId);
+        $this->usuario->updatePassword($userId, $user['susuarionrodoc']);
+		return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'La contraseña se ha sido restablecido '.$user['susuarionrodoc']
+        ]);
+	}
+
 //   SECCION ====== EDIT ======
 	public function edit(){
 		$nusuarioid = strtoupper(trim($this->request->getPost('usuarioid')));
@@ -161,6 +171,11 @@ class Usuario extends BaseController
 		echo json_encode($data);
 	}
 
+//   SECCION ====== SELECT2 ======
+	public function listaSelect2(){
+		$data = $this->usuario->getUsuariosSelect2();
+		echo json_encode($data);
+	}
 
 	public function autocompleteusuarios()
 	{

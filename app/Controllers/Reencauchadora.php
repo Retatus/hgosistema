@@ -116,6 +116,7 @@ class Reencauchadora extends BaseController
 		echo json_encode($data);
 	}
 
+//   SECCION ====== SELECT2 ======
 	public function listaSelect2(){
 		$data = $this->reencauchadora->getReencauchadorasSelect2();
 		echo json_encode($data);

@@ -119,6 +119,11 @@ class Cliente extends BaseController
 		echo json_encode($data);
 	}
 
+//   SECCION ====== SELECT2 ======
+	public function listaSelect2(){
+		$data = $this->cliente->getClientesSelect2();
+		echo json_encode($data);
+	}
 
 	public function autocompleteclientes()
 	{
