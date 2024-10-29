@@ -47,7 +47,7 @@
 						</div>
 					</div>
 					<div class='card-body'>
-						<div class='demo-content scroll'>
+						<div class='demo-content'>
 							<table id='TablaServicio' class='table table-sm table-bordered table-striped'>
 								<thead>
 									<tr>
@@ -70,7 +70,7 @@
 										<th hidden>Idubicacion</th>
 										<th class = 'tableheader green'>UBICACION</th>
 										<th hidden>Idreencauchadora</th>
-										<th class = 'tableheader green'>REENCAUCHADORA</th>
+										<th class = 'tableheader green'>REEN CAUCHADORA</th>
 										<th class = 'tableheader green'>FECHA TIENDA</th>
 										<th hidden>Idcondicion</th>
 										<th class = 'tableheader blue'>CONDICION</th>
@@ -247,7 +247,7 @@
 								<?php endif;?>
 							</select>
 							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat" id='btnAddNeumatico'>+</button>
+								<button type="button" class="btn btn-info btn-flat" id='btnAddMedida'>+</button>
 							</span>
 						</div>							
 					</div>
@@ -265,7 +265,7 @@
 								<?php endif;?>
 							</select>
 							<span class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat" id='btnAddNeumatico'>+</button>
+								<button type="button" class="btn btn-info btn-flat" id='btnAddMarca'>+</button>
 							</span>
 						</div>							
 					</div>																																																																																																																																																																																																																																																																																																																																																								
@@ -410,9 +410,11 @@
 	</div>
 </div>
 <style>
-	div.scroll { 
-      overflow: auto;
-  } 
+	.card-body { 
+		overflow-x: auto; /* Activa el scroll horizontal */
+		white-space: nowrap; Evita que el contenido se envuelva a la siguiente línea */
+		max-width: 100%; /* Ajusta el ancho máximo según sea necesario */
+	} 
 </style>
 <!--  SECCION ====== SCRIPT ====== -->
 <script>

@@ -174,9 +174,9 @@
 		}
 	}
 
-  .demo-content {
+  /* .demo-content {
       width: 100%;
-    }
+  } */
   
   @media screen and (max-width: 992px) {
     .demo-content {
@@ -229,10 +229,10 @@
       margin-bottom: 0.5rem !important;
   }
 
-  div.scroll { 
+  /* div.scroll { 
       width: 100%; 
-      /*overflow: auto; */
-  } 
+      overflow: auto;
+  }  */
 </style>
 </head>
 <body class="hold-transition sidebar-mini text-sm">
