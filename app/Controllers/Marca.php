@@ -113,6 +113,10 @@ class Marca extends BaseController
 		echo json_encode($data);
 	}
 
+	public function listaSelect2(){
+		$data = $this->marca->getMarcasSelect2();
+		echo json_encode($data);
+	}
 
 	public function autocompletemarcas()
 	{

@@ -116,6 +116,10 @@ class Banda extends BaseController
 		echo json_encode($data);
 	}
 
+	public function listaSelect2(){
+		$data = $this->banda->getBandasSelect2();
+		echo json_encode($data);
+	}
 
 	public function autocompletebandas()
 	{

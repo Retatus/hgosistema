@@ -113,6 +113,10 @@ class Condicion extends BaseController
 		echo json_encode($data);
 	}
 
+	public function listaSelect2(){
+		$data = $this->condicion->getCondicionsSelect2();
+		echo json_encode($data);
+	}
 
 	public function autocompletecondicions()
 	{

@@ -113,6 +113,10 @@ class Ubicacion extends BaseController
 		echo json_encode($data);
 	}
 
+	public function listaSelect2(){
+		$data = $this->ubicacion->getUbicacionsSelect2();
+		echo json_encode($data);
+	}
 
 	public function autocompleteubicacions()
 	{
