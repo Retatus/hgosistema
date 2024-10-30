@@ -167,7 +167,7 @@
 						<input type='text' class='form-control form-control-sm text-uppercase' id='idservicio' name='idservicio' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
-				<div class='col-6 form-group row'>
+				<div class='col-6 form-group row' id='groupidcliente'>
 					<label for = idcliente class='col-sm-4'>Cliente:</label>
 					<div class = 'col-sm-8'>
 					<div class='input-group input-group-sm'>
@@ -179,7 +179,7 @@
 						</div>
 					</div>
 				</div>
-				<div class='col-6 form-group row'>
+				<div class='col-6 form-group row' id='groupfecharecepcion'>
 					<label for = fecharecepcion class='col-sm-4'>Fecharecepcion:</label>
 					<div class='col-sm-8'>
 						<div class='input-group'>
@@ -192,7 +192,7 @@
 						</div>
 					</div>
 				</div>
-				<div class='col-6 form-group row'>
+				<div class='col-6 form-group row' id='groupidbanda'>
 					<label for = idbanda class='col-sm-4'>Banda:</label>
 					<div class = 'col-sm-8'>
 					<div class="input-group input-group-sm">
@@ -210,13 +210,13 @@
 						</div>		
 					</div>
 				</div>
-				<div class='col-6 form-group row'>
+				<div class='col-6 form-group row' id='groupplaca'>
 					<label for = placa class='col-sm-4' for='id'>Placa:</label>
 					<div class = 'col-sm-8'>
 						<input type='text' class='form-control form-control-sm text-uppercase' id='placa' name='placa' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
-				<div class='col-6 form-group row'>
+				<div class='col-6 form-group row' id='groupidtiposervicio'>
 					<label for = idtiposervicio class='col-sm-4'>Tiposervicio:</label>
 					<div class = 'col-sm-8'>
 						<div class="input-group input-group-sm">
@@ -234,7 +234,7 @@
 						</div>
 					</div>
 				</div>
-				<div class='col-6 form-group row'>
+				<div class='col-6 form-group row' id='groupidmedida'>
 					<label for = idmedida class='col-sm-4'>Medida:</label>
 					<div class = 'col-sm-8'>
 						<div class="input-group input-group-sm">
@@ -252,7 +252,7 @@
 						</div>							
 					</div>
 				</div>
-				<div class='col-6 form-group row'>
+				<div class='col-6 form-group row' id='groupidmarca'>
 					<label for = idmarca class='col-sm-4'>Marca:</label>
 					<div class = 'col-sm-8'>
 						<div class="input-group input-group-sm">
@@ -312,7 +312,7 @@
 						</div>						
 					</div>
 				</div>
-				<div class='col-6 form-group row'>
+				<div class='col-6 form-group row' id='groupfechatienda'>
 					<label for = fechatienda class='col-sm-4'>Fechatienda:</label>
 					<div class='col-sm-8'>
 						<div class='input-group'>
@@ -343,7 +343,7 @@
 						</div>
 					</div>
 				</div>
-				<div class='col-6 form-group row'>
+				<div class='col-6 form-group row' id='groupfechaentrega'>
 					<label for = fechaentrega class='col-sm-4'>Fechaentrega:</label>
 					<div class='col-sm-8'>
 						<div class='input-group'>
@@ -371,7 +371,7 @@
 						</select>
 					</div>
 				</div>
-				<div class='col-6 form-group row'>
+				<div class='col-6 form-group row' id='groupdocrefrencia'>
 					<label for = docrefrencia class='col-sm-4' for='id'>Docrefrencia:</label>
 					<div class = 'col-sm-8'>
 						<input type='text' class='form-control form-control-sm text-uppercase' id='docrefrencia' name='docrefrencia' placeholder='T001' autocomplete = 'off'>
@@ -386,13 +386,13 @@
 						</select>
 					</div>
 				</div>
-				<div class='col-12 form-group row'>
+				<div class='col-12 form-group row' id='groupobservacioningreso'>
 					<label for = observacioningreso class='col-sm-4' for='id'>Observacioningreso:</label>
 					<div class = 'col-sm-12'>
 						<textarea type='text' class='form-control form-control-sm text-uppercase' id='observacioningreso' name='observacioningreso' placeholder='T001' autocomplete = 'off'></textarea>
 					</div>
 				</div>
-				<div class='col-12 form-group row'>
+				<div class='col-12 form-group row' id='groupobservacionsalida'>
 					<label for = observacionsalida class='col-sm-4' for='id'>Observacionsalida:</label>
 					<div class = 'col-sm-12'>
 						<textarea type='text' class='form-control form-control-sm text-uppercase' id='observacionsalida' name='observacionsalida' placeholder='T001' autocomplete = 'off'></textarea>
@@ -489,7 +489,21 @@
 			$('#categoria').val(1);
 			$('#id').prop('readonly', false);  
 			$('#usuario').prop('disabled', false); 
-			$('#IdModalGrupoCodigoHotel').prop('hidden', false);
+			
+			$('#groupfechatienda').toggle(false);
+			$('#groupfechaentrega').toggle(false);
+			$('#groupdocrefrencia').toggle(false);
+			$('#groupobservacionsalida').toggle(false);
+
+			$('#groupidcliente').toggle(true);
+			$('#groupfecharecepcion').toggle(true);
+			$('#groupidbanda').toggle(true);
+			$('#groupplaca').toggle(true);
+			$('#groupidtiposervicio').toggle(true);
+			$('#groupidmedida').toggle(true);
+			$('#groupidmarca').toggle(true);
+			$('#groupobservacioningreso').toggle(false);
+
 			$('#btnModalAgregarServicio').toggle(true);
 			$('#btnModalEditarServicio').toggle(false);
 			$('#btnModalEliminarServicio').toggle(false);
@@ -532,6 +546,21 @@
 				$('#formaestado').val(temp.formaestado);
 				$('#docrefrencia').val(temp.docrefrencia);
 				$('#estado').val(temp.estado);
+
+				$('#groupfechatienda').toggle(true);
+				$('#groupfechaentrega').toggle(true);
+				$('#groupdocrefrencia').toggle(true);
+				$('#groupobservacionsalida').toggle(true);
+
+				$('#groupidcliente').toggle(false);
+				$('#groupfecharecepcion').toggle(false);
+				$('#groupidbanda').toggle(false);
+				$('#groupplaca').toggle(false);
+				$('#groupidtiposervicio').toggle(false);
+				$('#groupidmedida').toggle(false);
+				$('#groupidmarca').toggle(false);
+				$('#groupobservacioningreso').toggle(false);
+
 				$('#btnModalAgregarServicio').toggle(false);
 				$('#btnModalEditarServicio').toggle(true);
 				$('#btnModalEliminarServicio').toggle(true);

@@ -83,6 +83,9 @@
 <!-- Bootstrap Switch -->
 <!-- <script src="<?php echo base_url();?>public/plugins/bootstrap4-toggle/js/bootstrap4-toggle.js"></script>
 <script src="<?php echo base_url();?>public/plugins/bootstrap4-toggle/css/bootstrap4-toggle.css"></script> -->
+
+
+
 <style type="text/css">
 
 .tableheader{
@@ -137,6 +140,10 @@
 		background: white url(/wait30trans.gif) no-repeat center center;
 		z-index:999;
 	}
+	
+    .row {
+        margin-left: 0px;
+    }
 
   #modalAddCliente {
     z-index: 1052; /* Valor alto para asegurar que esté por encima */
@@ -147,11 +154,19 @@
   }
 
   /* Para dispositivos móviles (pantallas pequeñas) */
-	@media (max-width: 574.98px) {
+	@media (max-width: 421.98px) {
 		.select2-container{
-			width: 87% !important;
+			width: 80% !important;
 		}
 	}
+	
+	/* Para dispositivos de tamaño mediano (tabletas) */
+	@media (min-width: 422px) and (max-width: 574.98px) {
+		.select2-container{
+			width: 85% !important;
+		}
+	}
+	
 
 	/* Para dispositivos de tamaño mediano (tabletas) */
 	@media (min-width: 575px) and (max-width: 991.98px) {
@@ -246,14 +261,14 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      <!--<li class="nav-item d-none d-sm-inline-block">
         <a href="<?php echo base_url();?>publicindex3.html" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
-      </li>
+      </li> -->
     </ul>
-    <!-- SEARCH FORM -->
+    <!-- SEARCH FORM ->
     <form class="form-inline ml-3">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
@@ -263,15 +278,15 @@
           </button>
         </div>
       </div>
-    </form>
+    </form> -->
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
+        <!--<a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">3</span>
-        </a>
+        </a> -->
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
@@ -325,7 +340,7 @@
         </div>
       </li>
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
+      <!-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
@@ -350,12 +365,12 @@
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
-      </li>
-      <li class="nav-item">
+      </li> -->
+      <!-- <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
           <i class="fas fa-th-large"></i>
         </a>
-      </li>
+      </li> -->
       </ul>
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">

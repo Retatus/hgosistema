@@ -160,6 +160,10 @@ class Servicio extends BaseController
 				}
 				break;
 			case 'modificar':
+				if($nidcondicion === '2'){
+					$bestado = 0;
+				}
+					
 				$data  = array(
 					'sidcliente' => $sidcliente,
 					'tfecharecepcion' => $tfecharecepcion,
