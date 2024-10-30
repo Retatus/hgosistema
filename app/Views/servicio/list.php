@@ -27,8 +27,8 @@
 										<div class='input-group'>
 											<select id='idFTodos2' class='form-control form-control-sm'>
 												<option value=''>TODOS</option>
-												<option value='1'>CANCELADO</option>
-												<option value='0' selected>PENDIENTE</option>
+												<option value='1' selected>CANCELADO</option>
+												<option value='0'>PENDIENTE</option>
 											</select>
 											<select id='idFTodos' class='form-control form-control-sm'>
 												<option value=''>TODOS</option>
@@ -356,7 +356,7 @@
 						</div>
 					</div>
 				</div>
-				<div class='col-6 form-group row'>
+				<div class='col-6 form-group row' hidden>
 					<label for = usuario class='col-sm-4' for='id'>Usuario:</label>
 					<div class = 'col-sm-8'>
 						<input type='text' class='form-control form-control-sm text-uppercase' id='usuario' name='usuario' placeholder='T001' autocomplete = 'off'>
@@ -482,17 +482,23 @@
 		}
 	});
 	
-	$('#btnAgregarServicio').click(function(){
-		LimpiarModalDatosServicio();
-		$('#categoria').val(1);
-		$('#id').prop('readonly', false);  
-		$('#usuario').prop('disabled', false); 
-		$('#IdModalGrupoCodigoHotel').prop('hidden', false);
-		$('#btnModalAgregarServicio').toggle(true);
-		$('#btnModalEditarServicio').toggle(false);
-		$('#btnModalEliminarServicio').toggle(false);
-		$('#modalAgregarServicio').modal();
-	});
+	$(document).ready(function () {
+        $('#btnAgregarServicio').click(function(){
+			LimpiarModalDatosServicio();
+			debugger
+			$('#categoria').val(1);
+			$('#id').prop('readonly', false);  
+			$('#usuario').prop('disabled', false); 
+			$('#IdModalGrupoCodigoHotel').prop('hidden', false);
+			$('#btnModalAgregarServicio').toggle(true);
+			$('#btnModalEditarServicio').toggle(false);
+			$('#btnModalEliminarServicio').toggle(false);
+			$('#modalAgregarServicio').modal();
+			
+		});
+    });
+	
+	
 //   SECCION ====== btn Editar ======
 	function btnEditarServicio(Val0, Val1, Val2, Val3, Val4, Val5, Val6, Val7, Val8){
 		$.ajax({

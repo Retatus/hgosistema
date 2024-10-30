@@ -60,8 +60,7 @@ class Usuario extends BaseController
 			$susuarionrodoc = strtoupper(trim($this->request->getPost('usuarionrodoc')));
 			$susuariotipodoc = strtoupper(trim($this->request->getPost('usuariotipodoc')));
 			$susuarionombre = strtoupper(trim($this->request->getPost('usuarionombre')));
-			$susuariotelefono = strtoupper(trim($this->request->getPost('usuariotelefono')));
-			$susuariopassword = password_hash(strtoupper(trim($this->request->getPost('usuariopassword'))), PASSWORD_DEFAULT);
+			$susuariotelefono = strtoupper(trim($this->request->getPost('usuariotelefono')));			
 			$nusuariotiporol = strtoupper(trim($this->request->getPost('usuariotiporol')));
 			$busuarioestado = strtoupper(trim($this->request->getPost('usuarioestado')));
 		}
@@ -77,7 +76,7 @@ class Usuario extends BaseController
 					'susuariotipodoc' => $susuariotipodoc,
 					'susuarionombre' => $susuarionombre,
 					'susuariotelefono' => $susuariotelefono,
-					'susuariopassword' => $susuariopassword,
+					'susuariopassword' => password_hash($susuarionrodoc, PASSWORD_DEFAULT),
 					'nusuariotiporol' => $nusuariotiporol,
 					'busuarioestado' => intval($busuarioestado),
 
@@ -95,7 +94,7 @@ class Usuario extends BaseController
 					'susuariotipodoc' => $susuariotipodoc,
 					'susuarionombre' => $susuarionombre,
 					'susuariotelefono' => $susuariotelefono,
-					'susuariopassword' => $susuariopassword,
+					//'susuariopassword' => $susuariopassword,
 					'nusuariotiporol' => $nusuariotiporol,
 					'busuarioestado' => intval($busuarioestado),
 

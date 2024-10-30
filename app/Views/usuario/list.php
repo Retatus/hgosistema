@@ -146,7 +146,7 @@
 						<input type='text' class='form-control form-control-sm text-uppercase' id='usuariotelefono' name='usuariotelefono' placeholder='T001' autocomplete = 'off'>
 					</div>
 				</div>
-				<div class='col-6 form-group row'>
+				<div class='col-6 form-group row' hidden>
 					<label for = usuariopassword class='col-sm-4' for='id'>Usuariopassword:</label>
 					<div class = 'col-sm-8'>
 						<input type='text' class='form-control form-control-sm text-uppercase' id='usuariopassword' name='usuariopassword' placeholder='T001' autocomplete = 'off'>
@@ -289,7 +289,7 @@
 			usuariotipodoc: $('#usuariotipodoc').val().toUpperCase(),
 			usuarionombre: $('#usuarionombre').val().toUpperCase(),
 			usuariotelefono: $('#usuariotelefono').val().toUpperCase(),
-			usuariopassword: $('#usuariopassword').val().toUpperCase(),
+			//usuariopassword: $('#usuariopassword').val().toUpperCase(),
 			usuariotiporol: $('#usuariotiporol').val().toUpperCase(),
 			usuarioestado: $('#usuarioestado').val().toUpperCase(),
 			todos: $('#idFTodos').val(),
@@ -379,12 +379,12 @@
 		}else{
 			NoResaltado('usuariotelefono');
 		}
-		if ($('#usuariopassword').val() == ''){
-			Resaltado('usuariopassword');
-			error++;
-		}else{
-			NoResaltado('usuariopassword');
-		}
+		// if ($('#usuariopassword').val() == ''){
+		// 	Resaltado('usuariopassword');
+		// 	error++;
+		// }else{
+		// 	NoResaltado('usuariopassword');
+		// }
 		var value = $('#usuariotiporol').val();
 		if (!/^\d*$/.test(value)){
 			Resaltado('usuariotiporol');

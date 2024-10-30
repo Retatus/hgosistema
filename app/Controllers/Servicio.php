@@ -53,12 +53,11 @@ class Servicio extends BaseController
 //   SECCION ====== INDEX ======
 	public function index($bestado = 1)
 	{
-		$servicio = $this->servicio->getServicios(20, 1, 1, '');
+		$servicio = $this->servicio->getServicios(20, 1, 1, 1, '');
 		$total = $this->servicio->getCount();
 		$adjacents = 1;
 		$pag = $this->paginado->pagina(1, $total, $adjacents);
 		$data = ['titulo' => 'servicio', 'pag' => $pag, 'datos' => $servicio];
-		$servicio = $this->servicio->getServicios(10, 1, 1, '');
 		$banda = $this->banda->getBandasSelect2();
 		$condicion = $this->condicion->getCondicionsSelect2();
 		$marca = $this->marca->getMarcasSelect2();
